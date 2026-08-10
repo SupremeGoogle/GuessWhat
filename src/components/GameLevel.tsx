@@ -322,7 +322,7 @@ function renderItemCard(
           <img
             src={resolveAssetUrl(item.imageUri)}
             alt={item.nameRu}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-110"
             onError={() => onError(item.id)}
           />
         ) : (

@@ -151,7 +151,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 350,
     displayValue: '350 кг',
     emoji: '🐻',
-    imageUri: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Хищники',
     funFact: 'Обладает мощнейшим горбом на плечах, состоящим полностью из мышц.'
   },
@@ -162,7 +162,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 350,
     displayValue: '350 кг',
     emoji: '🦓',
-    imageUri: 'https://images.unsplash.com/photo-1501705388883-4ed8a543392c?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Копытные',
     funFact: 'Узор полос каждой зебры уникален, как отпечатки пальцев человека.'
   },
@@ -173,7 +173,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 250,
     displayValue: '250 кг',
     emoji: '🐅',
-    imageUri: 'https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Дикие кошки',
     funFact: 'Самая большая кошка в мире, приспособленная к глубоким снегам и сильным морозам.'
   },
@@ -184,7 +184,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 190,
     displayValue: '190 кг',
     emoji: '🦁',
-    imageUri: 'https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Дикие кошки',
     funFact: 'Рык взрослого льва слышен на расстоянии до 8 километров!'
   },
@@ -195,7 +195,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 180,
     displayValue: '180 кг',
     emoji: '🦍',
-    imageUri: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Приматы',
     funFact: 'Самый крупный примат на Земле. Руки гориллы сильнее человеческих примерно в 6 раз!'
   },
@@ -206,7 +206,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 90,
     displayValue: '90 кг',
     emoji: '🦎',
-    imageUri: 'https://images.unsplash.com/photo-1566838318721-39c43b918a38?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Рептилии',
     funFact: 'Самая тяжелая ящерица в мире, вынюхивает добычу своим раздвоенным языком.'
   },
@@ -217,25 +217,25 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 40,
     displayValue: '40 кг',
     emoji: '🐧',
-    imageUri: 'https://images.unsplash.com/photo-1598439210625-5067c578f3f6?auto=format&fit=crop&w=800&q=80',
+    imageUri: '',
     category: 'Птицы',
     funFact: 'Самый крупный из всех пингвинов, ныряет на глубину до 500 метров.'
   }
 ];
 
 export const LEVEL1_ADDITIONAL: GameItem[] = [
-  { id: 'cat', nameRu: 'Домашняя кошка', nameEn: 'Cat', value: 4, displayValue: '4 кг', emoji: '🐈', imageUri: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Спят по 12-16 часов в день.' },
-  { id: 'dog', nameRu: 'Собака', nameEn: 'Dog', value: 20, displayValue: '20 кг', emoji: '🐕', imageUri: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Лучший друг человека.' },
-  { id: 'lion', nameRu: 'Лев', nameEn: 'Lion', value: 190, displayValue: '190 кг', emoji: '🦁', imageUri: 'https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Король саванны.' },
-  { id: 'tiger', nameRu: 'Тигр', nameEn: 'Tiger', value: 220, displayValue: '220 кг', emoji: '🐯', imageUri: 'https://images.unsplash.com/photo-1549480017-d76466a4b8e8?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Крупнейшая из больших кошек.' },
-  { id: 'horse', nameRu: 'Лошадь', nameEn: 'Horse', value: 500, displayValue: '500 кг', emoji: '🐎', imageUri: 'https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Спят стоя.' },
-  { id: 'cow', nameRu: 'Корова', nameEn: 'Cow', value: 700, displayValue: '700 кг', emoji: '🐄', imageUri: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Имеют четыре желудка.' },
-  { id: 'ostrich', nameRu: 'Страус', nameEn: 'Ostrich', value: 110, displayValue: '110 кг', emoji: '🦤', imageUri: 'https://images.unsplash.com/photo-1548695015-7b561c210515?auto=format&fit=crop&w=800&q=80', category: 'Птицы', funFact: 'Самая крупная птица.' },
-  { id: 'kangaroo', nameRu: 'Кенгуру', nameEn: 'Kangaroo', value: 60, displayValue: '60 кг', emoji: '🦘', imageUri: 'https://images.unsplash.com/photo-1551608682-192e2124579c?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Не умеют ходить назад.' },
-  { id: 'gorilla', nameRu: 'Горилла', nameEn: 'Gorilla', value: 160, displayValue: '160 кг', emoji: '🦍', imageUri: 'https://images.unsplash.com/photo-1533256193796-097233f20d65?auto=format&fit=crop&w=800&q=80', category: 'Приматы', funFact: 'ДНК совпадает с человеческой на 98%.' },
-  { id: 'grizzly', nameRu: 'Гризли', nameEn: 'Grizzly Bear', value: 300, displayValue: '300 кг', emoji: '🐻', imageUri: 'https://images.unsplash.com/photo-1560317377-f27357c9dcaf?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Могут бегать со скоростью 50 км/ч.' },
-  { id: 'camel', nameRu: 'Верблюд', nameEn: 'Camel', value: 480, displayValue: '480 кг', emoji: '🐫', imageUri: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Могут пить по 100 литров воды за раз.' },
-  { id: 'panda', nameRu: 'Панда', nameEn: 'Panda', value: 100, displayValue: '100 кг', emoji: '🐼', imageUri: 'https://images.unsplash.com/photo-1564349683136-5c565d642145?auto=format&fit=crop&w=800&q=80', category: 'Млекопитающие', funFact: 'Едят бамбук по 12 часов в день.' }
+  { id: 'cat', nameRu: 'Домашняя кошка', nameEn: 'Cat', value: 4, displayValue: '4 кг', emoji: '🐈', imageUri: '', category: 'Млекопитающие', funFact: 'Спят по 12-16 часов в день.' },
+  { id: 'dog', nameRu: 'Собака', nameEn: 'Dog', value: 20, displayValue: '20 кг', emoji: '🐕', imageUri: '', category: 'Млекопитающие', funFact: 'Лучший друг человека.' },
+  { id: 'lion', nameRu: 'Лев', nameEn: 'Lion', value: 190, displayValue: '190 кг', emoji: '🦁', imageUri: '', category: 'Млекопитающие', funFact: 'Король саванны.' },
+  { id: 'tiger', nameRu: 'Тигр', nameEn: 'Tiger', value: 220, displayValue: '220 кг', emoji: '🐯', imageUri: '', category: 'Млекопитающие', funFact: 'Крупнейшая из больших кошек.' },
+  { id: 'horse', nameRu: 'Лошадь', nameEn: 'Horse', value: 500, displayValue: '500 кг', emoji: '🐎', imageUri: '', category: 'Млекопитающие', funFact: 'Спят стоя.' },
+  { id: 'cow', nameRu: 'Корова', nameEn: 'Cow', value: 700, displayValue: '700 кг', emoji: '🐄', imageUri: '', category: 'Млекопитающие', funFact: 'Имеют четыре желудка.' },
+  { id: 'ostrich', nameRu: 'Страус', nameEn: 'Ostrich', value: 110, displayValue: '110 кг', emoji: '🦤', imageUri: '', category: 'Птицы', funFact: 'Самая крупная птица.' },
+  { id: 'kangaroo', nameRu: 'Кенгуру', nameEn: 'Kangaroo', value: 60, displayValue: '60 кг', emoji: '🦘', imageUri: '', category: 'Млекопитающие', funFact: 'Не умеют ходить назад.' },
+  { id: 'gorilla', nameRu: 'Горилла', nameEn: 'Gorilla', value: 160, displayValue: '160 кг', emoji: '🦍', imageUri: '', category: 'Приматы', funFact: 'ДНК совпадает с человеческой на 98%.' },
+  { id: 'grizzly', nameRu: 'Гризли', nameEn: 'Grizzly Bear', value: 300, displayValue: '300 кг', emoji: '🐻', imageUri: '', category: 'Млекопитающие', funFact: 'Могут бегать со скоростью 50 км/ч.' },
+  { id: 'camel', nameRu: 'Верблюд', nameEn: 'Camel', value: 480, displayValue: '480 кг', emoji: '🐫', imageUri: '', category: 'Млекопитающие', funFact: 'Могут пить по 100 литров воды за раз.' },
+  { id: 'panda', nameRu: 'Панда', nameEn: 'Panda', value: 100, displayValue: '100 кг', emoji: '🐼', imageUri: '', category: 'Млекопитающие', funFact: 'Едят бамбук по 12 часов в день.' }
 ];
 
 LEVEL1_DATA.push(...LEVEL1_ADDITIONAL);
