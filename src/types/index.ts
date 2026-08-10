@@ -1,19 +1,18 @@
-export interface Animal {
+export interface GameItem {
   id: string;
   nameRu: string;
   nameEn: string;
-  weightKg: number;
-  weightDisplay: string;
+  value: number;
+  displayValue: string;
   emoji: string;
-  /** Локальный путь до фото в /public/animals. Если нет — сразу используется emoji-фолбэк. */
-  imageUri?: string;
+  imageUri: string;
   category: string;
   funFact: string;
 }
 
 export interface PairComparison {
-  itemA: Animal;
-  itemB: Animal;
+  itemA: GameItem;
+  itemB: GameItem;
   correctItemId: string;
 }
 
@@ -26,9 +25,12 @@ export interface LevelInfo {
   stars: number;
   highScore: number;
   category: string;
+  property: string;
+  unit: string;
+  comparisonType: 'max' | 'min';
 }
 
-export type ScreenType = 'splash' | 'menu' | 'level-select' | 'level-1' | 'level-locked';
+export type ScreenType = 'splash' | 'menu' | 'level-select' | 'game-level' | 'level-locked';
 
 export interface GameStats {
   totalScore: number;

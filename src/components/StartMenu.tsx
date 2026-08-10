@@ -104,8 +104,8 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           fontSize: '14px'
         }}
       >
-        <span style={{ color: 'var(--text-muted)' }}>Текущий уровень:</span>
-        <span style={{ fontWeight: 800, color: 'var(--accent-cyan)' }}>Уровень 1: Кто тяжелее?</span>
+        <span style={{ color: 'var(--text-muted)' }}>Доступно сейчас:</span>
+        <span style={{ fontWeight: 800, color: 'var(--accent-cyan)' }}>10 уровней</span>
       </div>
     </div>
   );

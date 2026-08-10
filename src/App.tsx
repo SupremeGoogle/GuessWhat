@@ -1,19 +1,48 @@
 import React, { useState } from 'react';
-import { ScreenType, GameStats, LevelInfo } from './types';
+import { ScreenType, GameStats, LevelInfo, GameItem } from './types';
 import { INITIAL_LEVELS } from './data/levels';
 import { SplashScreen } from './components/SplashScreen';
 import { StartMenu } from './components/StartMenu';
 import { LevelSelect } from './components/LevelSelect';
-import { Level1Game } from './components/Level1Game';
+import { GameLevel } from './components/GameLevel';
 import { LevelLockedModal } from './components/LevelLockedModal';
 import { audio } from './utils/audio';
+
+import { LEVEL1_DATA } from './data/level1';
+import { LEVEL2_DATA } from './data/level2';
+import { LEVEL3_DATA } from './data/level3';
+import { LEVEL4_DATA } from './data/level4';
+import { LEVEL5_DATA } from './data/level5';
+import { LEVEL6_DATA } from './data/level6';
+import { LEVEL7_DATA } from './data/level7';
+import { LEVEL8_DATA } from './data/level8';
+import { LEVEL9_DATA } from './data/level9';
+import { LEVEL10_DATA } from './data/level10';
+
 import './styles/index.css';
+
+const getLevelData = (levelId: number): GameItem[] => {
+  switch (levelId) {
+    case 1: return LEVEL1_DATA;
+    case 2: return LEVEL2_DATA;
+    case 3: return LEVEL3_DATA;
+    case 4: return LEVEL4_DATA;
+    case 5: return LEVEL5_DATA;
+    case 6: return LEVEL6_DATA;
+    case 7: return LEVEL7_DATA;
+    case 8: return LEVEL8_DATA;
+    case 9: return LEVEL9_DATA;
+    case 10: return LEVEL10_DATA;
+    default: return LEVEL1_DATA;
+  }
+};
 
 export const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('splash');
   const [levels, setLevels] = useState<LevelInfo[]>(INITIAL_LEVELS);
   const [isMuted, setIsMuted] = useState(false);
   const [lockedModalLevel, setLockedModalLevel] = useState<LevelInfo | null>(null);
+  const [activeLevelId, setActiveLevelId] = useState<number>(1);
 
   const [stats, setStats] = useState<GameStats>({
     totalScore: 0,
@@ -31,15 +60,14 @@ export const App: React.FC = () => {
     if (!targetLevel) return;
 
     if (targetLevel.isUnlocked) {
-      if (levelId === 1) {
-        setCurrentScreen('level-1');
-      }
+      setActiveLevelId(levelId);
+      setCurrentScreen('game-level');
     } else {
       setLockedModalLevel(targetLevel);
     }
   };
 
-  const handleLevel1Complete = (gainedScore: number, stars: number) => {
+  const handleLevelComplete = (gainedScore: number, stars: number) => {
     setStats(prev => ({
       totalScore: prev.totalScore + Math.max(0, gainedScore),
       starsEarned: Math.max(prev.starsEarned, stars),
@@ -47,7 +75,7 @@ export const App: React.FC = () => {
     }));
 
     setLevels(prev => prev.map(lvl => {
-      if (lvl.id === 1) {
+      if (lvl.id === activeLevelId) {
         return {
           ...lvl,
           stars: Math.max(lvl.stars, stars),
@@ -57,6 +85,9 @@ export const App: React.FC = () => {
       return lvl;
     }));
   };
+
+  const activeLevelInfo = levels.find(l => l.id === activeLevelId) || levels[0];
+  const activeLevelData = getLevelData(activeLevelId);
 
   return (
     <div className="app-container">
@@ -71,7 +102,7 @@ export const App: React.FC = () => {
 
       {currentScreen === 'menu' && (
         <StartMenu
-          onStartGame={() => setCurrentScreen('level-1')}
+          onStartGame={() => handleSelectLevel(1)}
           onOpenLevelSelect={() => setCurrentScreen('level-select')}
           isMuted={isMuted}
           onToggleMute={handleToggleMute}
@@ -87,10 +118,12 @@ export const App: React.FC = () => {
         />
       )}
 
-      {currentScreen === 'level-1' && (
-        <Level1Game
+      {currentScreen === 'game-level' && (
+        <GameLevel
+          levelInfo={activeLevelInfo}
+          levelData={activeLevelData}
           onBack={() => setCurrentScreen('menu')}
-          onLevelComplete={handleLevel1Complete}
+          onLevelComplete={handleLevelComplete}
           isMuted={isMuted}
           onToggleMute={handleToggleMute}
         />
@@ -102,7 +135,7 @@ export const App: React.FC = () => {
         onClose={() => setLockedModalLevel(null)}
         onPlayLevel1={() => {
           setLockedModalLevel(null);
-          setCurrentScreen('level-1');
+          handleSelectLevel(1);
         }}
       />
     </div>

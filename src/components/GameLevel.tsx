@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2, Award } from 'lucide-react';
+import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { ANIMALS_DATA } from '../data/animals';
-import { Animal, PairComparison } from '../types';
+import { GameItem, PairComparison, LevelInfo } from '../types';
 import { audio } from '../utils/audio';
 
-interface Level1GameProps {
+interface GameLevelProps {
+  levelInfo: LevelInfo;
+  levelData: GameItem[];
   onBack: () => void;
   onLevelComplete: (score: number, stars: number) => void;
   isMuted: boolean;
   onToggleMute: () => void;
 }
 
-export const Level1Game: React.FC<Level1GameProps> = ({
+export const GameLevel: React.FC<GameLevelProps> = ({
+  levelInfo,
+  levelData,
   onBack,
   onLevelComplete,
   isMuted,
@@ -29,27 +32,36 @@ export const Level1Game: React.FC<Level1GameProps> = ({
   const [isFinished, setIsFinished] = useState(false);
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({});
 
-  // Helper to generate random pair from 20 animals
+  // Helper to generate random pair
   const generateNewPair = useCallback(() => {
-    const shuffled = [...ANIMALS_DATA].sort(() => 0.5 - Math.random());
+    const shuffled = [...levelData].sort(() => 0.5 - Math.random());
     const itemA = shuffled[0];
     const itemB = shuffled[1];
-    const correctItemId = itemA.weightKg >= itemB.weightKg ? itemA.id : itemB.id;
+    
+    const isAMax = itemA.value >= itemB.value;
+    const isAMin = itemA.value <= itemB.value;
+    let correctItemId = '';
+    
+    if (levelInfo.comparisonType === 'max') {
+      correctItemId = isAMax ? itemA.id : itemB.id;
+    } else {
+      correctItemId = isAMin ? itemA.id : itemB.id;
+    }
 
     setCurrentPair({ itemA, itemB, correctItemId });
     setSelectedId(null);
     setIsRevealed(false);
-  }, []);
+  }, [levelData, levelInfo.comparisonType]);
 
   useEffect(() => {
     generateNewPair();
   }, [generateNewPair]);
 
-  const handleCardClick = (animal: Animal) => {
+  const handleCardClick = (item: GameItem) => {
     if (isRevealed || !currentPair) return;
 
-    const isCorrect = animal.id === currentPair.correctItemId;
-    setSelectedId(animal.id);
+    const isCorrect = item.id === currentPair.correctItemId;
+    setSelectedId(item.id);
     setIsRevealed(true);
 
     if (isCorrect) {
@@ -109,10 +121,10 @@ export const Level1Game: React.FC<Level1GameProps> = ({
 
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Уровень 1 • Задание {round}/{TOTAL_ROUNDS}
+            Уровень {levelInfo.id} • Задание {round}/{TOTAL_ROUNDS}
           </div>
           <div style={{ fontSize: '18px', fontWeight: 900, color: 'var(--accent-cyan)' }}>
-            Кто тяжелее? ⚖️
+            {levelInfo.title} {levelInfo.icon}
           </div>
         </div>
 
@@ -150,27 +162,29 @@ export const Level1Game: React.FC<Level1GameProps> = ({
       {/* Gameplay Battle Arena */}
       <div className="game-arena">
         {/* Card A */}
-        {renderAnimalCard(
+        {renderItemCard(
           currentPair.itemA,
           currentPair.correctItemId,
           selectedId,
           isRevealed,
           handleCardClick,
           imageErrorMap[currentPair.itemA.id],
-          handleImageError
+          handleImageError,
+          levelInfo
         )}
 
         <div className="vs-badge">VS</div>
 
         {/* Card B */}
-        {renderAnimalCard(
+        {renderItemCard(
           currentPair.itemB,
           currentPair.correctItemId,
           selectedId,
           isRevealed,
           handleCardClick,
           imageErrorMap[currentPair.itemB.id],
-          handleImageError
+          handleImageError,
+          levelInfo
         )}
       </div>
 
@@ -198,7 +212,7 @@ export const Level1Game: React.FC<Level1GameProps> = ({
                 <RotateCcw size={20} />
                 Еще раз
               </button>
-              <button className="btn-primary" style={{ flex: 1, padding: '14px', background: 'linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)' }} onClick={onBack}>
+              <button className="btn-primary" style={{ flex: 1, padding: '14px', background: 'linear-gradient(135deg, #00f2fe #4facfe)' }} onClick={onBack}>
                 <CheckCircle2 size={20} />
                 Меню
               </button>
@@ -214,21 +228,23 @@ export const Level1Game: React.FC<Level1GameProps> = ({
 // '/animals/x.jpg' даёт 404. Пути в данных пишем от корня проекта, а базу
 // подставляем здесь — так одинаково работает и в dev, и в проде.
 function resolveAssetUrl(path: string): string {
+  if (path.startsWith('http')) return path; // Skip absolute urls (unsplash)
   return import.meta.env.BASE_URL.replace(/\/$/, '') + path;
 }
 
-// Render Helper for Individual Animal Card
-function renderAnimalCard(
-  animal: Animal,
+// Render Helper for Individual Game Item Card
+function renderItemCard(
+  item: GameItem,
   correctItemId: string,
   selectedId: string | null,
   isRevealed: boolean,
-  onClick: (animal: Animal) => void,
+  onClick: (item: GameItem) => void,
   hasImageError: boolean,
-  onError: (id: string) => void
+  onError: (id: string) => void,
+  levelInfo: LevelInfo
 ) {
-  const isSelected = selectedId === animal.id;
-  const isCorrect = animal.id === correctItemId;
+  const isSelected = selectedId === item.id;
+  const isCorrect = item.id === correctItemId;
 
   let stateClass = '';
   if (isRevealed) {
@@ -240,32 +256,32 @@ function renderAnimalCard(
   return (
     <div
       className={`animal-card ${stateClass}`}
-      onClick={() => onClick(animal)}
+      onClick={() => onClick(item)}
     >
       <div className="animal-img-wrapper">
-        {animal.imageUri && !hasImageError ? (
+        {item.imageUri && !hasImageError ? (
           <img
-            src={resolveAssetUrl(animal.imageUri)}
-            alt={animal.nameRu}
+            src={resolveAssetUrl(item.imageUri)}
+            alt={item.nameRu}
             className="animal-img"
-            onError={() => onError(animal.id)}
+            onError={() => onError(item.id)}
           />
         ) : (
-          <div className="animal-emoji-fallback">{animal.emoji}</div>
+          <div className="animal-emoji-fallback">{item.emoji}</div>
         )}
       </div>
 
       <div className="animal-name">
-        {animal.emoji} {animal.nameRu}
+        {item.emoji} {item.nameRu}
       </div>
 
       {isRevealed ? (
         <div className="weight-reveal">
-          ⚖️ {animal.weightDisplay}
+          {levelInfo.icon} {item.displayValue}
         </div>
       ) : (
         <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>
-          Нажми, если думаешь, что он тяжелее!
+          Нажми, если думаешь, что это верный ответ!
         </div>
       )}
     </div>
