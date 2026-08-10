@@ -1,0 +1,59 @@
+name: Telegram notification
+
+# Срабатывает после деплоя на Pages — то есть после каждого пуша в main,
+# включая ежедневный коммит агента. Сообщает и об успехе, и о поломке.
+on:
+  workflow_run:
+    workflows: ["Deploy to GitHub Pages"]
+    types: [completed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # без секретов молча ничего не делаем, а не падаем
+    if: ${{ github.event.workflow_run.head_branch == 'main' }}
+    steps:
+      - name: Send message
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          MSG: ${{ github.event.workflow_run.head_commit.message }}
+          AUTHOR: ${{ github.event.workflow_run.head_commit.author.name }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${TOKEN:-}" ] || [ -z "${CHAT_ID:-}" ]; then
+            echo "TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не заданы — пропускаю."
+            exit 0
+          fi
+
+          # только первая строка коммита, без тела
+          SUBJECT=$(printf '%s' "$MSG" | head -1)
+          SHORT=${SHA:0:7}
+
+          if [ "$CONCLUSION" = "success" ]; then
+            TEXT=$(printf '✅ <b>GuessWhat обновлён</b>\n\n%s\n\n<i>%s</i> · <code>%s</code>\n\n🔗 <a href="https://supremegoogle.github.io/GuessWhat/">Открыть сайт</a> · <a href="https://github.com/SupremeGoogle/GuessWhat/commit/%s">Коммит</a>' \
+              "$SUBJECT" "$AUTHOR" "$SHORT" "$SHA")
+          else
+            TEXT=$(printf '❌ <b>GuessWhat: деплой упал</b>\n\n%s\n\n<i>%s</i> · <code>%s</code>\nСтатус: %s\n\n🔗 <a href="%s">Логи прогона</a>' \
+              "$SUBJECT" "$AUTHOR" "$SHORT" "$CONCLUSION" "$RUN_URL")
+          fi
+
+          # payload собираем через jq, иначе кавычки и переводы строк в
+          # сообщении коммита сломают JSON
+          jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" \
+            '{chat_id: $chat_id, text: $text, parse_mode: "HTML", disable_web_page_preview: true}' \
+            > payload.json
+
+          code=$(curl -sS -o response.json -w '%{http_code}' \
+            -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            -H 'Content-Type: application/json' \
+            --data @payload.json)
+
+          echo "HTTP $code"
+          # тело ответа может содержать описание ошибки, но не токен
+          cat response.json
+          [ "$code" = "200" ]
