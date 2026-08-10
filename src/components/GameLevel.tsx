@@ -326,7 +326,10 @@ function renderItemCard(
             onError={() => onError(item.id)}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-7xl bg-gradient-to-br from-[#8a2be2]/40 to-[#00f2fe]/40 drop-shadow-lg">
+          <div 
+            className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#8a2be2]/40 to-[#00f2fe]/40 drop-shadow-lg"
+            style={{ fontSize: '72px' }}
+          >
             {item.emoji}
           </div>
         )}

@@ -8,7 +8,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 330,
     displayValue: '330 м',
     emoji: '🗼',
-    imageUri: '/level11/eiffel_tower.jpg',
+    imageUri: '/images/eiffel_tower_1786359955782.jpg',
     category: 'Архитектура',
     funFact: 'Самая известная достопримечательность Парижа.'
   },
@@ -19,7 +19,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 139,
     displayValue: '139 м',
     emoji: '🔺',
-    imageUri: '/level11/great_pyramid.jpg',
+    imageUri: '/images/great_pyramid_1786359969097.jpg',
     category: 'Чудеса света',
     funFact: 'Единственное из Семи чудес Древнего мира, сохранившееся до наших дней.'
   },
@@ -30,7 +30,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 828,
     displayValue: '828 м',
     emoji: '🏢',
-    imageUri: '/level11/burj_khalifa.jpg',
+    imageUri: '/images/burj_khalifa_1786359979930.jpg',
     category: 'Архитектура',
     funFact: 'Самое высокое здание в мире с 2010 года.'
   },
@@ -41,7 +41,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 93,
     displayValue: '93 м',
     emoji: '🗽',
-    imageUri: '/level11/statue_of_liberty.jpg',
+    imageUri: '/images/statue_of_liberty_1786359996490.jpg',
     category: 'Монументы',
     funFact: 'Подарок Франции народу Соединенных Штатов Америки.'
   },
@@ -52,7 +52,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 540,
     displayValue: '540 м',
     emoji: '🗼',
-    imageUri: '/level11/ostankino_tower.jpg',
+    imageUri: '/images/ostankino_tower_1786360005015.jpg',
     category: 'Архитектура',
     funFact: 'Самое высокое сооружение в Европе.'
   },
@@ -63,7 +63,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 96,
     displayValue: '96 м',
     emoji: '🕰️',
-    imageUri: '/level11/big_ben.jpg',
+    imageUri: '/images/big_ben_1786360013466.jpg',
     category: 'Архитектура',
     funFact: 'Биг-Бен — это название самого большого колокола, а не башни.'
   },
@@ -74,7 +74,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 57,
     displayValue: '57 м',
     emoji: '🏛️',
-    imageUri: '/level11/leaning_tower.jpg',
+    imageUri: '/images/leaning_tower_1786360031073.jpg',
     category: 'Архитектура',
     funFact: 'Башня начала наклоняться еще во время строительства.'
   },
@@ -85,7 +85,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 73,
     displayValue: '73 м',
     emoji: '🕌',
-    imageUri: '/level11/taj_mahal.jpg',
+    imageUri: '/images/taj_mahal_1786360048126.jpg',
     category: 'Чудеса света',
     funFact: 'Построен императором Шах-Джаханом в память о своей жене.'
   },
@@ -96,7 +96,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 8848,
     displayValue: '8848 м',
     emoji: '🏔️',
-    imageUri: '/level11/mount_everest.jpg',
+    imageUri: '/images/mount_everest_1786360070256.jpg',
     category: 'Природа',
     funFact: 'Высочайшая вершина Земли, также известная как Джомолунгма.'
   },
@@ -107,7 +107,7 @@ export const LEVEL11_DATA: GameItem[] = [
     value: 443,
     displayValue: '443 м',
     emoji: '🏙️',
-    imageUri: '/level11/empire_state.jpg',
+    imageUri: '/images/empire_state_1786360090244.jpg',
     category: 'Архитектура',
     funFact: 'Был самым высоким зданием в мире на протяжении почти 40 лет.'
   },

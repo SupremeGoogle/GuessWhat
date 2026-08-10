@@ -8,7 +8,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 150000,
     displayValue: '150,000 кг',
     emoji: '🐋',
-    imageUri: '/animals/blue-whale.jpg',
+    imageUri: '/images/blue_whale_1786116427100.jpg',
     category: 'Морские гиганты',
     funFact: 'Самое крупное животное, когда-либо существовавшее на Земле! Его сердце размером с автомобиль.'
   },
@@ -19,7 +19,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 45000,
     displayValue: '45,000 кг',
     emoji: '🐳',
-    imageUri: '/animals/sperm-whale.jpg',
+    imageUri: '/images/sperm_whale_1786116437079.jpg',
     category: 'Морские гиганты',
     funFact: 'Кашалот имеет самый большой мозг среди всех животных в истории планеты.'
   },
@@ -30,7 +30,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 6000,
     displayValue: '6,000 кг',
     emoji: '🐘',
-    imageUri: '/animals/african-elephant.jpg',
+    imageUri: '/images/african_elephant_1786116449273.jpg',
     category: 'Наземные гиганты',
     funFact: 'Самое сухопутное тяжелое животное! Его хобот состоит из более чем 40 000 мышц.'
   },
@@ -41,7 +41,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 5500,
     displayValue: '5,500 кг',
     emoji: '🐬',
-    imageUri: '/animals/orca.jpg',
+    imageUri: '/images/orca_whale_1786116533171.jpg',
     category: 'Морские хищники',
     funFact: 'Косатки — крупнейшие представители семейства дельфиновых.'
   },
@@ -52,7 +52,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 4000,
     displayValue: '4,000 кг',
     emoji: '🐘',
-    imageUri: '/animals/asian-elephant.jpg',
+    imageUri: '/images/asian_elephant_1786116563752.jpg',
     category: 'Наземные гиганты',
     funFact: 'Немного меньше африканского сородича, у него уши меньшего размера.'
   },
@@ -63,7 +63,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 2300,
     displayValue: '2,300 кг',
     emoji: '🦏',
-    imageUri: '/animals/white-rhino.jpg',
+    imageUri: '/images/white_rhino_1786116576993.jpg',
     category: 'Мегафауна',
     funFact: 'Второе по величине сухопутное животное после слона.'
   },
@@ -74,7 +74,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 1800,
     displayValue: '1,800 кг',
     emoji: '🦛',
-    imageUri: '/animals/hippopotamus.jpg',
+    imageUri: '/images/hippopotamus_1786116588595.jpg',
     category: 'Мегафауна',
     funFact: 'Несмотря на свой вес, бегемот может бегать со скоростью до 30 км/ч!'
   },
@@ -85,7 +85,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 1200,
     displayValue: '1,200 кг',
     emoji: '🦒',
-    imageUri: '/animals/giraffe.jpg',
+    imageUri: '/images/giraffe_1786116600275.jpg',
     category: 'Высокие животные',
     funFact: 'Сердце жирафа весит около 11 кг и создает давление в 2 раза выше, чем у человека.'
   },
@@ -96,7 +96,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 1100,
     displayValue: '1,100 кг',
     emoji: '🦭',
-    imageUri: '/animals/walrus.jpg',
+    imageUri: '/images/walrus_1786116647593.jpg',
     category: 'Ластоногие',
     funFact: 'Бивни моржа могут достигать 1 метра в длину и помогают ему выбираться из воды на лед.'
   },
@@ -107,7 +107,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 1000,
     displayValue: '1,000 кг',
     emoji: '🐊',
-    imageUri: '/animals/saltwater_crocodile.jpg',
+    imageUri: '/images/saltwater_crocodile_1786116657519.jpg',
     category: 'Рептилии',
     funFact: 'Самая крупная рептилия на нашей планете с невероятной силой укуса!'
   },
@@ -118,7 +118,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 700,
     displayValue: '700 кг',
     emoji: '🐃',
-    imageUri: '/animals/african_buffalo.jpg',
+    imageUri: '/images/african_buffalo_1786116670008.jpg',
     category: 'Копытные',
     funFact: 'Очень сильное и сплоченное животное, способное дать отпор прайду львов.'
   },
@@ -129,7 +129,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 500,
     displayValue: '500 кг',
     emoji: '🫎',
-    imageUri: '/animals/moose.jpg',
+    imageUri: '/images/moose_1786116679259.jpg',
     category: 'Лесные гиганты',
     funFact: 'Рога самца лося могут размахиваться до 1.8 метра и весить до 30 кг.'
   },
@@ -140,7 +140,7 @@ export const LEVEL1_DATA: GameItem[] = [
     value: 450,
     displayValue: '450 кг',
     emoji: '🐻‍❄️',
-    imageUri: '/animals/polar-bear.jpg',
+    imageUri: '/images/polar_bear_1786116739841.jpg',
     category: 'Хищники',
     funFact: 'Крупнейший сухопутный хищник! Его кожа под белым мехом на самом деле черная.'
   },
