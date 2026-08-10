@@ -18,6 +18,7 @@ import { LEVEL7_DATA } from './data/level7';
 import { LEVEL8_DATA } from './data/level8';
 import { LEVEL9_DATA } from './data/level9';
 import { LEVEL10_DATA } from './data/level10';
+import { LEVEL11_DATA } from './data/level11';
 
 import './styles/index.css';
 
@@ -33,6 +34,7 @@ const getLevelData = (levelId: number): GameItem[] => {
     case 8: return LEVEL8_DATA;
     case 9: return LEVEL9_DATA;
     case 10: return LEVEL10_DATA;
+    case 11: return LEVEL11_DATA;
     default: return LEVEL1_DATA;
   }
 };

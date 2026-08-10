@@ -105,7 +105,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
         }}
       >
         <span style={{ color: 'var(--text-muted)' }}>Доступно сейчас:</span>
-        <span style={{ fontWeight: 800, color: 'var(--accent-cyan)' }}>10 уровней</span>
+        <span style={{ fontWeight: 800, color: 'var(--accent-cyan)' }}>11 уровней</span>
       </div>
     </div>
   );

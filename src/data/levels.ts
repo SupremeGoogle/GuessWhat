@@ -130,11 +130,24 @@ export const INITIAL_LEVELS: LevelInfo[] = [
     property: 'Калорийность',
     unit: 'ккал',
     comparisonType: 'max'
+  },
+  {
+    id: 11,
+    title: 'Что выше?',
+    subtitle: 'Высота строений',
+    icon: '🏙️',
+    isUnlocked: true,
+    stars: 0,
+    highScore: 0,
+    category: 'Архитектура',
+    property: 'Высота',
+    unit: 'м',
+    comparisonType: 'max'
   }
 ];
 
 // Add placeholder locked levels for the rest up to 30
-for (let i = 11; i <= 30; i++) {
+for (let i = 12; i <= 30; i++) {
   INITIAL_LEVELS.push({
     id: i,
     title: 'Секретный уровень',
