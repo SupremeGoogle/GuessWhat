@@ -47,7 +47,7 @@ src/
 
 ## Автоматизация
 
-Ежедневный workflow [`daily-claude.yml`](.github/workflows/daily-claude.yml) берёт
-верхнюю задачу из `TASKS.md`, реализует её, проверяет сборку и коммитит результат.
-Правила проекта и инструкция для агента — в
-[`.github/daily-task.md`](.github/daily-task.md).
+Ежедневная cloud-routine Claude берёт верхнюю задачу из `TASKS.md`, реализует её,
+проверяет сборку и пушит результат в `main`. Правила проекта и инструкция для агента —
+в [`.github/daily-task.md`](.github/daily-task.md). Пуш в `main` автоматически
+запускает деплой на GitHub Pages.
