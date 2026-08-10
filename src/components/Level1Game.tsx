@@ -210,6 +210,13 @@ export const Level1Game: React.FC<Level1GameProps> = ({
   );
 };
 
+// На GitHub Pages сайт живёт под /GuessWhat/, поэтому абсолютный путь
+// '/animals/x.jpg' даёт 404. Пути в данных пишем от корня проекта, а базу
+// подставляем здесь — так одинаково работает и в dev, и в проде.
+function resolveAssetUrl(path: string): string {
+  return import.meta.env.BASE_URL.replace(/\/$/, '') + path;
+}
+
 // Render Helper for Individual Animal Card
 function renderAnimalCard(
   animal: Animal,
@@ -238,7 +245,7 @@ function renderAnimalCard(
       <div className="animal-img-wrapper">
         {animal.imageUri && !hasImageError ? (
           <img
-            src={animal.imageUri}
+            src={resolveAssetUrl(animal.imageUri)}
             alt={animal.nameRu}
             className="animal-img"
             onError={() => onError(animal.id)}
