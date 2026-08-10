@@ -1,0 +1,71 @@
+name: Daily Claude update
+
+on:
+  schedule:
+    # 09:15 UTC каждый день. Не ставим ровно :00 — в начале часа
+    # очередь GitHub Actions перегружена и запуск может уехать на десятки минут.
+    - cron: '15 9 * * *'
+  workflow_dispatch:
+
+# Два запуска подряд не должны драться за main.
+concurrency:
+  group: daily-claude
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run Claude on today's task
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Прочитай файл .github/daily-task.md и выполни описанную в нём
+            ежедневную задачу целиком, следуя всем указанным там правилам и границам.
+          claude_args: >-
+            --model claude-sonnet-4-5
+            --max-turns 40
+            --allowedTools "Read,Write,Edit,Glob,Grep,Bash(npm ci),Bash(npm run lint),Bash(npm run build),Bash(npx tsc*)"
+
+      - name: Commit and push
+        env:
+          # Автор коммита должен быть вашим email — иначе коммит не попадёт
+          # в граф активности профиля.
+          AUTHOR_NAME: SupremeGoogle
+          AUTHOR_EMAIL: 184783429+SupremeGoogle@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          git config user.name  "$AUTHOR_NAME"
+          git config user.email "$AUTHOR_EMAIL"
+
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "Claude не внёс изменений — коммита не будет."
+            exit 0
+          fi
+
+          git add -A
+          git commit -m "chore(daily): автообновление $(date -u +%Y-%m-%d)
+
+          Задача взята из TASKS.md и выполнена ежедневным агентом.
+
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+
+          # main мог уйти вперёд, пока шёл прогон
+          git pull --rebase origin main
+          git push origin HEAD:main
