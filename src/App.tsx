@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { ScreenType, GameStats, LevelInfo, GameItem } from './types';
 import { INITIAL_LEVELS } from './data/levels';
 import { SplashScreen } from './components/SplashScreen';
@@ -98,38 +99,43 @@ export const App: React.FC = () => {
       <div className="ambient-glow orb-2"></div>
       <div className="ambient-glow orb-3"></div>
 
-      {currentScreen === 'splash' && (
-        <SplashScreen onFinish={() => setCurrentScreen('menu')} />
-      )}
+      <AnimatePresence mode="wait">
+        {currentScreen === 'splash' && (
+          <SplashScreen key="splash" onFinish={() => setCurrentScreen('menu')} />
+        )}
 
-      {currentScreen === 'menu' && (
-        <StartMenu
-          onStartGame={() => handleSelectLevel(1)}
-          onOpenLevelSelect={() => setCurrentScreen('level-select')}
-          isMuted={isMuted}
-          onToggleMute={handleToggleMute}
-          stats={stats}
-        />
-      )}
+        {currentScreen === 'menu' && (
+          <StartMenu
+            key="menu"
+            onStartGame={() => handleSelectLevel(1)}
+            onOpenLevelSelect={() => setCurrentScreen('level-select')}
+            isMuted={isMuted}
+            onToggleMute={handleToggleMute}
+            stats={stats}
+          />
+        )}
 
-      {currentScreen === 'level-select' && (
-        <LevelSelect
-          levels={levels}
-          onSelectLevel={handleSelectLevel}
-          onBack={() => setCurrentScreen('menu')}
-        />
-      )}
+        {currentScreen === 'level-select' && (
+          <LevelSelect
+            key="level-select"
+            levels={levels}
+            onSelectLevel={handleSelectLevel}
+            onBack={() => setCurrentScreen('menu')}
+          />
+        )}
 
-      {currentScreen === 'game-level' && (
-        <GameLevel
-          levelInfo={activeLevelInfo}
-          levelData={activeLevelData}
-          onBack={() => setCurrentScreen('menu')}
-          onLevelComplete={handleLevelComplete}
-          isMuted={isMuted}
-          onToggleMute={handleToggleMute}
-        />
-      )}
+        {currentScreen === 'game-level' && (
+          <GameLevel
+            key="game-level"
+            levelInfo={activeLevelInfo}
+            levelData={activeLevelData}
+            onBack={() => setCurrentScreen('menu')}
+            onLevelComplete={handleLevelComplete}
+            isMuted={isMuted}
+            onToggleMute={handleToggleMute}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Modal for Locked Levels */}
       <LevelLockedModal

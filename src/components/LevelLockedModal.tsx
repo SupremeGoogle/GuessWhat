@@ -1,6 +1,8 @@
 import React from 'react';
 import { Lock, Sparkles, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LevelInfo } from '../types';
+import { NeonButton } from './ui/NeonButton';
 
 interface LevelLockedModalProps {
   level: LevelInfo | null;
@@ -13,53 +15,60 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
   onClose,
   onPlayLevel1
 }) => {
-  if (!level) return null;
-
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '360px' }}>
-        <button
+    <AnimatePresence>
+      {level && (
+        <motion.div 
+          initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+          animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+          exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+          className="absolute inset-0 bg-[#0b071e]/85 z-50 flex items-center justify-center p-5"
           onClick={onClose}
-          style={{
-            position: 'absolute',
-            top: '16px',
-            right: '16px',
-            background: 'none',
-            border: 'none',
-            color: 'white',
-            cursor: 'pointer'
-          }}
         >
-          <X size={20} />
-        </button>
+          <motion.div 
+            initial={{ scale: 0.9, y: 30 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 30 }}
+            className="w-full max-w-[360px] bg-white/10 backdrop-blur-3xl border border-white/20 rounded-[32px] p-8 flex flex-col items-center text-center gap-5 shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_2px_20px_rgba(255,255,255,0.05)] relative"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2"
+            >
+              <X size={20} />
+            </button>
 
-        <div style={{ fontSize: '56px', background: 'rgba(255,255,255,0.08)', borderRadius: '50%', width: '90px', height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Lock size={44} color="#ff0844" />
-        </div>
+            <div className="w-[90px] h-[90px] bg-white/10 rounded-full flex items-center justify-center shadow-inner">
+              <Lock size={44} color="#ff0844" className="drop-shadow-[0_0_15px_rgba(255,8,68,0.5)]" />
+            </div>
 
-        <h3 style={{ fontSize: '24px', fontWeight: 900 }}>
-          Уровень #{level.id} Заблокирован
-        </h3>
+            <h3 className="text-2xl font-black text-white">
+              Уровень #{level.id} Заблокирован
+            </h3>
 
-        <p style={{ color: 'var(--text-muted)', fontSize: '15px' }}>
-          Тема: <strong style={{ color: '#00f2fe' }}>{level.title}</strong>
-        </p>
+            <p className="text-white/60 text-[15px]">
+              Тема: <strong className="text-[#00f2fe]">{level.title}</strong>
+            </p>
 
-        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '12px 16px', borderRadius: '16px', fontSize: '14px', textAlign: 'left', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', color: '#ffd700', fontWeight: 700 }}>
-            <Sparkles size={16} /> Требование для открытия:
-          </div>
-          Пройди Уровень 1 ("Кто тяжелее?"), чтобы разблокировать этот и следующие уровни!
-        </div>
+            <div className="bg-black/30 p-4 rounded-2xl text-[14px] text-left w-full border border-white/10 shadow-inner mt-2">
+              <div className="flex items-center gap-2 mb-2 text-[#ffd700] font-extrabold">
+                <Sparkles size={16} /> Требование для открытия:
+              </div>
+              <div className="text-white/80 leading-relaxed">
+                Пройди Уровень 1 ("Кто тяжелее?"), чтобы разблокировать этот и следующие уровни!
+              </div>
+            </div>
 
-        <button
-          className="btn-primary"
-          style={{ width: '100%', marginTop: '10px' }}
-          onClick={onPlayLevel1}
-        >
-          Играть в Уровень 1 🚀
-        </button>
-      </div>
-    </div>
+            <NeonButton
+              className="w-full mt-2"
+              onClick={onPlayLevel1}
+            >
+              Играть в Уровень 1 🚀
+            </NeonButton>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
