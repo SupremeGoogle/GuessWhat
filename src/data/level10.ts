@@ -121,5 +121,20 @@ export const LEVEL10_DATA: GameItem[] = [
     imageUri: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80',
     category: 'Жиры',
     funFact: 'Одно из самых калорийных веществ, которые мы употребляем в пищу (100% жир).'
-  }
+  },
+  { id: 'broccoli', nameRu: 'Брокколи', nameEn: 'Broccoli', value: 34, displayValue: '34 ккал', emoji: '🥦', imageUri: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=800&q=80', category: 'Овощи', funFact: 'Отличный источник витамина C.' },
+  { id: 'strawberry', nameRu: 'Клубника', nameEn: 'Strawberry', value: 32, displayValue: '32 ккал', emoji: '🍓', imageUri: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80', category: 'Фрукты', funFact: 'Семена клубники находятся снаружи.' },
+  { id: 'potato', nameRu: 'Картофель', nameEn: 'Potato', value: 77, displayValue: '77 ккал', emoji: '🥔', imageUri: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80', category: 'Овощи', funFact: 'Первый овощ, выращенный в космосе.' },
+  { id: 'rice', nameRu: 'Белый рис', nameEn: 'White Rice', value: 130, displayValue: '130 ккал', emoji: '🍚', imageUri: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=800&q=80', category: 'Крупы', funFact: 'Основа рациона половины планеты.' },
+  { id: 'chicken_breast', nameRu: 'Куриная грудка', nameEn: 'Chicken Breast', value: 165, displayValue: '165 ккал', emoji: '🍗', imageUri: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80', category: 'Мясо', funFact: 'Популярна у бодибилдеров за белок.' },
+  { id: 'bread', nameRu: 'Белый хлеб', nameEn: 'White Bread', value: 265, displayValue: '265 ккал', emoji: '🍞', imageUri: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80', category: 'Выпечка', funFact: 'Одно из древнейших блюд.' },
+  { id: 'cheddar', nameRu: 'Сыр Чеддер', nameEn: 'Cheddar', value: 402, displayValue: '402 ккал', emoji: '🧀', imageUri: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=800&q=80', category: 'Молочные продукты', funFact: 'Самый популярный сыр в мире.' },
+  { id: 'peanut_butter', nameRu: 'Арахисовая паста', nameEn: 'Peanut Butter', value: 588, displayValue: '588 ккал', emoji: '🥜', imageUri: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=800&q=80', category: 'Сладости', funFact: 'Изобретена в 19 веке.' },
+  { id: 'almonds', nameRu: 'Миндаль', nameEn: 'Almonds', value: 579, displayValue: '579 ккал', emoji: '🌰', imageUri: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=800&q=80', category: 'Орехи', funFact: 'С точки зрения ботаники — это косточка фрукта.' },
+  { id: 'walnuts', nameRu: 'Грецкие орехи', nameEn: 'Walnuts', value: 654, displayValue: '654 ккал', emoji: '🧠', imageUri: 'https://images.unsplash.com/photo-1596489370603-9eda0df545b7?w=800&q=80', category: 'Орехи', funFact: 'Похожи на человеческий мозг.' },
+  { id: 'mayonnaise', nameRu: 'Майонез', nameEn: 'Mayonnaise', value: 680, displayValue: '680 ккал', emoji: '🥚', imageUri: 'https://images.unsplash.com/photo-1596796931754-046643666d9f?w=800&q=80', category: 'Соусы', funFact: 'Состоит в основном из масла и желтков.' },
+  { id: 'butter_oil', nameRu: 'Топленое масло', nameEn: 'Ghee', value: 876, displayValue: '876 ккал', emoji: '🧈', imageUri: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=800&q=80', category: 'Жиры', funFact: 'Имеет высокую температуру дымления.' },
+  { id: 'lard', nameRu: 'Сало', nameEn: 'Lard', value: 900, displayValue: '900 ккал', emoji: '🥓', imageUri: 'https://images.unsplash.com/photo-1627308595185-397125363450?w=800&q=80', category: 'Мясо', funFact: 'Чистый животный жир.' },
+  { id: 'coke', nameRu: 'Кока-Кола', nameEn: 'Coca Cola', value: 42, displayValue: '42 ккал', emoji: '🥤', imageUri: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800&q=80', category: 'Напитки', funFact: 'Калории исключительно из сахара.' },
+  { id: 'vodka', nameRu: 'Водка', nameEn: 'Vodka', value: 231, displayValue: '231 ккал', emoji: '🍸', imageUri: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?w=800&q=80', category: 'Напитки', funFact: 'Алкоголь очень калориен.' }
 ];

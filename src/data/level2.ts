@@ -110,5 +110,20 @@ export const LEVEL2_DATA: GameItem[] = [
     imageUri: 'https://images.unsplash.com/photo-1600713437877-62f4470bc293?auto=format&fit=crop&w=800&q=80',
     category: 'Техника',
     funFact: 'Один из самых быстрых серийных гиперкаров в мире.'
-  }
+  },
+  { id: 'kangaroo', nameRu: 'Кенгуру', nameEn: 'Kangaroo', value: 71, displayValue: '71 км/ч', emoji: '🦘', imageUri: 'https://images.unsplash.com/photo-1551608682-192e2124579c?w=800&q=80', category: 'Наземные', funFact: 'Прыгают на 9 метров в длину.' },
+  { id: 'lion', nameRu: 'Лев', nameEn: 'Lion', value: 80, displayValue: '80 км/ч', emoji: '🦁', imageUri: 'https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=800&q=80', category: 'Наземные', funFact: 'Могут бежать быстро только на короткие дистанции.' },
+  { id: 'cat', nameRu: 'Домашняя кошка', nameEn: 'Cat', value: 48, displayValue: '48 км/ч', emoji: '🐈', imageUri: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80', category: 'Наземные', funFact: 'Бегают быстрее Усэйна Болта.' },
+  { id: 'greyhound', nameRu: 'Грейхаунд', nameEn: 'Greyhound', value: 72, displayValue: '72 км/ч', emoji: '🐕', imageUri: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&q=80', category: 'Наземные', funFact: 'Самая быстрая порода собак.' },
+  { id: 'elephant', nameRu: 'Слон', nameEn: 'Elephant', value: 40, displayValue: '40 км/ч', emoji: '🐘', imageUri: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=800&q=80', category: 'Наземные', funFact: 'Несмотря на вес, бегают очень быстро.' },
+  { id: 'giraffe', nameRu: 'Жираф', nameEn: 'Giraffe', value: 60, displayValue: '60 км/ч', emoji: '🦒', imageUri: 'https://images.unsplash.com/photo-1547721064-da6cfb341d50?w=800&q=80', category: 'Наземные', funFact: 'Могут бежать галопом.' },
+  { id: 'dolphin', nameRu: 'Дельфин', nameEn: 'Dolphin', value: 60, displayValue: '60 км/ч', emoji: '🐬', imageUri: 'https://images.unsplash.com/photo-1570481662006-a3a1374699e8?w=800&q=80', category: 'Водные', funFact: 'Очень быстро плавают и выпрыгивают из воды.' },
+  { id: 'coyote', nameRu: 'Койот', nameEn: 'Coyote', value: 65, displayValue: '65 км/ч', emoji: '🐺', imageUri: 'https://images.unsplash.com/photo-1564593166687-f8cc0455db43?w=800&q=80', category: 'Наземные', funFact: 'Очень выносливые бегуны.' },
+  { id: 'moose', nameRu: 'Лось', nameEn: 'Moose', value: 72, displayValue: '72 км/ч', emoji: '🦌', imageUri: 'https://images.unsplash.com/photo-1589255673810-7467382d60bc?w=800&q=80', category: 'Наземные', funFact: 'Бегают со скоростью автомобиля.' },
+  { id: 'zebra', nameRu: 'Зебра', nameEn: 'Zebra', value: 65, displayValue: '65 км/ч', emoji: '🦓', imageUri: 'https://images.unsplash.com/photo-1525997232243-7f3c64c74033?w=800&q=80', category: 'Наземные', funFact: 'Убегают от хищников зигзагами.' },
+  { id: 'hippo', nameRu: 'Бегемот', nameEn: 'Hippo', value: 30, displayValue: '30 км/ч', emoji: '🦛', imageUri: 'https://images.unsplash.com/photo-1596700755711-a5d5bbd15587?w=800&q=80', category: 'Наземные', funFact: 'Обгоняют человека на суше.' },
+  { id: 'crocodile', nameRu: 'Крокодил', nameEn: 'Crocodile', value: 32, displayValue: '32 км/ч', emoji: '🐊', imageUri: 'https://images.unsplash.com/photo-1525902099395-50280eb4c2db?w=800&q=80', category: 'Водные', funFact: 'Быстро бросаются на добычу.' },
+  { id: 'grizzly', nameRu: 'Медведь гризли', nameEn: 'Grizzly', value: 56, displayValue: '56 км/ч', emoji: '🐻', imageUri: 'https://images.unsplash.com/photo-1560317377-f27357c9dcaf?w=800&q=80', category: 'Наземные', funFact: 'Опасный и быстрый хищник.' },
+  { id: 'rhino', nameRu: 'Носорог', nameEn: 'Rhino', value: 50, displayValue: '50 км/ч', emoji: '🦏', imageUri: 'https://images.unsplash.com/photo-1542223789-7cfc35813350?w=800&q=80', category: 'Наземные', funFact: 'Несмотря на массу, разгоняются до 50 км/ч.' },
+  { id: 'camel', nameRu: 'Верблюд', nameEn: 'Camel', value: 65, displayValue: '65 км/ч', emoji: '🐫', imageUri: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80', category: 'Наземные', funFact: 'Верблюжьи бега очень популярны.' }
 ];
