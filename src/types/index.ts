@@ -5,7 +5,8 @@ export interface Animal {
   weightKg: number;
   weightDisplay: string;
   emoji: string;
-  imageUri: string;
+  /** Локальный путь до фото в /public/animals. Если нет — сразу используется emoji-фолбэк. */
+  imageUri?: string;
   category: string;
   funFact: string;
 }

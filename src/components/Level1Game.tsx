@@ -236,7 +236,7 @@ function renderAnimalCard(
       onClick={() => onClick(animal)}
     >
       <div className="animal-img-wrapper">
-        {!hasImageError ? (
+        {animal.imageUri && !hasImageError ? (
           <img
             src={animal.imageUri}
             alt={animal.nameRu}
