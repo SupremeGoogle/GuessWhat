@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+      # action пытается получить OIDC-токен, если ему не передан github_token явно
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +37,8 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # передаём токен явно, иначе action идёт за ним через OIDC и падает
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Прочитай файл .github/daily-task.md и выполни описанную в нём
             ежедневную задачу целиком, следуя всем указанным там правилам и границам.
