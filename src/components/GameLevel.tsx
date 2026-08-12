@@ -38,8 +38,18 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   const generateNewPair = useCallback(() => {
     const shuffled = [...levelData].sort(() => 0.5 - Math.random());
     const itemA = shuffled[0];
-    const itemB = shuffled[1];
-    
+    let itemB = shuffled[1];
+
+    // Пары с одинаковым значением ломают сравнение: itemA всегда считается
+    // "верным", а игрок, выбравший itemB с тем же весом/скоростью, штрафуется
+    // за фактически правильный ответ. Ищем в перетасованном списке первого
+    // кандидата с другим значением.
+    let candidateIndex = 2;
+    while (itemB.value === itemA.value && candidateIndex < shuffled.length) {
+      itemB = shuffled[candidateIndex];
+      candidateIndex += 1;
+    }
+
     const isAMax = itemA.value >= itemB.value;
     const isAMin = itemA.value <= itemB.value;
     let correctItemId = '';
