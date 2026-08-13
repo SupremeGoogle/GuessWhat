@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -34,6 +34,18 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   const [floatingScore, setFloatingScore] = useState<{ text: string; type: 'plus' | 'minus'; id: number } | null>(null);
   const [isFinished, setIsFinished] = useState(false);
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({});
+  const nextRoundTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Выход из игры (размонтирование во время анимации перехода к следующему
+  // раунду) не должен оставлять висящий колбэк, который дёргает
+  // onLevelComplete по уже пропавшему компоненту.
+  useEffect(() => {
+    return () => {
+      if (nextRoundTimeoutRef.current) {
+        clearTimeout(nextRoundTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const generateNewPair = useCallback(() => {
     const shuffled = [...levelData].sort(() => 0.5 - Math.random());
@@ -88,7 +100,10 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       setFloatingScore({ text: '-2', type: 'minus', id: Date.now() });
     }
 
-    setTimeout(() => {
+    if (nextRoundTimeoutRef.current) {
+      clearTimeout(nextRoundTimeoutRef.current);
+    }
+    nextRoundTimeoutRef.current = setTimeout(() => {
       if (round >= TOTAL_ROUNDS) {
         const finalScore = score + (isCorrect ? 1 : -2);
         let stars = 1;
