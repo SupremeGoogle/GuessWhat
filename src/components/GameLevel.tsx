@@ -6,6 +6,7 @@ import { GameItem, PairComparison, LevelInfo } from '../types';
 import { audio } from '../utils/audio';
 import { GlassCard } from './ui/GlassCard';
 import { NeonButton } from './ui/NeonButton';
+import { fisherYatesShuffle } from '../lib/utils';
 
 interface GameLevelProps {
   levelInfo: LevelInfo;
@@ -35,6 +36,10 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   const [isFinished, setIsFinished] = useState(false);
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({});
   const nextRoundTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Очередь уникальных пар на текущую игровую сессию (см. buildPairQueue) —
+  // не даёт одной и той же паре встретиться дважды, пока не исчерпаны все
+  // возможные комбинации.
+  const pairQueueRef = useRef<[GameItem, GameItem][]>([]);
 
   // Выход из игры (размонтирование во время анимации перехода к следующему
   // раунду) не должен оставлять висящий колбэк, который дёргает
@@ -48,24 +53,23 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   }, []);
 
   const generateNewPair = useCallback(() => {
-    const shuffled = [...levelData].sort(() => 0.5 - Math.random());
-    const itemA = shuffled[0];
-    let itemB = shuffled[1];
-
-    // Пары с одинаковым значением ломают сравнение: itemA всегда считается
-    // "верным", а игрок, выбравший itemB с тем же весом/скоростью, штрафуется
-    // за фактически правильный ответ. Ищем в перетасованном списке первого
-    // кандидата с другим значением.
-    let candidateIndex = 2;
-    while (itemB.value === itemA.value && candidateIndex < shuffled.length) {
-      itemB = shuffled[candidateIndex];
-      candidateIndex += 1;
+    // Очередь опустела (начало сессии или все уникальные пары уже
+    // показывались) — строим и перетасовываем новую методом Фишера-Йетса.
+    if (pairQueueRef.current.length === 0) {
+      pairQueueRef.current = buildPairQueue(levelData);
     }
+
+    const nextPair = pairQueueRef.current.shift();
+    if (!nextPair) return; // в уровне меньше двух карточек — сравнивать нечего
+
+    // Случайно решаем, какой из пары окажется сверху/снизу, чтобы позиция не
+    // зависела от порядка построения очереди пар.
+    const [itemA, itemB] = Math.random() < 0.5 ? nextPair : [nextPair[1], nextPair[0]];
 
     const isAMax = itemA.value >= itemB.value;
     const isAMin = itemA.value <= itemB.value;
     let correctItemId = '';
-    
+
     if (levelInfo.comparisonType === 'max') {
       correctItemId = isAMax ? itemA.id : itemB.id;
     } else {
@@ -127,6 +131,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     setScore(0);
     setStreak(0);
     setIsFinished(false);
+    pairQueueRef.current = []; // новая сессия — новая перетасованная очередь пар
     generateNewPair();
   };
 
@@ -301,6 +306,32 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     </motion.div>
   );
 };
+
+/**
+ * Строит перетасованную очередь всех уникальных пар карточек для одной
+ * игровой сессии, чтобы одна и та же пара не выпадала дважды подряд/за
+ * сессию (пока не будут показаны все комбинации). Пары с одинаковым
+ * значением исключаются из очереди — сравнивать по ним нечего, и раньше
+ * это приводило к штрафу за фактически верный ответ. Если у всех карточек
+ * значение совпадает (вырожденный набор данных), используем все пары как
+ * запасной вариант, чтобы игра не сломалась.
+ */
+function buildPairQueue(items: GameItem[]): [GameItem, GameItem][] {
+  const distinctValuePairs: [GameItem, GameItem][] = [];
+  const allPairs: [GameItem, GameItem][] = [];
+
+  for (let i = 0; i < items.length; i++) {
+    for (let j = i + 1; j < items.length; j++) {
+      const pair: [GameItem, GameItem] = [items[i], items[j]];
+      allPairs.push(pair);
+      if (items[i].value !== items[j].value) {
+        distinctValuePairs.push(pair);
+      }
+    }
+  }
+
+  return fisherYatesShuffle(distinctValuePairs.length > 0 ? distinctValuePairs : allPairs);
+}
 
 function resolveAssetUrl(path: string): string {
   if (path.startsWith('http')) return path;
