@@ -85,7 +85,7 @@ export const LEVEL9_DATA: GameItem[] = [
     value: 140,
     displayValue: '140 дБ',
     emoji: '✈️',
-    imageUri: '',
+    imageUri: '/images/jet_engine_1786532651921.jpg',
     category: 'Транспорт',
     funFact: 'Работники аэропорта обязаны носить специальные наушники.'
   },
@@ -121,9 +121,9 @@ export const LEVEL9_DATA: GameItem[] = [
   { id: 'rock_concert', nameRu: 'Рок-концерт', nameEn: 'Rock Concert', value: 120, displayValue: '120 дБ', emoji: '🎸', imageUri: '', category: 'Музыка', funFact: 'Громкость на уровне болевого порога.' },
   { id: 'thunderclap', nameRu: 'Раскат грома', nameEn: 'Thunder', value: 120, displayValue: '120 дБ', emoji: '⛈️', imageUri: '', category: 'Природа', funFact: 'Гром это звук от расширяющегося воздуха.' },
   { id: 'ambulance_siren', nameRu: 'Сирена скорой', nameEn: 'Ambulance Siren', value: 120, displayValue: '120 дБ', emoji: '🚑', imageUri: '', category: 'Транспорт', funFact: 'Спроектирована, чтобы пробивать шум города.' },
-  { id: 'jet_engine', nameRu: 'Двигатель самолета', nameEn: 'Jet Engine', value: 140, displayValue: '140 дБ', emoji: '✈️', imageUri: '', category: 'Транспорт', funFact: 'Находиться рядом без защиты опасно для слуха.' },
+  { id: 'jet_engine', nameRu: 'Двигатель самолета', nameEn: 'Jet Engine', value: 140, displayValue: '140 дБ', emoji: '✈️', imageUri: '/images/jet_engine_1786532770370.jpg', category: 'Транспорт', funFact: 'Находиться рядом без защиты опасно для слуха.' },
   { id: 'pistol_shot', nameRu: 'Выстрел из пистолета', nameEn: 'Gunshot', value: 160, displayValue: '160 дБ', emoji: '🔫', imageUri: '', category: 'Оружие', funFact: 'Мгновенный звук, но очень разрушительный.' },
-  { id: 'stun_grenade', nameRu: 'Светошумовая граната', nameEn: 'Stun Grenade', value: 170, displayValue: '170 дБ', emoji: '💥', imageUri: '', category: 'Оружие', funFact: 'Вызывает временную глухоту.' },
+  { id: 'stun_grenade', nameRu: 'Светошумовая граната', nameEn: 'Stun Grenade', value: 170, displayValue: '170 дБ', emoji: '💥', imageUri: '/images/stun_grenade_1786532774248.jpg', category: 'Оружие', funFact: 'Вызывает временную глухоту.' },
   { id: 'tunguska_event', nameRu: 'Тунгусский метеорит', nameEn: 'Tunguska Event', value: 300, displayValue: '300 дБ', emoji: '☄️', imageUri: '', category: 'События', funFact: 'Повалил 80 млн деревьев.' },
   { id: 'black_hole_collision', nameRu: 'Столкновение черных дыр', nameEn: 'Black Hole Collision', value: 500, displayValue: 'Неизмеримо', emoji: '🕳️', imageUri: '', category: 'Космос', funFact: 'Гравитационные волны вместо звука.' }
 ];

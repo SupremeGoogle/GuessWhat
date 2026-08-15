@@ -8,7 +8,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 15,
     displayValue: '15 ккал',
     emoji: '🥒',
-    imageUri: '',
+    imageUri: '/images/cucumber_1786531357198.jpg',
     category: 'Овощи',
     funFact: 'Состоит на 95% из воды, идеален для диеты.'
   },
@@ -19,7 +19,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 52,
     displayValue: '52 ккал',
     emoji: '🍎',
-    imageUri: '',
+    imageUri: '/images/apple_1786531627562.jpg',
     category: 'Фрукты',
     funFact: 'Богато клетчаткой и витаминами.'
   },
@@ -30,7 +30,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 77,
     displayValue: '77 ккал',
     emoji: '🥔',
-    imageUri: '',
+    imageUri: '/images/potato_1786531629044.jpg',
     category: 'Овощи',
     funFact: 'Очень сытный продукт, если его сварить, а не жарить.'
   },
@@ -52,7 +52,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 250,
     displayValue: '250 ккал',
     emoji: '🥩',
-    imageUri: '',
+    imageUri: '/images/beef_1786533567200.jpg',
     category: 'Мясо',
     funFact: 'Калорийность зависит от жирности выбранного куска.'
   },
@@ -63,7 +63,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 265,
     displayValue: '265 ккал',
     emoji: '🍞',
-    imageUri: '',
+    imageUri: '/images/bread_1786531645026.jpg',
     category: 'Выпечка',
     funFact: 'Содержит быстрые углеводы, которые быстро дают энергию.'
   },
@@ -74,7 +74,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 402,
     displayValue: '402 ккал',
     emoji: '🧀',
-    imageUri: '',
+    imageUri: '/images/cheese_1786531383603.jpg',
     category: 'Молочные',
     funFact: 'Очень вкусно, но и очень калорийно за счет жиров.'
   },
@@ -85,7 +85,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 535,
     displayValue: '535 ккал',
     emoji: '🍫',
-    imageUri: '',
+    imageUri: '/images/chocolate_1786531385629.jpg',
     category: 'Сладости',
     funFact: 'Отличный способ быстро поднять настроение (и сахар в крови).'
   },
@@ -96,7 +96,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 654,
     displayValue: '654 ккал',
     emoji: '🥜',
-    imageUri: '',
+    imageUri: '/images/walnuts_1786531387780.jpg',
     category: 'Орехи',
     funFact: 'Полезные жиры делают их суперфудом, но их нужно есть понемногу.'
   },
@@ -107,7 +107,7 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 717,
     displayValue: '717 ккал',
     emoji: '🧈',
-    imageUri: '',
+    imageUri: '/images/butter_1786531646883.jpg',
     category: 'Жиры',
     funFact: 'Почти чистый жир, поэтому такая высокая калорийность.'
   },
@@ -118,23 +118,23 @@ export const LEVEL10_DATA: GameItem[] = [
     value: 884,
     displayValue: '884 ккал',
     emoji: '🫒',
-    imageUri: '',
+    imageUri: '/images/olive_oil_1786533569329.jpg',
     category: 'Жиры',
     funFact: 'Одно из самых калорийных веществ, которые мы употребляем в пищу (100% жир).'
   },
-  { id: 'broccoli', nameRu: 'Брокколи', nameEn: 'Broccoli', value: 34, displayValue: '34 ккал', emoji: '🥦', imageUri: '', category: 'Овощи', funFact: 'Отличный источник витамина C.' },
-  { id: 'strawberry', nameRu: 'Клубника', nameEn: 'Strawberry', value: 32, displayValue: '32 ккал', emoji: '🍓', imageUri: '', category: 'Фрукты', funFact: 'Семена клубники находятся снаружи.' },
-  { id: 'potato', nameRu: 'Картофель', nameEn: 'Potato', value: 77, displayValue: '77 ккал', emoji: '🥔', imageUri: '', category: 'Овощи', funFact: 'Первый овощ, выращенный в космосе.' },
-  { id: 'rice', nameRu: 'Белый рис', nameEn: 'White Rice', value: 130, displayValue: '130 ккал', emoji: '🍚', imageUri: '', category: 'Крупы', funFact: 'Основа рациона половины планеты.' },
+  { id: 'broccoli', nameRu: 'Брокколи', nameEn: 'Broccoli', value: 34, displayValue: '34 ккал', emoji: '🥦', imageUri: '/images/broccoli_1786531404493.jpg', category: 'Овощи', funFact: 'Отличный источник витамина C.' },
+  { id: 'strawberry', nameRu: 'Клубника', nameEn: 'Strawberry', value: 32, displayValue: '32 ккал', emoji: '🍓', imageUri: '/images/strawberry_1786531659999.jpg', category: 'Фрукты', funFact: 'Семена клубники находятся снаружи.' },
+  { id: 'potato', nameRu: 'Картофель', nameEn: 'Potato', value: 77, displayValue: '77 ккал', emoji: '🥔', imageUri: '/images/potato_1786531661626.jpg', category: 'Овощи', funFact: 'Первый овощ, выращенный в космосе.' },
+  { id: 'rice', nameRu: 'Белый рис', nameEn: 'White Rice', value: 130, displayValue: '130 ккал', emoji: '🍚', imageUri: '/images/rice_1786533573276.jpg', category: 'Крупы', funFact: 'Основа рациона половины планеты.' },
   { id: 'chicken_breast', nameRu: 'Куриная грудка', nameEn: 'Chicken Breast', value: 165, displayValue: '165 ккал', emoji: '🍗', imageUri: '', category: 'Мясо', funFact: 'Популярна у бодибилдеров за белок.' },
-  { id: 'bread', nameRu: 'Белый хлеб', nameEn: 'White Bread', value: 265, displayValue: '265 ккал', emoji: '🍞', imageUri: '', category: 'Выпечка', funFact: 'Одно из древнейших блюд.' },
+  { id: 'bread', nameRu: 'Белый хлеб', nameEn: 'White Bread', value: 265, displayValue: '265 ккал', emoji: '🍞', imageUri: '/images/bread_1786531677508.jpg', category: 'Выпечка', funFact: 'Одно из древнейших блюд.' },
   { id: 'cheddar', nameRu: 'Сыр Чеддер', nameEn: 'Cheddar', value: 402, displayValue: '402 ккал', emoji: '🧀', imageUri: '', category: 'Молочные продукты', funFact: 'Самый популярный сыр в мире.' },
-  { id: 'peanut_butter', nameRu: 'Арахисовая паста', nameEn: 'Peanut Butter', value: 588, displayValue: '588 ккал', emoji: '🥜', imageUri: '', category: 'Сладости', funFact: 'Изобретена в 19 веке.' },
-  { id: 'almonds', nameRu: 'Миндаль', nameEn: 'Almonds', value: 579, displayValue: '579 ккал', emoji: '🌰', imageUri: '', category: 'Орехи', funFact: 'С точки зрения ботаники — это косточка фрукта.' },
-  { id: 'walnuts', nameRu: 'Грецкие орехи', nameEn: 'Walnuts', value: 654, displayValue: '654 ккал', emoji: '🧠', imageUri: '', category: 'Орехи', funFact: 'Похожи на человеческий мозг.' },
-  { id: 'mayonnaise', nameRu: 'Майонез', nameEn: 'Mayonnaise', value: 680, displayValue: '680 ккал', emoji: '🥚', imageUri: '', category: 'Соусы', funFact: 'Состоит в основном из масла и желтков.' },
-  { id: 'butter_oil', nameRu: 'Топленое масло', nameEn: 'Ghee', value: 876, displayValue: '876 ккал', emoji: '🧈', imageUri: '', category: 'Жиры', funFact: 'Имеет высокую температуру дымления.' },
-  { id: 'lard', nameRu: 'Сало', nameEn: 'Lard', value: 900, displayValue: '900 ккал', emoji: '🥓', imageUri: '', category: 'Мясо', funFact: 'Чистый животный жир.' },
-  { id: 'coke', nameRu: 'Кока-Кола', nameEn: 'Coca Cola', value: 42, displayValue: '42 ккал', emoji: '🥤', imageUri: '', category: 'Напитки', funFact: 'Калории исключительно из сахара.' },
-  { id: 'vodka', nameRu: 'Водка', nameEn: 'Vodka', value: 231, displayValue: '231 ккал', emoji: '🍸', imageUri: '', category: 'Напитки', funFact: 'Алкоголь очень калориен.' }
+  { id: 'peanut_butter', nameRu: 'Арахисовая паста', nameEn: 'Peanut Butter', value: 588, displayValue: '588 ккал', emoji: '🥜', imageUri: '/images/peanut_butter_1786533582203.jpg', category: 'Сладости', funFact: 'Изобретена в 19 веке.' },
+  { id: 'almonds', nameRu: 'Миндаль', nameEn: 'Almonds', value: 579, displayValue: '579 ккал', emoji: '🌰', imageUri: '/images/almonds_1786531693407.jpg', category: 'Орехи', funFact: 'С точки зрения ботаники — это косточка фрукта.' },
+  { id: 'walnuts', nameRu: 'Грецкие орехи', nameEn: 'Walnuts', value: 654, displayValue: '654 ккал', emoji: '🧠', imageUri: '/images/walnuts_1786531423450.jpg', category: 'Орехи', funFact: 'Похожи на человеческий мозг.' },
+  { id: 'mayonnaise', nameRu: 'Майонез', nameEn: 'Mayonnaise', value: 680, displayValue: '680 ккал', emoji: '🥚', imageUri: '/images/mayonnaise_1786531695082.jpg', category: 'Соусы', funFact: 'Состоит в основном из масла и желтков.' },
+  { id: 'butter_oil', nameRu: 'Топленое масло', nameEn: 'Ghee', value: 876, displayValue: '876 ккал', emoji: '🧈', imageUri: '/images/butter_oil_1786531698249.jpg', category: 'Жиры', funFact: 'Имеет высокую температуру дымления.' },
+  { id: 'lard', nameRu: 'Сало', nameEn: 'Lard', value: 900, displayValue: '900 ккал', emoji: '🥓', imageUri: '/images/lard_1786533585062.jpg', category: 'Мясо', funFact: 'Чистый животный жир.' },
+  { id: 'coke', nameRu: 'Кока-Кола', nameEn: 'Coca Cola', value: 42, displayValue: '42 ккал', emoji: '🥤', imageUri: '/images/coke_1786531711237.jpg', category: 'Напитки', funFact: 'Калории исключительно из сахара.' },
+  { id: 'vodka', nameRu: 'Водка', nameEn: 'Vodka', value: 231, displayValue: '231 ккал', emoji: '🍸', imageUri: '/images/vodka_1786531435747.jpg', category: 'Напитки', funFact: 'Алкоголь очень калориен.' }
 ];
