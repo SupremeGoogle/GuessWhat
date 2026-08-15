@@ -30,7 +30,7 @@ export const LEVEL7_DATA: GameItem[] = [
     value: 1200,
     displayValue: '$1,200',
     emoji: '📱',
-    imageUri: '',
+    imageUri: '/images/smartphone_1786534090123.jpg',
     category: 'Электроника',
     funFact: 'Современные телефоны мощнее, чем компьютеры, отправлявшие людей на Луну.'
   },
@@ -115,7 +115,6 @@ export const LEVEL7_DATA: GameItem[] = [
   { id: 'bottle_water', nameRu: 'Бутылка воды', nameEn: 'Bottle of Water', value: 2, displayValue: '$2', emoji: '💧', imageUri: '', category: 'Напитки', funFact: 'Бутилированная вода часто дороже бензина.' },
   { id: 'movie_ticket', nameRu: 'Билет в кино', nameEn: 'Movie Ticket', value: 15, displayValue: '$15', emoji: '🎟️', imageUri: '', category: 'Развлечения', funFact: 'Попкорн приносит кинотеатрам больше прибыли.' },
   { id: 'video_game', nameRu: 'AAA Видеоигра', nameEn: 'AAA Video Game', value: 70, displayValue: '$70', emoji: '🎮', imageUri: '', category: 'Развлечения', funFact: 'Игры стали стоить по $70 недавно.' },
-  { id: 'smartphone', nameRu: 'Смартфон (Флагман)', nameEn: 'Smartphone', value: 1000, displayValue: '$1000', emoji: '📱', imageUri: '/images/smartphone_1786534090123.jpg', category: 'Гаджеты', funFact: 'Мощнее компьютеров НАСА для полета на Луну.' },
   { id: 'laptop_pro', nameRu: 'Ноутбук Pro', nameEn: 'Pro Laptop', value: 2500, displayValue: '$2500', emoji: '💻', imageUri: '', category: 'Гаджеты', funFact: 'Используется программистами и дизайнерами.' },
   { id: 'rolex_sub', nameRu: 'Часы Rolex', nameEn: 'Rolex Watch', value: 10000, displayValue: '$10000', emoji: '⌚', imageUri: '', category: 'Роскошь', funFact: 'Часто дорожают со временем.' },
   { id: 'new_car', nameRu: 'Новый автомобиль', nameEn: 'New Car', value: 40000, displayValue: '$40000', emoji: '🚗', imageUri: '', category: 'Транспорт', funFact: 'Теряет 20% стоимости при выезде из салона.' },

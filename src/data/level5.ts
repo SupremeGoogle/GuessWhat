@@ -119,11 +119,9 @@ export const LEVEL5_DATA: GameItem[] = [
   { id: 'liquid_nitrogen', nameRu: 'Жидкий азот', nameEn: 'Liquid Nitrogen', value: -196, displayValue: '-196 °C', emoji: '🥶', imageUri: '', category: 'Вещества', funFact: 'Используется для быстрой заморозки.' },
   { id: 'paper_burn', nameRu: 'Горение бумаги', nameEn: 'Burning Paper', value: 232, displayValue: '232 °C', emoji: '📄', imageUri: '', category: 'Химия', funFact: 'Температура самовоспламенения бумаги по Редбери (451 по Фаренгейту).' },
   { id: 'magma', nameRu: 'Магма', nameEn: 'Magma', value: 1200, displayValue: '1200 °C', emoji: '🌋', imageUri: '/images/magma_1786532042428.jpg', category: 'Геология', funFact: 'Лава становится магмой под землей.' },
-  { id: 'oven', nameRu: 'Духовка (макс)', nameEn: 'Oven', value: 250, displayValue: '250 °C', emoji: '🍳', imageUri: '/images/oven_1786533863106.jpg', category: 'Быт', funFact: 'Стандартный максимум бытовой духовки.' },
   { id: 'pizza_oven', nameRu: 'Печь для пиццы', nameEn: 'Pizza Oven', value: 450, displayValue: '450 °C', emoji: '🍕', imageUri: '', category: 'Кулинария', funFact: 'Настоящая неаполитанская пицца печется 90 секунд.' },
   { id: 'light_bulb_tungsten', nameRu: 'Нить накаливания', nameEn: 'Tungsten Bulb', value: 2500, displayValue: '2500 °C', emoji: '💡', imageUri: '', category: 'Технологии', funFact: 'Нить из вольфрама светится от нагрева.' },
   { id: 'candle_flame', nameRu: 'Пламя свечи', nameEn: 'Candle Flame', value: 1000, displayValue: '1000 °C', emoji: '🕯️', imageUri: '/images/candle_flame_1786533896293.jpg', category: 'Химия', funFact: 'Самая горячая часть пламени невидима.' },
   { id: 'sun_core', nameRu: 'Ядро Солнца', nameEn: 'Sun Core', value: 15000000, displayValue: '15 млн °C', emoji: '☀️', imageUri: '', category: 'Космос', funFact: 'Происходит термоядерный синтез.' },
-  { id: 'lightning', nameRu: 'Молния', nameEn: 'Lightning', value: 30000, displayValue: '30 000 °C', emoji: '⚡', imageUri: '/images/lightning_1786533903072.jpg', category: 'Природа', funFact: 'В 5 раз горячее поверхности Солнца.' },
   { id: 'iron_melt', nameRu: 'Плавление железа', nameEn: 'Melting Iron', value: 1538, displayValue: '1538 °C', emoji: '⚙️', imageUri: '', category: 'Химия', funFact: 'Требуются мощные доменные печи.' }
 ];

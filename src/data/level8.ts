@@ -125,5 +125,4 @@ export const LEVEL8_DATA: GameItem[] = [
   { id: 'giant_sequoia', nameRu: 'Секвойя', nameEn: 'Giant Sequoia', value: 3000, displayValue: '3000 лет', emoji: '🌲', imageUri: '/images/giant_sequoia_1786532533782.jpg', category: 'Растения', funFact: 'Самые массивные деревья на Земле.' },
   { id: 'bristlecone_pine', nameRu: 'Остистая сосна', nameEn: 'Bristlecone Pine', value: 5000, displayValue: '5000 лет', emoji: '🌲', imageUri: '', category: 'Растения', funFact: 'Дерево Мафусаил старше пирамид.' },
   { id: 'immortal_jellyfish', nameRu: 'Бессмертная медуза', nameEn: 'Immortal Jellyfish', value: 9999, displayValue: 'Бессмертна', emoji: '🪼', imageUri: '/images/immortal_jellyfish_1786532582038.jpg', category: 'Животные', funFact: 'Может возвращаться в стадию полипа.' },
-  { id: 'mayfly', nameRu: 'Поденка', nameEn: 'Mayfly', value: 0.003, displayValue: '1 день', emoji: '🦟', imageUri: '', category: 'Насекомые', funFact: 'Живут всего около суток во взрослом состоянии.' }
 ];

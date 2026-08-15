@@ -232,7 +232,6 @@ export const LEVEL1_ADDITIONAL: GameItem[] = [
   { id: 'cow', nameRu: 'Корова', nameEn: 'Cow', value: 700, displayValue: '700 кг', emoji: '🐄', imageUri: '/images/cow_1786531610675.jpg', category: 'Млекопитающие', funFact: 'Имеют четыре желудка.' },
   { id: 'ostrich', nameRu: 'Страус', nameEn: 'Ostrich', value: 110, displayValue: '110 кг', emoji: '🦤', imageUri: '/images/ostrich_1786533560273.jpg', category: 'Птицы', funFact: 'Самая крупная птица.' },
   { id: 'kangaroo', nameRu: 'Кенгуру', nameEn: 'Kangaroo', value: 60, displayValue: '60 кг', emoji: '🦘', imageUri: '/images/kangaroo_1786531624079.jpg', category: 'Млекопитающие', funFact: 'Не умеют ходить назад.' },
-  { id: 'gorilla', nameRu: 'Горилла', nameEn: 'Gorilla', value: 160, displayValue: '160 кг', emoji: '🦍', imageUri: '/images/gorilla_1786531346896.jpg', category: 'Приматы', funFact: 'ДНК совпадает с человеческой на 98%.' },
   { id: 'grizzly', nameRu: 'Гризли', nameEn: 'Grizzly Bear', value: 300, displayValue: '300 кг', emoji: '🐻', imageUri: '/images/grizzly_1786531350380.jpg', category: 'Млекопитающие', funFact: 'Могут бегать со скоростью 50 км/ч.' },
   { id: 'camel', nameRu: 'Верблюд', nameEn: 'Camel', value: 480, displayValue: '480 кг', emoji: '🐫', imageUri: '/images/camel_1786531352860.jpg', category: 'Млекопитающие', funFact: 'Могут пить по 100 литров воды за раз.' },
   { id: 'panda', nameRu: 'Панда', nameEn: 'Panda', value: 100, displayValue: '100 кг', emoji: '🐼', imageUri: '/images/panda_1786531626186.jpg', category: 'Млекопитающие', funFact: 'Едят бамбук по 12 часов в день.' }

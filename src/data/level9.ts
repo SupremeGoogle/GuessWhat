@@ -112,7 +112,6 @@ export const LEVEL9_DATA: GameItem[] = [
     funFact: 'Громкость настолько велика, что звуковые волны могут разрушать здания.'
   },
   { id: 'rustling_leaves', nameRu: 'Шелест листьев', nameEn: 'Rustling Leaves', value: 20, displayValue: '20 дБ', emoji: '🍃', imageUri: '', category: 'Природа', funFact: 'Едва различим в тишине.' },
-  { id: 'whisper', nameRu: 'Шепот', nameEn: 'Whisper', value: 30, displayValue: '30 дБ', emoji: '🤫', imageUri: '', category: 'Люди', funFact: 'Обычный разговор на расстоянии метра.' },
   { id: 'refrigerator', nameRu: 'Холодильник', nameEn: 'Refrigerator', value: 40, displayValue: '40 дБ', emoji: '🧊', imageUri: '', category: 'Быт', funFact: 'Может казаться громким ночью.' },
   { id: 'normal_conversation', nameRu: 'Разговор', nameEn: 'Conversation', value: 60, displayValue: '60 дБ', emoji: '🗣️', imageUri: '', category: 'Люди', funFact: 'Стандартный уровень голоса.' },
   { id: 'city_traffic', nameRu: 'Городской трафик', nameEn: 'City Traffic', value: 80, displayValue: '80 дБ', emoji: '🚗', imageUri: '', category: 'Транспорт', funFact: 'Длительное воздействие может портить слух.' },
