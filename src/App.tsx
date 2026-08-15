@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ScreenType, GameStats, LevelInfo, GameItem } from './types';
 import { INITIAL_LEVELS } from './data/levels';
@@ -8,6 +8,7 @@ import { LevelSelect } from './components/LevelSelect';
 import { GameLevel } from './components/GameLevel';
 import { LevelLockedModal } from './components/LevelLockedModal';
 import { audio } from './utils/audio';
+import { loadProgress, saveProgress, mergeLevelsWithProgress } from './lib/storage';
 
 import { LEVEL1_DATA } from './data/level1';
 import { LEVEL2_DATA } from './data/level2';
@@ -40,18 +41,31 @@ const getLevelData = (levelId: number): GameItem[] => {
   }
 };
 
+const DEFAULT_STATS: GameStats = {
+  totalScore: 0,
+  starsEarned: 0,
+  levelsCompleted: 0
+};
+
 export const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('splash');
-  const [levels, setLevels] = useState<LevelInfo[]>(INITIAL_LEVELS);
+  // Прогресс (звёзды, рекорды, разблокировки) переживает перезагрузку страницы:
+  // при первом рендере подмешиваем сохранённые данные из localStorage поверх
+  // актуального списка уровней (см. `src/lib/storage.ts`).
+  const [levels, setLevels] = useState<LevelInfo[]>(() =>
+    mergeLevelsWithProgress(INITIAL_LEVELS, loadProgress()?.levels)
+  );
   const [isMuted, setIsMuted] = useState(false);
   const [lockedModalLevel, setLockedModalLevel] = useState<LevelInfo | null>(null);
   const [activeLevelId, setActiveLevelId] = useState<number>(1);
 
-  const [stats, setStats] = useState<GameStats>({
-    totalScore: 0,
-    starsEarned: 0,
-    levelsCompleted: 0
-  });
+  const [stats, setStats] = useState<GameStats>(() => loadProgress()?.stats ?? DEFAULT_STATS);
+
+  // Сохраняем прогресс при каждом изменении очков/звёзд/уровней — не только
+  // при выходе из игры, чтобы случайное закрытие вкладки его не стёрло.
+  useEffect(() => {
+    saveProgress(stats, levels);
+  }, [stats, levels]);
 
   const handleToggleMute = () => {
     const muted = audio.toggleMute();
