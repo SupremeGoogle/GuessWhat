@@ -47,6 +47,9 @@ const DEFAULT_STATS: GameStats = {
   levelsCompleted: 0
 };
 
+// Разблокировка следующего уровня требует хотя бы 2 звёзд за пройденный.
+const UNLOCK_NEXT_LEVEL_STARS = 2;
+
 export const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('splash');
   // Прогресс (звёзды, рекорды, разблокировки) переживает перезагрузку страницы:
@@ -98,6 +101,11 @@ export const App: React.FC = () => {
           stars: Math.max(lvl.stars, stars),
           highScore: Math.max(lvl.highScore, gainedScore)
         };
+      }
+      // Пройденный с ≥2 звёзд уровень открывает следующий по id — работает
+      // для любого уровня, а не только для перехода 1 → 2.
+      if (lvl.id === activeLevelId + 1 && stars >= UNLOCK_NEXT_LEVEL_STARS) {
+        return { ...lvl, isUnlocked: true };
       }
       return lvl;
     }));
