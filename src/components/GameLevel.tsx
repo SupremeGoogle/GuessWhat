@@ -17,6 +17,18 @@ interface GameLevelProps {
   onToggleMute: () => void;
 }
 
+// Единый источник порогов звёзд по финальному счёту уровня — раньше 4/8 были
+// захардкожены отдельно в расчёте stars при завершении уровня и отдельно в
+// разметке модалки победы (заливка второй/третьей звезды), из-за чего их
+// легко было развести правкой в одном месте и забыть про другое.
+const STAR_SCORE_THRESHOLDS = { second: 4, third: 8 } as const;
+
+function getStarsForScore(score: number): number {
+  if (score >= STAR_SCORE_THRESHOLDS.third) return 3;
+  if (score >= STAR_SCORE_THRESHOLDS.second) return 2;
+  return 1;
+}
+
 export const GameLevel: React.FC<GameLevelProps> = ({
   levelInfo,
   levelData,
@@ -110,9 +122,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     nextRoundTimeoutRef.current = setTimeout(() => {
       if (round >= TOTAL_ROUNDS) {
         const finalScore = score + (isCorrect ? 1 : -2);
-        let stars = 1;
-        if (finalScore >= 8) stars = 3;
-        else if (finalScore >= 4) stars = 2;
+        const stars = getStarsForScore(finalScore);
 
         setIsFinished(true);
         audio.playVictory();
@@ -278,10 +288,10 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                   <Star size={48} fill="#ffd700" color="#ffd700" className="drop-shadow-[0_0_15px_#ffd700]" />
                 </motion.div>
                 <motion.div initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }}>
-                  <Star size={48} fill={score >= 4 ? '#ffd700' : 'none'} color={score >= 4 ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= 4 ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
+                  <Star size={48} fill={score >= STAR_SCORE_THRESHOLDS.second ? '#ffd700' : 'none'} color={score >= STAR_SCORE_THRESHOLDS.second ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= STAR_SCORE_THRESHOLDS.second ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
                 </motion.div>
                 <motion.div initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.5, type: "spring" }}>
-                  <Star size={48} fill={score >= 8 ? '#ffd700' : 'none'} color={score >= 8 ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= 8 ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
+                  <Star size={48} fill={score >= STAR_SCORE_THRESHOLDS.third ? '#ffd700' : 'none'} color={score >= STAR_SCORE_THRESHOLDS.third ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= STAR_SCORE_THRESHOLDS.third ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
                 </motion.div>
               </div>
 
