@@ -48,8 +48,9 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
           whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
           whileTap={{ scale: 0.9 }}
           className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors"
-          onClick={onBack} 
+          onClick={onBack}
           title="Назад"
+          aria-label="Назад в меню"
         >
           <ArrowLeft size={22} />
         </motion.button>
@@ -74,7 +75,16 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
             <GlassCard
               active={lvl.isUnlocked}
               onClick={() => handleCardClick(lvl)}
-              className={lvl.isUnlocked ? "cursor-pointer hover:-translate-y-1 hover:shadow-lg" : "opacity-60 grayscale cursor-not-allowed"}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                  e.preventDefault();
+                  handleCardClick(lvl);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={lvl.isUnlocked ? `Уровень ${lvl.id}, ${lvl.title}, открыт` : `Уровень ${lvl.id}, ${lvl.title}, заблокирован`}
+              className={lvl.isUnlocked ? "cursor-pointer hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe]" : "opacity-60 grayscale cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe]"}
             >
               {lvl.isUnlocked && (
                 <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-[#00e676] to-[#00b359] text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-[0_4px_10px_rgba(0,230,118,0.4)] uppercase">

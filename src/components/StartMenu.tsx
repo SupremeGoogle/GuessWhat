@@ -52,8 +52,10 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           whileHover={{ y: -2, backgroundColor: 'rgba(255,255,255,0.15)' }}
           whileTap={{ scale: 0.9 }}
           className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors"
-          onClick={onToggleMute} 
+          onClick={onToggleMute}
           title="Звук"
+          aria-label={isMuted ? 'Включить звук' : 'Выключить звук'}
+          aria-pressed={isMuted}
         >
           {isMuted ? <VolumeX size={18} color="#ff0844" /> : <Volume2 size={18} color="#00e676" />}
         </motion.button>

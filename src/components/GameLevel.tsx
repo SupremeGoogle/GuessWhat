@@ -165,8 +165,9 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
           whileTap={{ scale: 0.9 }}
           className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors shrink-0"
-          onClick={onBack} 
+          onClick={onBack}
           title="Выход"
+          aria-label="Выйти в меню"
         >
           <ArrowLeft size={22} />
         </motion.button>
@@ -185,6 +186,8 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           whileTap={{ scale: 0.9 }}
           className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors shrink-0"
           onClick={onToggleMute}
+          aria-label={isMuted ? 'Включить звук' : 'Выключить звук'}
+          aria-pressed={isMuted}
         >
           {isMuted ? <VolumeX size={18} color="#ff0844" /> : <Volume2 size={18} color="#00e676" />}
         </motion.button>
@@ -375,13 +378,26 @@ function renderItemCard(
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isRevealed) return;
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      onClick(item);
+    }
+  };
+
   return (
     <motion.div
       layoutId={item.id + position} // to smoothly animate out/in on new rounds if Framer Motion supports it across renders
       animate={animationProps}
       whileTap={!isRevealed ? { scale: 0.95 } : {}}
-      className={`flex-1 rounded-[28px] border-2 backdrop-blur-xl flex flex-col items-center justify-between p-3.5 relative overflow-hidden cursor-pointer transition-colors shadow-2xl ${stateClasses}`}
+      className={`flex-1 rounded-[28px] border-2 backdrop-blur-xl flex flex-col items-center justify-between p-3.5 relative overflow-hidden cursor-pointer transition-colors shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe] ${stateClasses}`}
       onClick={() => onClick(item)}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={isRevealed ? -1 : 0}
+      aria-label={`${item.nameRu}, нажми, если думаешь, что это верный ответ`}
+      aria-disabled={isRevealed}
     >
       <div className="w-full h-[140px] rounded-[20px] overflow-hidden relative bg-black/40 shadow-inner group">
         {item.imageUri && !hasImageError ? (

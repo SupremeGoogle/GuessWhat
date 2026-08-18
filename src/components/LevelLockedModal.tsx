@@ -35,6 +35,7 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2"
+              aria-label="Закрыть"
             >
               <X size={20} />
             </button>
