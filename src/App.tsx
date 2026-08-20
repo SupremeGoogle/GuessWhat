@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { ScreenType, GameStats, LevelInfo, GameItem } from './types';
+import { ScreenType, LevelInfo, GameItem } from './types';
 import { INITIAL_LEVELS } from './data/levels';
 import { SplashScreen } from './components/SplashScreen';
 import { StartMenu } from './components/StartMenu';
@@ -8,7 +8,7 @@ import { LevelSelect } from './components/LevelSelect';
 import { GameLevel } from './components/GameLevel';
 import { LevelLockedModal } from './components/LevelLockedModal';
 import { audio } from './utils/audio';
-import { loadProgress, saveProgress, mergeLevelsWithProgress } from './lib/storage';
+import { loadProgress, saveProgress, mergeLevelsWithProgress, computeStats } from './lib/storage';
 
 import { LEVEL1_DATA } from './data/level1';
 import { LEVEL2_DATA } from './data/level2';
@@ -41,12 +41,6 @@ const getLevelData = (levelId: number): GameItem[] => {
   }
 };
 
-const DEFAULT_STATS: GameStats = {
-  totalScore: 0,
-  starsEarned: 0,
-  levelsCompleted: 0
-};
-
 // Разблокировка следующего уровня требует хотя бы 2 звёзд за пройденный.
 const UNLOCK_NEXT_LEVEL_STARS = 2;
 
@@ -62,9 +56,13 @@ export const App: React.FC = () => {
   const [lockedModalLevel, setLockedModalLevel] = useState<LevelInfo | null>(null);
   const [activeLevelId, setActiveLevelId] = useState<number>(1);
 
-  const [stats, setStats] = useState<GameStats>(() => loadProgress()?.stats ?? DEFAULT_STATS);
+  // Счётчики в меню — не отдельное состояние, а всегда пересчитываются из
+  // `levels` (см. `computeStats`), поэтому по построению не могут разойтись
+  // с тем, что подписано в UI: «звёзды» — сумма лучших `stars` по уровням,
+  // «очки» — сумма рекордов `highScore` по уровням.
+  const stats = useMemo(() => computeStats(levels), [levels]);
 
-  // Сохраняем прогресс при каждом изменении очков/звёзд/уровней — не только
+  // Сохраняем прогресс при каждом изменении звёзд/рекордов/уровней — не только
   // при выходе из игры, чтобы случайное закрытие вкладки его не стёрло.
   useEffect(() => {
     saveProgress(stats, levels);
@@ -88,12 +86,8 @@ export const App: React.FC = () => {
   };
 
   const handleLevelComplete = (gainedScore: number, stars: number) => {
-    setStats(prev => ({
-      totalScore: prev.totalScore + Math.max(0, gainedScore),
-      starsEarned: Math.max(prev.starsEarned, stars),
-      levelsCompleted: Math.max(prev.levelsCompleted, 1)
-    }));
-
+    // Счётчики меню (`stats`) больше не обновляются здесь напрямую — они
+    // пересчитываются из per-level `stars`/`highScore` ниже (см. `computeStats`).
     setLevels(prev => prev.map(lvl => {
       if (lvl.id === activeLevelId) {
         return {

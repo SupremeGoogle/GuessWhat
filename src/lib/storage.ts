@@ -87,6 +87,36 @@ export function saveProgress(stats: GameStats, levels: LevelInfo[]): void {
   }
 }
 
+/** Единственный источник правды для счётчиков в меню (`GameStats`).
+ *
+ * До этой функции `stats` в `App.tsx` вёлся отдельным аккумулятором и разъехался
+ * с тем, что подписан рядом в UI: `starsEarned` считался через `Math.max(prev,
+ * stars)` — то есть держал максимум звёзд за одно прохождение *любого* уровня,
+ * а не «общее число звёзд» (сумму лучших результатов по всем уровням), как
+ * подписано в меню. `totalScore` суммировал `gainedScore` каждого завершения
+ * уровня — то есть рос при каждом перепрохождении, превращая «очки» в
+ * «сколько раз вообще доиграл», а не в сумму личных рекордов.
+ *
+ * `levels` уже хранит корректные per-level `stars`/`highScore` (оба
+ * обновляются через `Math.max` в `handleLevelComplete` и переживают
+ * перезагрузку через `mergeLevelsWithProgress`) — они и есть источник
+ * правды. `stats` теперь всегда пересчитывается из `levels`, а не ведётся
+ * отдельно, поэтому по построению не может разойтись с ним:
+ * - `starsEarned` — сумма лучших `stars` по всем уровням;
+ * - `totalScore` — сумма рекордов (`highScore`) по всем уровням;
+ * - `levelsCompleted` — число уровней хотя бы с одной звездой (побочно
+ *   исправлено: раньше застревало на 1 навсегда через тот же `Math.max`). */
+export function computeStats(levels: LevelInfo[]): GameStats {
+  return levels.reduce<GameStats>(
+    (acc, level) => ({
+      totalScore: acc.totalScore + level.highScore,
+      starsEarned: acc.starsEarned + level.stars,
+      levelsCompleted: acc.levelsCompleted + (level.stars > 0 ? 1 : 0)
+    }),
+    { totalScore: 0, starsEarned: 0, levelsCompleted: 0 }
+  );
+}
+
 /** Накладывает сохранённый прогресс на актуальный список уровней из
  * `INITIAL_LEVELS`. Работает по `id`, поэтому переживает добавление новых
  * уровней в игру между сессиями. `isUnlocked` берётся как «или» с исходным
