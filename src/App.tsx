@@ -11,7 +11,7 @@ import { audio } from './utils/audio';
 import { loadProgress, saveProgress, mergeLevelsWithProgress, computeStats } from './lib/storage';
 
 import { LEVEL1_DATA } from './data/level1';
-import { LEVEL2_DATA } from './data/level2';
+import { SPEEDS_DATA } from './data/speeds';
 import { LEVEL3_DATA } from './data/level3';
 import { LEVEL4_DATA } from './data/level4';
 import { LEVEL5_DATA } from './data/level5';
@@ -27,7 +27,7 @@ import './styles/index.css';
 const getLevelData = (levelId: number): GameItem[] => {
   switch (levelId) {
     case 1: return LEVEL1_DATA;
-    case 2: return LEVEL2_DATA;
+    case 2: return SPEEDS_DATA;
     case 3: return LEVEL3_DATA;
     case 4: return LEVEL4_DATA;
     case 5: return LEVEL5_DATA;
