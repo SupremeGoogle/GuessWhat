@@ -223,18 +223,22 @@ export const LEVEL1_DATA: GameItem[] = [
   }
 ];
 
+// Второй набор уровня 1: 10 животных, не пересекающихся по виду с
+// LEVEL1_DATA (было по 3 дубля-вида с разными весами — «lion»/«african-lion»,
+// «tiger»/«amur-tiger», «grizzly»/«grizzly-bear», из-за чего один и тот же
+// вид в игре весил по-разному — и с фактами-заглушками в одно слово).
+// Итог LEVEL1_DATA + LEVEL1_ADDITIONAL: 20 + 10 = 30 животных.
 export const LEVEL1_ADDITIONAL: GameItem[] = [
-  { id: 'cat', nameRu: 'Домашняя кошка', nameEn: 'Cat', value: 4, displayValue: '4 кг', emoji: '🐈', imageUri: '/images/cat_1786533555179.jpg', category: 'Млекопитающие', funFact: 'Спят по 12-16 часов в день.' },
-  { id: 'dog', nameRu: 'Собака', nameEn: 'Dog', value: 20, displayValue: '20 кг', emoji: '🐕', imageUri: '/images/dog_1786531605853.jpg', category: 'Млекопитающие', funFact: 'Лучший друг человека.' },
-  { id: 'lion', nameRu: 'Лев', nameEn: 'Lion', value: 190, displayValue: '190 кг', emoji: '🦁', imageUri: '/images/lion_1786531607647.jpg', category: 'Млекопитающие', funFact: 'Король саванны.' },
-  { id: 'tiger', nameRu: 'Тигр', nameEn: 'Tiger', value: 220, displayValue: '220 кг', emoji: '🐯', imageUri: '/images/tiger_1786531609001.jpg', category: 'Млекопитающие', funFact: 'Крупнейшая из больших кошек.' },
-  { id: 'horse', nameRu: 'Лошадь', nameEn: 'Horse', value: 500, displayValue: '500 кг', emoji: '🐎', imageUri: '/images/horse_1786531339365.jpg', category: 'Млекопитающие', funFact: 'Спят стоя.' },
-  { id: 'cow', nameRu: 'Корова', nameEn: 'Cow', value: 700, displayValue: '700 кг', emoji: '🐄', imageUri: '/images/cow_1786531610675.jpg', category: 'Млекопитающие', funFact: 'Имеют четыре желудка.' },
-  { id: 'ostrich', nameRu: 'Страус', nameEn: 'Ostrich', value: 110, displayValue: '110 кг', emoji: '🦤', imageUri: '/images/ostrich_1786533560273.jpg', category: 'Птицы', funFact: 'Самая крупная птица.' },
-  { id: 'kangaroo', nameRu: 'Кенгуру', nameEn: 'Kangaroo', value: 60, displayValue: '60 кг', emoji: '🦘', imageUri: '/images/kangaroo_1786531624079.jpg', category: 'Млекопитающие', funFact: 'Не умеют ходить назад.' },
-  { id: 'grizzly', nameRu: 'Гризли', nameEn: 'Grizzly Bear', value: 300, displayValue: '300 кг', emoji: '🐻', imageUri: '/images/grizzly_1786531350380.jpg', category: 'Млекопитающие', funFact: 'Могут бегать со скоростью 50 км/ч.' },
-  { id: 'camel', nameRu: 'Верблюд', nameEn: 'Camel', value: 480, displayValue: '480 кг', emoji: '🐫', imageUri: '/images/camel_1786531352860.jpg', category: 'Млекопитающие', funFact: 'Могут пить по 100 литров воды за раз.' },
-  { id: 'panda', nameRu: 'Панда', nameEn: 'Panda', value: 100, displayValue: '100 кг', emoji: '🐼', imageUri: '/images/panda_1786531626186.jpg', category: 'Млекопитающие', funFact: 'Едят бамбук по 12 часов в день.' }
+  { id: 'cat', nameRu: 'Домашняя кошка', nameEn: 'Cat', value: 4, displayValue: '4 кг', emoji: '🐈', imageUri: '/images/cat_1786533555179.jpg', category: 'Домашние питомцы', funFact: 'Взрослая кошка весит в среднем 3,5–5 кг и способна прыгнуть в высоту до 1,8 метра — это в шесть раз больше длины её тела.' },
+  { id: 'dog', nameRu: 'Собака', nameEn: 'Dog', value: 20, displayValue: '20 кг', emoji: '🐕', imageUri: '/images/dog_1786531605853.jpg', category: 'Домашние питомцы', funFact: 'Собака средней породы весит 15–30 кг, а её нюх примерно в 10 000–100 000 раз острее человеческого.' },
+  { id: 'horse', nameRu: 'Лошадь', nameEn: 'Horse', value: 550, displayValue: '550 кг', emoji: '🐎', imageUri: '/images/horse_1786531339365.jpg', category: 'Копытные', funFact: 'Верховая лошадь весит в среднем 400–600 кг и благодаря особому устройству суставов ног способна спать как лёжа, так и стоя.' },
+  { id: 'cow', nameRu: 'Корова', nameEn: 'Cow', value: 650, displayValue: '650 кг', emoji: '🐄', imageUri: '/images/cow_1786531610675.jpg', category: 'Копытные', funFact: 'Молочная корова весит 550–750 кг и переваривает пищу с помощью четырёх отделов желудка.' },
+  { id: 'ostrich', nameRu: 'Страус', nameEn: 'Ostrich', value: 110, displayValue: '110 кг', emoji: '🦤', imageUri: '/images/ostrich_1786533560273.jpg', category: 'Птицы', funFact: 'Самая крупная и тяжёлая птица на Земле не летает, зато на бегу разгоняется до 70 км/ч.' },
+  { id: 'red-kangaroo', nameRu: 'Рыжий кенгуру', nameEn: 'Red Kangaroo', value: 66, displayValue: '66 кг', emoji: '🦘', imageUri: '/images/kangaroo_1786531624079.jpg', category: 'Сумчатые', funFact: 'Самый крупный сумчатый в мире: крупные самцы весят до 90 кг и способны прыгать на 9 метров за один скачок.' },
+  { id: 'dromedary-camel', nameRu: 'Одногорбый верблюд', nameEn: 'Dromedary Camel', value: 480, displayValue: '480 кг', emoji: '🐫', imageUri: '/images/camel_1786531352860.jpg', category: 'Копытные', funFact: 'Взрослый верблюд весит 400–600 кг и способен выпить до 100 литров воды всего за 10 минут.' },
+  { id: 'giant-panda', nameRu: 'Большая панда', nameEn: 'Giant Panda', value: 100, displayValue: '100 кг', emoji: '🐼', imageUri: '/images/panda_1786531626186.jpg', category: 'Млекопитающие', funFact: 'Взрослая панда весит от 70 до 115 кг (самцы крупнее самок) и съедает до 12 кг бамбука в день, хотя формально относится к хищникам.' },
+  { id: 'cheetah', nameRu: 'Гепард', nameEn: 'Cheetah', value: 50, displayValue: '50 кг', emoji: '🐆', imageUri: '/images/cheetah_1786533592264.jpg', category: 'Дикие кошки', funFact: 'Самое быстрое сухопутное животное разгоняется до 100 км/ч всего за 3 секунды при собственном весе 45–65 кг.' },
+  { id: 'greenland-shark', nameRu: 'Гренландская акула', nameEn: 'Greenland Shark', value: 400, displayValue: '400 кг', emoji: '🦈', imageUri: '/images/greenland_shark_1786532485867.jpg', category: 'Морские хищники', funFact: 'Одна из самых долгоживущих позвоночных на Земле — доживает до 300–500 лет, а её вес может превышать 400 кг.' }
 ];
 
 LEVEL1_DATA.push(...LEVEL1_ADDITIONAL);
