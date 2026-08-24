@@ -6,6 +6,7 @@ import { GameItem, PairComparison, LevelInfo } from '../types';
 import { audio } from '../utils/audio';
 import { GlassCard } from './ui/GlassCard';
 import { NeonButton } from './ui/NeonButton';
+import { RoundProgress } from './ui/RoundProgress';
 import { fisherYatesShuffle } from '../lib/utils';
 
 interface GameLevelProps {
@@ -191,6 +192,11 @@ export const GameLevel: React.FC<GameLevelProps> = ({
         >
           {isMuted ? <VolumeX size={18} color="#ff0844" /> : <Volume2 size={18} color="#00e676" />}
         </motion.button>
+      </div>
+
+      {/* Round Progress Bar */}
+      <div className="px-1 mb-4 shrink-0">
+        <RoundProgress current={round} total={TOTAL_ROUNDS} />
       </div>
 
       {/* Score Stats Bar */}
