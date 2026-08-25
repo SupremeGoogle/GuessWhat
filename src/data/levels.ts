@@ -146,8 +146,24 @@ export const INITIAL_LEVELS: LevelInfo[] = [
   }
 ];
 
+INITIAL_LEVELS.push({
+  id: 12,
+  title: 'Кто ядовитее?',
+  subtitle: 'Опасность ядов животных',
+  icon: '☠️',
+  // Не разблокирован по умолчанию — открывается игроком через
+  // UNLOCK_NEXT_LEVEL_STARS при прохождении уровня 11 (см. App.tsx).
+  isUnlocked: false,
+  stars: 0,
+  highScore: 0,
+  category: 'Природа',
+  property: 'Индекс токсичности',
+  unit: 'баллы',
+  comparisonType: 'max'
+});
+
 // Add placeholder locked levels for the rest up to 30
-for (let i = 12; i <= 30; i++) {
+for (let i = 13; i <= 30; i++) {
   INITIAL_LEVELS.push({
     id: i,
     title: 'Секретный уровень',

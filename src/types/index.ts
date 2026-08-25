@@ -5,7 +5,11 @@ export interface GameItem {
   value: number;
   displayValue: string;
   emoji: string;
-  imageUri: string;
+  /** Опционально: без фото используется emoji-фолбэк (см. `renderItemCard` в
+   * `GameLevel.tsx`). Оставлять пустым, только если для карточки нет
+   * реального локального файла в `public/images/` и его негде взять
+   * (нет доступа в интернет, добавлять хотлинки запрещено правилами проекта). */
+  imageUri?: string;
   category: string;
   funFact: string;
 }
