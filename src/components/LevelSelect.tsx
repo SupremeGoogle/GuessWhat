@@ -34,6 +34,14 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
     onSelectLevel(level.id);
   };
 
+  // Раньше подпись была захардкожена как «Уровень 1 открыт!» — верно только
+  // для самого первого запуска. Уровни 1–11 разблокированы по умолчанию (см.
+  // src/data/levels.ts), а дальше игрок открывает новые уровни прохождением
+  // текущих (UNLOCK_NEXT_LEVEL_STARS в App.tsx), так что число открытых
+  // уровней меняется и с самого старта, и по ходу игры — считаем его от
+  // актуального списка `levels`, а не пишем текст заранее.
+  const unlockedCount = levels.filter(lvl => lvl.isUnlocked).length;
+
   return (
     <motion.div 
       initial={{ opacity: 0, x: 50 }}
@@ -60,7 +68,7 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
 
       <div className="flex items-center gap-2 text-white/60 text-sm mb-4 shrink-0 px-2">
         <Sparkles size={16} color="#ffd700" />
-        Всего 30 уровней. Уровень 1 открыт!
+        Всего {levels.length} уровней. Открыто: {unlockedCount}.
       </div>
 
       {/* Grid */}
