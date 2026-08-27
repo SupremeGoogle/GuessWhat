@@ -22,12 +22,27 @@ interface GameLevelProps {
 // захардкожены отдельно в расчёте stars при завершении уровня и отдельно в
 // разметке модалки победы (заливка второй/третьей звезды), из-за чего их
 // легко было развести правкой в одном месте и забыть про другое.
-const STAR_SCORE_THRESHOLDS = { second: 4, third: 8 } as const;
+// Пересчитаны под экономику очков с множителем серии (см. getStreakMultiplier
+// ниже): идеальное прохождение без единой ошибки теперь даёт 25 очков вместо
+// прежних 10, а не 4/8 — 40%/80% от нового максимума, сохраняя прежнюю
+// "щедрость" порогов относительно потолка очков.
+const STAR_SCORE_THRESHOLDS = { second: 10, third: 20 } as const;
 
 function getStarsForScore(score: number): number {
   if (score >= STAR_SCORE_THRESHOLDS.third) return 3;
   if (score >= STAR_SCORE_THRESHOLDS.second) return 2;
   return 1;
+}
+
+// Каждые STREAK_BONUS_STEP верных ответов подряд поднимают множитель очков за
+// верный ответ на 1. Множитель считается по серии ПОСЛЕ текущего верного
+// ответа (streak=1..2 → x1, 3..5 → x2, 6..8 → x3, ...), поэтому бонус
+// ощущается сразу в момент, когда серия переваливает за очередной порог, а не
+// с опозданием на один раунд.
+const STREAK_BONUS_STEP = 3;
+
+function getStreakMultiplier(streakAfterAnswer: number): number {
+  return Math.floor(streakAfterAnswer / STREAK_BONUS_STEP) + 1;
 }
 
 export const GameLevel: React.FC<GameLevelProps> = ({
@@ -105,16 +120,21 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     setSelectedId(item.id);
     setIsRevealed(true);
 
+    // Очки за этот раунд считаем один раз здесь, чтобы одно и то же значение
+    // пошло и в setScore, и в расчёт finalScore ниже — иначе легко разъехаться
+    // при следующей правке экономики очков.
+    const scoreDelta = isCorrect ? getStreakMultiplier(streak + 1) : -2;
+
     if (isCorrect) {
       audio.playCorrect();
-      setScore(prev => prev + 1);
+      setScore(prev => prev + scoreDelta);
       setStreak(prev => prev + 1);
-      setFloatingScore({ text: '+1', type: 'plus', id: Date.now() });
+      setFloatingScore({ text: `+${scoreDelta}`, type: 'plus', id: Date.now() });
     } else {
       audio.playWrong();
-      setScore(prev => prev - 2);
+      setScore(prev => prev + scoreDelta);
       setStreak(0);
-      setFloatingScore({ text: '-2', type: 'minus', id: Date.now() });
+      setFloatingScore({ text: `${scoreDelta}`, type: 'minus', id: Date.now() });
     }
 
     if (nextRoundTimeoutRef.current) {
@@ -122,7 +142,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     }
     nextRoundTimeoutRef.current = setTimeout(() => {
       if (round >= TOTAL_ROUNDS) {
-        const finalScore = score + (isCorrect ? 1 : -2);
+        const finalScore = score + scoreDelta;
         const stars = getStarsForScore(finalScore);
 
         setIsFinished(true);
@@ -208,7 +228,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
 
         <AnimatePresence>
           {streak > 1 && (
-            <motion.div 
+            <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
@@ -216,6 +236,14 @@ export const GameLevel: React.FC<GameLevelProps> = ({
             >
               <Flame size={18} fill="#ff0844" color="#ff0844" className="drop-shadow-[0_0_10px_rgba(255,8,68,0.8)]" />
               <span>Серия x{streak}!</span>
+              {getStreakMultiplier(streak) > 1 && (
+                <span
+                  className="ml-1 text-[11px] font-black text-[#0b071e] bg-[#ffd700] px-1.5 py-0.5 rounded-full shadow-[0_0_10px_rgba(255,215,0,0.7)]"
+                  title="Бонус очков за серию верных ответов подряд"
+                >
+                  ×{getStreakMultiplier(streak)}
+                </span>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
