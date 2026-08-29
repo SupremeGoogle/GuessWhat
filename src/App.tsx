@@ -132,6 +132,7 @@ export const App: React.FC = () => {
             isMuted={isMuted}
             onToggleMute={handleToggleMute}
             stats={stats}
+            levels={levels}
           />
         )}
 

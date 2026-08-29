@@ -2,7 +2,7 @@ import React from 'react';
 import { Play, Volume2, VolumeX, Trophy, Star, Grid } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { audio } from '../utils/audio';
-import { GameStats } from '../types';
+import { GameStats, LevelInfo } from '../types';
 import { NeonButton } from './ui/NeonButton';
 
 interface StartMenuProps {
@@ -11,6 +11,7 @@ interface StartMenuProps {
   isMuted: boolean;
   onToggleMute: () => void;
   stats: GameStats;
+  levels: LevelInfo[];
 }
 
 export const StartMenu: React.FC<StartMenuProps> = ({
@@ -18,8 +19,14 @@ export const StartMenu: React.FC<StartMenuProps> = ({
   onOpenLevelSelect,
   isMuted,
   onToggleMute,
-  stats
+  stats,
+  levels
 }) => {
+  // Раньше это число было захардкожено текстом («11 уровней») и переставало
+  // соответствовать реальному состоянию `levels` при любой правке
+  // разблокировок — тот же класс бага, что уже чинили в `LevelSelect.tsx`
+  // (см. «Хардкоженная надпись "Уровень 1 открыт!"», 2026-08-26).
+  const unlockedCount = levels.filter(lvl => lvl.isUnlocked).length;
   const handleStart = () => {
     audio.playClick();
     onStartGame();
@@ -95,7 +102,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
       {/* Bottom Info Banner */}
       <div className="bg-white/5 border border-white/10 rounded-2xl p-3 px-4 flex items-center justify-between text-sm mt-4">
         <span className="text-white/60">Доступно сейчас:</span>
-        <span className="font-extrabold text-[#00f2fe]">11 уровней</span>
+        <span className="font-extrabold text-[#00f2fe]">{unlockedCount} уровней</span>
       </div>
     </motion.div>
   );
