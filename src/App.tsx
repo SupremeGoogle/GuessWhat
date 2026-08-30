@@ -8,7 +8,7 @@ import { LevelSelect } from './components/LevelSelect';
 import { GameLevel } from './components/GameLevel';
 import { LevelLockedModal } from './components/LevelLockedModal';
 import { audio } from './utils/audio';
-import { loadProgress, saveProgress, mergeLevelsWithProgress, computeStats } from './lib/storage';
+import { loadProgress, saveProgress, mergeLevelsWithProgress, computeStats, getContinueLevelId } from './lib/storage';
 
 import { LEVEL1_DATA } from './data/level1';
 import { SPEEDS_DATA } from './data/speeds';
@@ -65,6 +65,11 @@ export const App: React.FC = () => {
   // с тем, что подписано в UI: «звёзды» — сумма лучших `stars` по уровням,
   // «очки» — сумма рекордов `highScore` по уровням.
   const stats = useMemo(() => computeStats(levels), [levels]);
+
+  // Кнопка «Играть»/«Продолжить» на главном экране: первый разблокированный
+  // уровень без максимума звёзд (или последний разблокированный, если всё
+  // пройдено на максимум) — см. `getContinueLevelId` в `src/lib/storage.ts`.
+  const continueLevelId = useMemo(() => getContinueLevelId(levels), [levels]);
 
   // Сохраняем прогресс при каждом изменении звёзд/рекордов/уровней — не только
   // при выходе из игры, чтобы случайное закрытие вкладки его не стёрло.
@@ -127,12 +132,13 @@ export const App: React.FC = () => {
         {currentScreen === 'menu' && (
           <StartMenu
             key="menu"
-            onStartGame={() => handleSelectLevel(1)}
+            onStartGame={() => handleSelectLevel(continueLevelId)}
             onOpenLevelSelect={() => setCurrentScreen('level-select')}
             isMuted={isMuted}
             onToggleMute={handleToggleMute}
             stats={stats}
             levels={levels}
+            continueLevelId={continueLevelId}
           />
         )}
 

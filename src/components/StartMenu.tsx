@@ -12,6 +12,9 @@ interface StartMenuProps {
   onToggleMute: () => void;
   stats: GameStats;
   levels: LevelInfo[];
+  /** Уровень, который откроет кнопка «Играть»/«Продолжить» — см.
+   * `getContinueLevelId` в `src/lib/storage.ts`. */
+  continueLevelId: number;
 }
 
 export const StartMenu: React.FC<StartMenuProps> = ({
@@ -20,13 +23,20 @@ export const StartMenu: React.FC<StartMenuProps> = ({
   isMuted,
   onToggleMute,
   stats,
-  levels
+  levels,
+  continueLevelId
 }) => {
   // Раньше это число было захардкожено текстом («11 уровней») и переставало
   // соответствовать реальному состоянию `levels` при любой правке
   // разблокировок — тот же класс бага, что уже чинили в `LevelSelect.tsx`
   // (см. «Хардкоженная надпись "Уровень 1 открыт!"», 2026-08-26).
   const unlockedCount = levels.filter(lvl => lvl.isUnlocked).length;
+  // Пока у игрока нет ни одной звезды ни на одном уровне — это новый игрок
+  // без прогресса: кнопка одноразово подписана «ИГРАТЬ» и ведёт на уровень 1
+  // (в этом состоянии `continueLevelId` и так всегда равен 1). Как только
+  // появляется хотя бы одна звезда, кнопка становится «ПРОДОЛЖИТЬ» и ведёт на
+  // первый неоконченный уровень.
+  const hasProgress = stats.starsEarned > 0;
   const handleStart = () => {
     audio.playClick();
     onStartGame();
@@ -89,7 +99,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
         <div className="flex flex-col gap-3 w-full max-w-[280px] mt-4">
           <NeonButton onClick={handleStart} className="w-full">
             <Play fill="currentColor" size={22} />
-            ИГРАТЬ
+            {hasProgress ? `ПРОДОЛЖИТЬ Уровень ${continueLevelId}` : 'ИГРАТЬ'}
           </NeonButton>
 
           <NeonButton variant="secondary" onClick={handleLevels} className="w-full py-3.5 text-base font-bold">

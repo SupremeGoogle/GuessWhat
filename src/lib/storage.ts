@@ -117,6 +117,29 @@ export function computeStats(levels: LevelInfo[]): GameStats {
   );
 }
 
+/** Максимум звёзд за уровень. Дублирует значение, зашитое в
+ * `getStarsForScore` (`src/components/GameLevel.tsx`) — там оно не
+ * экспортируется как константа, а выведено из формы функции (третий, самый
+ * высокий порог). Если максимум там когда-нибудь изменится, нужно поправить
+ * и здесь. */
+const MAX_LEVEL_STARS = 3;
+
+/** Уровень, который открывает кнопка «Играть»/«Продолжить» на главном
+ * экране: первый разблокированный уровень, ещё не пройденный на максимум
+ * звёзд, а если такого нет — самый старший разблокированный (весь прогресс
+ * пройден на максимум, добавить нечего — открываем последний доступный).
+ * `levels` уже отсортирован по `id` (см. `src/data/levels.ts`), поэтому
+ * `find` возвращает действительно первый по порядку. */
+export function getContinueLevelId(levels: LevelInfo[]): number {
+  const unlocked = levels.filter(lvl => lvl.isUnlocked);
+  if (unlocked.length === 0) return 1;
+
+  const nextUnfinished = unlocked.find(lvl => lvl.stars < MAX_LEVEL_STARS);
+  if (nextUnfinished) return nextUnfinished.id;
+
+  return unlocked.reduce((last, lvl) => (lvl.id > last.id ? lvl : last)).id;
+}
+
 /** Накладывает сохранённый прогресс на актуальный список уровней из
  * `INITIAL_LEVELS`. Работает по `id`, поэтому переживает добавление новых
  * уровней в игру между сессиями. `isUnlocked` берётся как «или» с исходным
