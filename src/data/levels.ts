@@ -178,8 +178,24 @@ INITIAL_LEVELS.push({
   comparisonType: 'max'
 });
 
+INITIAL_LEVELS.push({
+  id: 14,
+  title: 'У кого крылья шире?',
+  subtitle: 'Размах крыльев птиц',
+  icon: '🦅',
+  // Не разблокирован по умолчанию — открывается игроком через
+  // UNLOCK_NEXT_LEVEL_STARS при прохождении уровня 13 (см. App.tsx).
+  isUnlocked: false,
+  stars: 0,
+  highScore: 0,
+  category: 'Природа',
+  property: 'Размах крыльев',
+  unit: 'см',
+  comparisonType: 'max'
+});
+
 // Add placeholder locked levels for the rest up to 30
-for (let i = 14; i <= 30; i++) {
+for (let i = 15; i <= 30; i++) {
   INITIAL_LEVELS.push({
     id: i,
     title: 'Секретный уровень',
