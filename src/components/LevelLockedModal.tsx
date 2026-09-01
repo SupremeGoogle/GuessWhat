@@ -6,14 +6,21 @@ import { NeonButton } from './ui/NeonButton';
 
 interface LevelLockedModalProps {
   level: LevelInfo | null;
+  /** Уровень, который реально откроет доступ к `level` — обычно предыдущий
+   * по `id` уровень (цепочка `UNLOCK_NEXT_LEVEL_STARS` в `App.tsx`
+   * разблокирует уровни строго по одному), а если и он ещё не открыт —
+   * `continueLevelId` из `getContinueLevelId` уже указывает на первый
+   * реально доступный шаг игрока к цели. */
+  continueLevel: LevelInfo;
   onClose: () => void;
-  onPlayLevel1: () => void;
+  onPlayContinue: () => void;
 }
 
 export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
   level,
+  continueLevel,
   onClose,
-  onPlayLevel1
+  onPlayContinue
 }) => {
   return (
     <AnimatePresence>
@@ -57,15 +64,15 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
                 <Sparkles size={16} /> Требование для открытия:
               </div>
               <div className="text-white/80 leading-relaxed">
-                Пройди Уровень 1 ("Кто тяжелее?"), чтобы разблокировать этот и следующие уровни!
+                Пройди Уровень {continueLevel.id} ("{continueLevel.title}"), чтобы разблокировать этот уровень!
               </div>
             </div>
 
             <NeonButton
               className="w-full mt-2"
-              onClick={onPlayLevel1}
+              onClick={onPlayContinue}
             >
-              Играть в Уровень 1 🚀
+              Играть в Уровень {continueLevel.id} 🚀
             </NeonButton>
           </motion.div>
         </motion.div>

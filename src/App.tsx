@@ -169,10 +169,11 @@ export const App: React.FC = () => {
       {/* Modal for Locked Levels */}
       <LevelLockedModal
         level={lockedModalLevel}
+        continueLevel={levels.find(l => l.id === continueLevelId) || levels[0]}
         onClose={() => setLockedModalLevel(null)}
-        onPlayLevel1={() => {
+        onPlayContinue={() => {
           setLockedModalLevel(null);
-          handleSelectLevel(1);
+          handleSelectLevel(continueLevelId);
         }}
       />
     </div>
