@@ -2,6 +2,12 @@ class SoundManager {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
 
+  private vibrate(pattern: number | number[]) {
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      navigator.vibrate(pattern);
+    }
+  }
+
   private init() {
     if (!this.ctx && typeof window !== 'undefined') {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
@@ -71,6 +77,10 @@ class SoundManager {
       osc.start(now + index * 0.06);
       osc.stop(now + index * 0.06 + 0.25);
     });
+
+    // Короткий одиночный импульс — физический отклик на верный ответ
+    // (на мобильных устройствах, для которых игра mobile-first).
+    this.vibrate(40);
   }
 
   public playWrong() {
@@ -95,10 +105,8 @@ class SoundManager {
     osc.start(now);
     osc.stop(now + 0.25);
 
-    // Haptic feedback if available
-    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-      navigator.vibrate([100, 50, 100]);
-    }
+    // Паттерн из двух импульсов — физический отклик на неверный ответ.
+    this.vibrate([100, 50, 100]);
   }
 
   public playVictory() {
