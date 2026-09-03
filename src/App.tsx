@@ -24,6 +24,7 @@ import { LEVEL11_DATA } from './data/level11';
 import { LEVEL12_DATA } from './data/level12';
 import { LEVEL13_DATA } from './data/level13';
 import { LEVEL14_DATA } from './data/level14';
+import { LEVEL15_DATA } from './data/level15';
 
 import './styles/index.css';
 
@@ -43,6 +44,7 @@ const getLevelData = (levelId: number): GameItem[] => {
     case 12: return LEVEL12_DATA;
     case 13: return LEVEL13_DATA;
     case 14: return LEVEL14_DATA;
+    case 15: return LEVEL15_DATA;
     default: return LEVEL1_DATA;
   }
 };

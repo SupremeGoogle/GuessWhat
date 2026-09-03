@@ -194,8 +194,24 @@ INITIAL_LEVELS.push({
   comparisonType: 'max'
 });
 
+INITIAL_LEVELS.push({
+  id: 15,
+  title: 'Кто спит дольше?',
+  subtitle: 'Продолжительность сна животных',
+  icon: '😴',
+  // Не разблокирован по умолчанию — открывается игроком через
+  // UNLOCK_NEXT_LEVEL_STARS при прохождении уровня 14 (см. App.tsx).
+  isUnlocked: false,
+  stars: 0,
+  highScore: 0,
+  category: 'Природа',
+  property: 'Сон',
+  unit: 'ч',
+  comparisonType: 'max'
+});
+
 // Add placeholder locked levels for the rest up to 30
-for (let i = 15; i <= 30; i++) {
+for (let i = 16; i <= 30; i++) {
   INITIAL_LEVELS.push({
     id: i,
     title: 'Секретный уровень',
