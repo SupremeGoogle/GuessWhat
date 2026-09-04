@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2, Share2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GameItem, PairComparison, LevelInfo } from '../types';
@@ -45,6 +45,21 @@ function getStreakMultiplier(streakAfterAnswer: number): number {
   return Math.floor(streakAfterAnswer / STREAK_BONUS_STEP) + 1;
 }
 
+// Русское склонение по числительному (1 очко / 2 очка / 5 очков) — без этого
+// текст шеринга результата звучал бы неестественно на любом счёте, кроме 1.
+function pluralizeRu(count: number, forms: [one: string, few: string, many: string]): string {
+  const absCount = Math.abs(count);
+  const mod10 = absCount % 10;
+  const mod100 = absCount % 100;
+  if (mod10 === 1 && mod100 !== 11) return forms[0];
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return forms[1];
+  return forms[2];
+}
+
+// Сколько времени показывать статус кнопки «Поделиться» после клика (текст
+// вида «Скопировано!») прежде чем вернуть исходную подпись.
+const SHARE_FEEDBACK_DURATION_MS = 2000;
+
 export const GameLevel: React.FC<GameLevelProps> = ({
   levelInfo,
   levelData,
@@ -63,7 +78,11 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   const [floatingScore, setFloatingScore] = useState<{ text: string; type: 'plus' | 'minus'; id: number } | null>(null);
   const [isFinished, setIsFinished] = useState(false);
   const [imageErrorMap, setImageErrorMap] = useState<Record<string, boolean>>({});
+  // Временная подпись на кнопке «Поделиться» после клика («Скопировано!» /
+  // «Не удалось скопировать») — null означает исходный текст кнопки.
+  const [shareFeedback, setShareFeedback] = useState<string | null>(null);
   const nextRoundTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shareFeedbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Очередь уникальных пар на текущую игровую сессию (см. buildPairQueue) —
   // не даёт одной и той же паре встретиться дважды, пока не исчерпаны все
   // возможные комбинации.
@@ -76,6 +95,9 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     return () => {
       if (nextRoundTimeoutRef.current) {
         clearTimeout(nextRoundTimeoutRef.current);
+      }
+      if (shareFeedbackTimeoutRef.current) {
+        clearTimeout(shareFeedbackTimeoutRef.current);
       }
     };
   }, []);
@@ -168,6 +190,46 @@ export const GameLevel: React.FC<GameLevelProps> = ({
 
   const handleImageError = (id: string) => {
     setImageErrorMap(prev => ({ ...prev, [id]: true }));
+  };
+
+  // Делится итогом прохождения: на устройствах с нативным шерингом (в
+  // основном мобильные — а игра mobile-first) открывает системное меню
+  // «Поделиться», иначе копирует текст в буфер обмена с подтверждением на
+  // самой кнопке. Отмена пользователем системного диалога — не ошибка,
+  // поэтому молча игнорируется.
+  const showShareFeedback = (text: string) => {
+    if (shareFeedbackTimeoutRef.current) {
+      clearTimeout(shareFeedbackTimeoutRef.current);
+    }
+    setShareFeedback(text);
+    shareFeedbackTimeoutRef.current = setTimeout(() => setShareFeedback(null), SHARE_FEEDBACK_DURATION_MS);
+  };
+
+  const handleShare = async () => {
+    audio.playClick();
+    const stars = getStarsForScore(score);
+    const shareText = `Я набрал ${score} ${pluralizeRu(score, ['очко', 'очка', 'очков'])} и получил ${stars} ${pluralizeRu(stars, ['звезду', 'звезды', 'звёзд'])} на уровне «${levelInfo.title}» в GuessWhat! Сможешь лучше? 🎮`;
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({ text: shareText, title: 'GuessWhat' });
+      } catch {
+        // AbortError при отмене диалога пользователем или API недоступен —
+        // в обоих случаях показывать ошибку игроку незачем.
+      }
+      return;
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(shareText);
+        showShareFeedback('Скопировано!');
+      } catch {
+        showShareFeedback('Не удалось скопировать');
+      }
+    } else {
+      showShareFeedback('Не удалось скопировать');
+    }
   };
 
   if (!currentPair) return null;
@@ -346,6 +408,16 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                   Меню
                 </NeonButton>
               </div>
+
+              <NeonButton
+                variant="secondary"
+                className="w-full py-3 text-sm"
+                onClick={handleShare}
+                aria-label="Поделиться результатом уровня"
+              >
+                <Share2 size={16} />
+                {shareFeedback ?? 'Поделиться результатом'}
+              </NeonButton>
             </motion.div>
           </motion.div>
         )}
