@@ -69,14 +69,14 @@ export const LEVEL4_DATA: GameItem[] = [
   },
   {
     id: 'blue-whale-length',
-    nameRu: 'Синий кит (длина)',
+    nameRu: 'Синий кит',
     nameEn: 'Blue Whale',
-    value: 33,
-    displayValue: '33 м',
+    value: 30,
+    displayValue: '30 м',
     emoji: '🐋',
     imageUri: '/images/blue_whale_length_1786531744273.jpg',
     category: 'Природа',
-    funFact: 'Самое большое животное на Земле.'
+    funFact: 'Самое большое животное на Земле — крупнее любого известного динозавра.'
   },
   {
     id: 'football-field',
@@ -111,8 +111,6 @@ export const LEVEL4_DATA: GameItem[] = [
     category: 'Космос',
     funFact: 'Самый большой искусственный объект в космосе.'
   },
-  { id: 'football_field', nameRu: 'Футбольное поле', nameEn: 'Football Field', value: 105, displayValue: '105 м', emoji: '⚽', imageUri: '/images/football_field_1786532023705.jpg', category: 'Спорт', funFact: 'Стандартный размер поля для международных матчей.' },
-  { id: 'blue_whale_size', nameRu: 'Синий кит', nameEn: 'Blue Whale', value: 30, displayValue: '30 м', emoji: '🐋', imageUri: '/images/blue_whale_size_1786531756325.jpg', category: 'Животные', funFact: 'Самое большое животное на Земле.' },
   { id: 'school_bus', nameRu: 'Школьный автобус', nameEn: 'School Bus', value: 14, displayValue: '14 м', emoji: '🚌', imageUri: '/images/school_bus_1786533707497.jpg', category: 'Транспорт', funFact: 'Вмещает до 72 детей.' },
   { id: 'basketball_court', nameRu: 'Баскетбольная площадка', nameEn: 'Basketball Court', value: 28, displayValue: '28 м', emoji: '🏀', imageUri: '/images/basketball_court_1786533712912.jpg', category: 'Спорт', funFact: 'Размер по стандарту ФИБА.' },
   { id: 'tennis_court', nameRu: 'Теннисный корт', nameEn: 'Tennis Court', value: 23.77, displayValue: '23.8 м', emoji: '🎾', imageUri: '', category: 'Спорт', funFact: 'Одинаков для одиночных и парных игр в длину.' },
@@ -123,7 +121,5 @@ export const LEVEL4_DATA: GameItem[] = [
   { id: 'cruise_ship', nameRu: 'Круизный лайнер', nameEn: 'Cruise Ship', value: 360, displayValue: '360 м', emoji: '🚢', imageUri: '/images/cruise_ship_1786533737930.jpg', category: 'Транспорт', funFact: 'Крупнейшие лайнеры длиннее Эйфелевой башни (горизонтально).' },
   { id: 'aircraft_carrier', nameRu: 'Авианосец', nameEn: 'Aircraft Carrier', value: 332, displayValue: '332 м', emoji: '🛳️', imageUri: '', category: 'Транспорт', funFact: 'Плавучая военная база.' },
   { id: 'submarine', nameRu: 'Подводная лодка', nameEn: 'Submarine', value: 170, displayValue: '170 м', emoji: '🛥️', imageUri: '', category: 'Транспорт', funFact: 'Класс Акула — самые большие в мире.' },
-  { id: 'golden_gate', nameRu: 'Мост Золотые Ворота', nameEn: 'Golden Gate', value: 2737, displayValue: '2737 м', emoji: '🌉', imageUri: '/images/golden_gate_1786531872285.jpg', category: 'Сооружения', funFact: 'Его красят круглый год.' },
-  { id: 'burj_khalifa_size', nameRu: 'Бурдж-Халифа (длина)', nameEn: 'Burj Khalifa', value: 828, displayValue: '828 м', emoji: '🏢', imageUri: '/images/burj_khalifa_size_1786531873964.jpg', category: 'Сооружения', funFact: 'Самое высокое здание в мире.' },
-  { id: 'great_wall', nameRu: 'Великая Китайская стена', nameEn: 'Great Wall', value: 21196000, displayValue: '21196 км', emoji: '🧱', imageUri: '/images/great_wall_1786533767171.jpg', category: 'Сооружения', funFact: 'Самое длинное искусственное сооружение.' }
+  { id: 'golden_gate', nameRu: 'Мост Золотые Ворота', nameEn: 'Golden Gate', value: 2737, displayValue: '2737 м', emoji: '🌉', imageUri: '/images/golden_gate_1786531872285.jpg', category: 'Сооружения', funFact: 'Его красят круглый год.' }
 ];
