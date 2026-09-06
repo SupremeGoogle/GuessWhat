@@ -116,13 +116,10 @@ export const LEVEL7_DATA: GameItem[] = [
   { id: 'movie_ticket', nameRu: 'Билет в кино', nameEn: 'Movie Ticket', value: 15, displayValue: '$15', emoji: '🎟️', imageUri: '', category: 'Развлечения', funFact: 'Попкорн приносит кинотеатрам больше прибыли.' },
   { id: 'video_game', nameRu: 'AAA Видеоигра', nameEn: 'AAA Video Game', value: 70, displayValue: '$70', emoji: '🎮', imageUri: '', category: 'Развлечения', funFact: 'Игры стали стоить по $70 недавно.' },
   { id: 'laptop_pro', nameRu: 'Ноутбук Pro', nameEn: 'Pro Laptop', value: 2500, displayValue: '$2500', emoji: '💻', imageUri: '', category: 'Гаджеты', funFact: 'Используется программистами и дизайнерами.' },
-  { id: 'rolex_sub', nameRu: 'Часы Rolex', nameEn: 'Rolex Watch', value: 10000, displayValue: '$10000', emoji: '⌚', imageUri: '', category: 'Роскошь', funFact: 'Часто дорожают со временем.' },
   { id: 'new_car', nameRu: 'Новый автомобиль', nameEn: 'New Car', value: 40000, displayValue: '$40000', emoji: '🚗', imageUri: '', category: 'Транспорт', funFact: 'Теряет 20% стоимости при выезде из салона.' },
   { id: 'house_us', nameRu: 'Дом в США', nameEn: 'Average US House', value: 400000, displayValue: '$400,000', emoji: '🏠', imageUri: '', category: 'Недвижимость', funFact: 'Зависит сильно от местоположения.' },
   { id: 'bugatti', nameRu: 'Бугатти Широн', nameEn: 'Bugatti Chiron', value: 3000000, displayValue: '$3,000,000', emoji: '🏎️', imageUri: '/images/bugatti_1786532425886.jpg', category: 'Транспорт', funFact: 'Масло в ней нужно менять за $25 000.' },
-  { id: 'private_jet', nameRu: 'Частный самолет', nameEn: 'Private Jet', value: 65000000, displayValue: '$65 млн', emoji: '✈️', imageUri: '', category: 'Транспорт', funFact: 'Требует огромных расходов на обслуживание.' },
   { id: 'f35', nameRu: 'Истребитель F-35', nameEn: 'F-35 Fighter', value: 80000000, displayValue: '$80 млн', emoji: '🛩️', imageUri: '', category: 'Военная техника', funFact: 'Самый дорогой военный проект в истории.' },
-  { id: 'mona_lisa', nameRu: 'Картина Мона Лиза', nameEn: 'Mona Lisa', value: 870000000, displayValue: '$870 млн', emoji: '🖼️', imageUri: '/images/mona_lisa_1786534110571.jpg', category: 'Искусство', funFact: 'Не продается, но застрахована на эту сумму.' },
   { id: 'burj_khalifa_cost', nameRu: 'Бурдж Халифа', nameEn: 'Burj Khalifa', value: 1500000000, displayValue: '$1.5 млрд', emoji: '🏢', imageUri: '/images/burj_khalifa_cost_1786532465727.jpg', category: 'Сооружения', funFact: 'Потребовалось 5 лет на постройку.' },
   { id: 'hubble', nameRu: 'Телескоп Хаббл', nameEn: 'Hubble Telescope', value: 16000000000, displayValue: '$16 млрд', emoji: '🔭', imageUri: '/images/hubble_1786534122010.jpg', category: 'Космос', funFact: 'Обслуживался астронавтами 5 раз на орбите.' }
 ];
