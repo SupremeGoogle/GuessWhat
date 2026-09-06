@@ -41,7 +41,7 @@ export const LEVEL3_DATA: GameItem[] = [
     value: 2007,
     displayValue: '2007 год',
     emoji: '📱',
-    imageUri: '',
+    imageUri: '/images/smartphone_1786534090123.jpg',
     category: 'Технологии',
     funFact: 'Был представлен Стивом Джобсом 9 января 2007 года.'
   },
@@ -85,7 +85,7 @@ export const LEVEL3_DATA: GameItem[] = [
     value: -1000000,
     displayValue: '1 млн лет назад',
     emoji: '🔥',
-    imageUri: '',
+    imageUri: '/images/candle_flame_1786533824833.jpg',
     category: 'Эволюция',
     funFact: 'Позволило древним людям готовить пищу, согреваться и защищаться от хищников.'
   },
