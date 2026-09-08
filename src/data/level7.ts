@@ -115,7 +115,6 @@ export const LEVEL7_DATA: GameItem[] = [
   { id: 'bottle_water', nameRu: 'Бутылка воды', nameEn: 'Bottle of Water', value: 2, displayValue: '$2', emoji: '💧', imageUri: '', category: 'Напитки', funFact: 'Бутилированная вода часто дороже бензина.' },
   { id: 'movie_ticket', nameRu: 'Билет в кино', nameEn: 'Movie Ticket', value: 15, displayValue: '$15', emoji: '🎟️', imageUri: '', category: 'Развлечения', funFact: 'Попкорн приносит кинотеатрам больше прибыли.' },
   { id: 'video_game', nameRu: 'AAA Видеоигра', nameEn: 'AAA Video Game', value: 70, displayValue: '$70', emoji: '🎮', imageUri: '', category: 'Развлечения', funFact: 'Игры стали стоить по $70 недавно.' },
-  { id: 'laptop_pro', nameRu: 'Ноутбук Pro', nameEn: 'Pro Laptop', value: 2500, displayValue: '$2500', emoji: '💻', imageUri: '', category: 'Гаджеты', funFact: 'Используется программистами и дизайнерами.' },
   { id: 'new_car', nameRu: 'Новый автомобиль', nameEn: 'New Car', value: 40000, displayValue: '$40000', emoji: '🚗', imageUri: '', category: 'Транспорт', funFact: 'Теряет 20% стоимости при выезде из салона.' },
   { id: 'house_us', nameRu: 'Дом в США', nameEn: 'Average US House', value: 400000, displayValue: '$400,000', emoji: '🏠', imageUri: '', category: 'Недвижимость', funFact: 'Зависит сильно от местоположения.' },
   { id: 'bugatti', nameRu: 'Бугатти Широн', nameEn: 'Bugatti Chiron', value: 3000000, displayValue: '$3,000,000', emoji: '🏎️', imageUri: '/images/bugatti_1786532425886.jpg', category: 'Транспорт', funFact: 'Масло в ней нужно менять за $25 000.' },
