@@ -32,7 +32,7 @@ export const LEVEL8_DATA: GameItem[] = [
     emoji: '🐕',
     imageUri: '/images/dog_1786534138358.jpg',
     category: 'Питомцы',
-    funFact: 'Самая старая собака в мире прожила 31 год!'
+    funFact: 'Самая старая собака в мире по данным Книги рекордов Гиннесса прожила 29 лет!'
   },
   {
     id: 'lion',
