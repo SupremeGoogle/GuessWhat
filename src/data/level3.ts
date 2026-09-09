@@ -16,12 +16,12 @@ export const LEVEL3_DATA: GameItem[] = [
     id: 'internet',
     nameRu: 'Интернет (ARPANET)',
     nameEn: 'Internet',
-    value: 1969,
+    value: 1969.83,
     displayValue: '1969 год',
     emoji: '🌐',
     imageUri: '/images/internet_1786531865455.jpg',
     category: 'Технологии',
-    funFact: 'Первое сообщение было передано между узлами сети ARPANET в 1969 году.'
+    funFact: 'Первое сообщение было передано между узлами сети ARPANET 29 октября 1969 года.'
   },
   {
     id: 'pyramids',
@@ -71,12 +71,12 @@ export const LEVEL3_DATA: GameItem[] = [
     id: 'cinema',
     nameRu: 'Первый кинофильм',
     nameEn: 'First Movie',
-    value: 1895,
+    value: 1895.99,
     displayValue: '1895 год',
     emoji: '🎞️',
     imageUri: '',
     category: 'Искусство',
-    funFact: 'Братья Люмьер устроили первый коммерческий киносеанс в Париже.'
+    funFact: 'Братья Люмьер устроили первый коммерческий киносеанс в Париже 28 декабря 1895 года.'
   },
   {
     id: 'fire',
@@ -104,12 +104,12 @@ export const LEVEL3_DATA: GameItem[] = [
     id: 'moon-landing',
     nameRu: 'Высадка на Луну',
     nameEn: 'Moon Landing',
-    value: 1969,
+    value: 1969.55,
     displayValue: '1969 год',
     emoji: '🌕',
     imageUri: '/images/moon_landing_1786531901839.jpg',
     category: 'Космос',
-    funFact: 'Нил Армстронг стал первым человеком, ступившим на поверхность Луны.'
+    funFact: 'Нил Армстронг стал первым человеком, ступившим на поверхность Луны, 20 июля 1969 года.'
   },
   { id: 'compass', nameRu: 'Компас', nameEn: 'Compass', value: -200, displayValue: '200 год до н.э.', emoji: '🧭', imageUri: '', category: 'Открытия', funFact: 'Изобретен в Китае.' },
   { id: 'paper', nameRu: 'Бумага', nameEn: 'Paper', value: 105, displayValue: '105 год', emoji: '📄', imageUri: '/images/paper_1786533669760.jpg', category: 'Материалы', funFact: 'Изобретена Цай Лунем в Китае.' },
@@ -118,7 +118,7 @@ export const LEVEL3_DATA: GameItem[] = [
   { id: 'telescope', nameRu: 'Телескоп', nameEn: 'Telescope', value: 1608, displayValue: '1608 год', emoji: '🔭', imageUri: '', category: 'Наука', funFact: 'Галилео Галилей первым направил его в небо.' },
   { id: 'steam_engine', nameRu: 'Паровой двигатель', nameEn: 'Steam Engine', value: 1712, displayValue: '1712 год', emoji: '🚂', imageUri: '', category: 'Технологии', funFact: 'Дал старт индустриальной революции.' },
   { id: 'photography', nameRu: 'Фотография', nameEn: 'Photography', value: 1826, displayValue: '1826 год', emoji: '📷', imageUri: '/images/photography_1786531968135.jpg', category: 'Искусство', funFact: 'Первое фото делалось 8 часов.' },
-  { id: 'radio', nameRu: 'Радио', nameEn: 'Radio', value: 1895, displayValue: '1895 год', emoji: '📻', imageUri: '/images/radio_1786531969861.jpg', category: 'Связь', funFact: 'Первая беспроводная связь.' },
+  { id: 'radio', nameRu: 'Радио', nameEn: 'Radio', value: 1895.66, displayValue: '1895 год', emoji: '📻', imageUri: '/images/radio_1786531969861.jpg', category: 'Связь', funFact: 'Летом 1895 года Маркони провел первые опыты беспроводной передачи сигнала.' },
   { id: 'television', nameRu: 'Телевидение', nameEn: 'Television', value: 1927, displayValue: '1927 год', emoji: '📺', imageUri: '/images/television_1786531971434.jpg', category: 'Технологии', funFact: 'Сначала было черно-белым.' },
   { id: 'computer', nameRu: 'ЭВМ (Компьютер)', nameEn: 'Computer', value: 1945, displayValue: '1945 год', emoji: '💻', imageUri: '/images/computer_1786531640560.jpg', category: 'Технологии', funFact: 'Первые компьютеры занимали целые комнаты.' },
   { id: 'laser', nameRu: 'Лазер', nameEn: 'Laser', value: 1960, displayValue: '1960 год', emoji: '🔴', imageUri: '/images/laser_1786533698700.jpg', category: 'Технологии', funFact: 'Сейчас используется везде: от указок до хирургии.' },
