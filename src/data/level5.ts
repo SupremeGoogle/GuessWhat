@@ -112,7 +112,7 @@ export const LEVEL5_DATA: GameItem[] = [
     funFact: 'Самая горячая часть пламени свечи находится в самом верху и светится голубым цветом.'
   },
   { id: 'ice', nameRu: 'Лед', nameEn: 'Ice', value: 0, displayValue: '0 °C', emoji: '🧊', imageUri: '/images/ice_1786533843706.jpg', category: 'Вещества', funFact: 'Точка замерзания пресной воды.' },
-  { id: 'paper_burn', nameRu: 'Горение бумаги', nameEn: 'Burning Paper', value: 232, displayValue: '232 °C', emoji: '📄', imageUri: '/images/paper_1786533669760.jpg', category: 'Химия', funFact: 'Температура самовоспламенения бумаги по Редбери (451 по Фаренгейту).' },
+  { id: 'paper_burn', nameRu: 'Горение бумаги', nameEn: 'Burning Paper', value: 232, displayValue: '232 °C', emoji: '📄', imageUri: '/images/paper_1786533669760.jpg', category: 'Химия', funFact: 'Температура самовоспламенения бумаги по Брэдбери (451 по Фаренгейту).' },
   { id: 'magma', nameRu: 'Магма', nameEn: 'Magma', value: 1300, displayValue: '1300 °C', emoji: '🌋', imageUri: '/images/magma_1786532042428.jpg', category: 'Геология', funFact: 'Становится лавой, когда извергается на поверхность земли, и немного остывает по пути.' },
   { id: 'pizza_oven', nameRu: 'Печь для пиццы', nameEn: 'Pizza Oven', value: 450, displayValue: '450 °C', emoji: '🍕', imageUri: '', category: 'Кулинария', funFact: 'Настоящая неаполитанская пицца печется 90 секунд.' },
   { id: 'light_bulb_tungsten', nameRu: 'Нить накаливания', nameEn: 'Tungsten Bulb', value: 2500, displayValue: '2500 °C', emoji: '💡', imageUri: '', category: 'Технологии', funFact: 'Нить из вольфрама светится от нагрева.' },
