@@ -134,7 +134,7 @@ export const INITIAL_LEVELS: LevelInfo[] = [
   {
     id: 11,
     title: 'Что выше?',
-    subtitle: 'Высота строений',
+    subtitle: 'Здания, горы и вершины',
     icon: '🏙️',
     isUnlocked: true,
     stars: 0,
