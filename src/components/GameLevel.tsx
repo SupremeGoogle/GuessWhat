@@ -395,7 +395,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
               </div>
 
               <div className="bg-black/30 py-4 px-6 rounded-2xl w-full text-lg border border-white/10 shadow-inner">
-                <div className="text-white/80">Финишный счет: <strong className="text-[#00e676] text-2xl drop-shadow-md ml-2">{score} очков</strong></div>
+                <div className="text-white/80">Финишный счет: <strong className="text-[#00e676] text-2xl drop-shadow-md ml-2">{score} {pluralizeRu(score, ['очко', 'очка', 'очков'])}</strong></div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 w-full mt-2">
