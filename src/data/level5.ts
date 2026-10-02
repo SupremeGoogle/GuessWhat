@@ -109,7 +109,7 @@ export const LEVEL5_DATA: GameItem[] = [
     emoji: '🕯️',
     imageUri: '/images/candle_flame_1786533824833.jpg',
     category: 'Химия',
-    funFact: 'Самая горячая часть пламени свечи находится в самом верху и светится голубым цветом.'
+    funFact: 'Самая горячая часть пламени свечи — синяя зона у основания, где горючий газ смешивается с достаточным количеством кислорода для полного сгорания; жёлтый язык пламени выше заметнее на вид, но холоднее.'
   },
   { id: 'ice', nameRu: 'Лед', nameEn: 'Ice', value: 0, displayValue: '0 °C', emoji: '🧊', imageUri: '/images/ice_1786533843706.jpg', category: 'Вещества', funFact: 'Точка замерзания пресной воды.' },
   { id: 'paper_burn', nameRu: 'Горение бумаги', nameEn: 'Burning Paper', value: 232, displayValue: '232 °C', emoji: '📄', imageUri: '/images/paper_1786533669760.jpg', category: 'Химия', funFact: 'Температура самовоспламенения бумаги по Брэдбери (451 по Фаренгейту).' },
