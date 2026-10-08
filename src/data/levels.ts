@@ -69,7 +69,7 @@ export const INITIAL_LEVELS: LevelInfo[] = [
   {
     id: 6,
     title: 'Где глубже?',
-    subtitle: 'Морские глубины',
+    subtitle: 'Самые глубокие места Земли',
     icon: '🌊',
     isUnlocked: true,
     stars: 0,
