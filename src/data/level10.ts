@@ -54,7 +54,7 @@ export const LEVEL10_DATA: GameItem[] = [
     emoji: '🥩',
     imageUri: '/images/beef_1786533567200.jpg',
     category: 'Мясо',
-    funFact: 'Калорийность зависит от жирности выбранного куска.'
+    funFact: 'Калорийность сильно зависит от куска: постная вырезка — около 150 ккал на 100 г, а жирный рибай может давать почти вдвое больше.'
   },
   {
     id: 'bread',
@@ -76,7 +76,7 @@ export const LEVEL10_DATA: GameItem[] = [
     emoji: '🧀',
     imageUri: '/images/cheese_1786531383603.jpg',
     category: 'Молочные',
-    funFact: 'Очень вкусно, но и очень калорийно за счет жиров.'
+    funFact: 'В твёрдых сырах жира бывает больше 30% — именно он даёт сыру и вкус, и такую высокую калорийность.'
   },
   {
     id: 'chocolate',
@@ -125,11 +125,11 @@ export const LEVEL10_DATA: GameItem[] = [
   { id: 'broccoli', nameRu: 'Брокколи', nameEn: 'Broccoli', value: 34, displayValue: '34 ккал', emoji: '🥦', imageUri: '/images/broccoli_1786531404493.jpg', category: 'Овощи', funFact: 'Отличный источник витамина C.' },
   { id: 'strawberry', nameRu: 'Клубника', nameEn: 'Strawberry', value: 32, displayValue: '32 ккал', emoji: '🍓', imageUri: '/images/strawberry_1786531659999.jpg', category: 'Фрукты', funFact: 'Семена клубники находятся снаружи.' },
   { id: 'rice', nameRu: 'Белый рис', nameEn: 'White Rice', value: 130, displayValue: '130 ккал', emoji: '🍚', imageUri: '/images/rice_1786533573276.jpg', category: 'Крупы', funFact: 'Основа рациона половины планеты.' },
-  { id: 'peanut_butter', nameRu: 'Арахисовая паста', nameEn: 'Peanut Butter', value: 588, displayValue: '588 ккал', emoji: '🥜', imageUri: '/images/peanut_butter_1786533582203.jpg', category: 'Сладости', funFact: 'Изобретена в 19 веке.' },
+  { id: 'peanut_butter', nameRu: 'Арахисовая паста', nameEn: 'Peanut Butter', value: 588, displayValue: '588 ккал', emoji: '🥜', imageUri: '/images/peanut_butter_1786533582203.jpg', category: 'Сладости', funFact: 'Массовое производство арахисовой пасты началось в конце XIX века — сегодня это один из главных источников растительного белка в рационе многих стран.' },
   { id: 'almonds', nameRu: 'Миндаль', nameEn: 'Almonds', value: 579, displayValue: '579 ккал', emoji: '🌰', imageUri: '/images/almonds_1786531693407.jpg', category: 'Орехи', funFact: 'С точки зрения ботаники — это косточка фрукта.' },
   { id: 'mayonnaise', nameRu: 'Майонез', nameEn: 'Mayonnaise', value: 680, displayValue: '680 ккал', emoji: '🥚', imageUri: '/images/mayonnaise_1786531695082.jpg', category: 'Соусы', funFact: 'Состоит в основном из масла и желтков.' },
   { id: 'butter_oil', nameRu: 'Топленое масло', nameEn: 'Ghee', value: 876, displayValue: '876 ккал', emoji: '🧈', imageUri: '/images/butter_oil_1786531698249.jpg', category: 'Жиры', funFact: 'Имеет высокую температуру дымления.' },
-  { id: 'lard', nameRu: 'Сало', nameEn: 'Lard', value: 900, displayValue: '900 ккал', emoji: '🥓', imageUri: '/images/lard_1786533585062.jpg', category: 'Мясо', funFact: 'Чистый животный жир.' },
+  { id: 'lard', nameRu: 'Сало', nameEn: 'Lard', value: 900, displayValue: '900 ккал', emoji: '🥓', imageUri: '/images/lard_1786533585062.jpg', category: 'Мясо', funFact: 'Почти 100% жир — калорийнее сала в обычном рационе разве что чистое растительное масло.' },
   { id: 'coke', nameRu: 'Кока-Кола', nameEn: 'Coca Cola', value: 42, displayValue: '42 ккал', emoji: '🥤', imageUri: '/images/coke_1786531711237.jpg', category: 'Напитки', funFact: 'Калории исключительно из сахара.' },
-  { id: 'vodka', nameRu: 'Водка', nameEn: 'Vodka', value: 231, displayValue: '231 ккал', emoji: '🍸', imageUri: '/images/vodka_1786531435747.jpg', category: 'Напитки', funFact: 'Алкоголь очень калориен.' }
+  { id: 'vodka', nameRu: 'Водка', nameEn: 'Vodka', value: 231, displayValue: '231 ккал', emoji: '🍸', imageUri: '/images/vodka_1786531435747.jpg', category: 'Напитки', funFact: 'Чистый спирт даёт почти 7 ккал на грамм — это близко к жиру (9 ккал/г) и почти вдвое больше, чем у белков и углеводов.' }
 ];
