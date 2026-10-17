@@ -21,7 +21,7 @@ export const LEVEL8_DATA: GameItem[] = [
     emoji: '🐁',
     imageUri: '/images/house_mouse_1786532472877.jpg',
     category: 'Млекопитающие',
-    funFact: 'В дикой природе живут меньше, но быстро размножаются.'
+    funFact: 'В дикой природе домовые мыши редко доживают даже до года — зато самка способна приносить потомство каждые три недели.'
   },
   {
     id: 'dog',
@@ -65,7 +65,7 @@ export const LEVEL8_DATA: GameItem[] = [
     emoji: '🦅',
     imageUri: '',
     category: 'Птицы',
-    funFact: 'Орлы могут жить очень долго при хороших условиях.'
+    funFact: 'В природе беркуты редко доживают до максимума — главные угрозы для них не хищники, а линии электропередач и отравленная падаль.'
   },
   {
     id: 'elephant',
@@ -98,7 +98,7 @@ export const LEVEL8_DATA: GameItem[] = [
     emoji: '🐢',
     imageUri: '',
     category: 'Рептилии',
-    funFact: 'Самые известные долгожители на суше.'
+    funFact: 'Одна из самых известных особей, черепаха Гарриет, предположительно дожила до 175 лет — больше, чем жил любой зафиксированный человек.'
   },
   {
     id: 'greenland-shark',
@@ -111,11 +111,11 @@ export const LEVEL8_DATA: GameItem[] = [
     category: 'Рыбы',
     funFact: 'Абсолютный рекордсмен среди позвоночных. Растет всего на 1 см в год.'
   },
-  { id: 'rabbit', nameRu: 'Кролик', nameEn: 'Rabbit', value: 9, displayValue: '9 лет', emoji: '🐰', imageUri: '', category: 'Млекопитающие', funFact: 'Домашние живут дольше диких.' },
+  { id: 'rabbit', nameRu: 'Кролик', nameEn: 'Rabbit', value: 9, displayValue: '9 лет', emoji: '🐰', imageUri: '', category: 'Млекопитающие', funFact: 'Дикие кролики из-за хищников редко доживают даже до двух лет — домашние, под защитой человека, живут в разы дольше.' },
   { id: 'chimpanzee', nameRu: 'Шимпанзе', nameEn: 'Chimpanzee', value: 45, displayValue: '45 лет', emoji: '🐵', imageUri: '', category: 'Приматы', funFact: 'В неволе могут дожить до 60.' },
-  { id: 'macaw', nameRu: 'Попугай Ара', nameEn: 'Macaw', value: 50, displayValue: '50 лет', emoji: '🦜', imageUri: '', category: 'Птицы', funFact: 'Часто переживают своих хозяев.' },
+  { id: 'macaw', nameRu: 'Попугай Ара', nameEn: 'Macaw', value: 50, displayValue: '50 лет', emoji: '🦜', imageUri: '', category: 'Птицы', funFact: 'Живут так долго, что часто переходят по наследству от одного поколения владельцев к другому.' },
   { id: 'koi_fish', nameRu: 'Карп Кои', nameEn: 'Koi Fish', value: 40, displayValue: '40 лет', emoji: '🐟', imageUri: '', category: 'Рыбы', funFact: 'Легендарный карп Ханако прожил 226 лет.' },
-  { id: 'bowhead_whale', nameRu: 'Гренландский кит', nameEn: 'Bowhead Whale', value: 200, displayValue: '200 лет', emoji: '🐳', imageUri: '', category: 'Млекопитающие', funFact: 'Самые долгоживущие млекопитающие.' },
+  { id: 'bowhead_whale', nameRu: 'Гренландский кит', nameEn: 'Bowhead Whale', value: 200, displayValue: '200 лет', emoji: '🐳', imageUri: '', category: 'Млекопитающие', funFact: 'В телах некоторых особей находили обломки гарпунов, которые использовались ещё в 19 веке.' },
   { id: 'ocean_quahog', nameRu: 'Океанический куахог', nameEn: 'Ocean Quahog', value: 507, displayValue: '507 лет', emoji: '🦪', imageUri: '', category: 'Моллюски', funFact: 'Моллюск Мин — старейшее известное животное.' },
   { id: 'giant_sequoia', nameRu: 'Секвойя', nameEn: 'Giant Sequoia', value: 3000, displayValue: '3000 лет', emoji: '🌲', imageUri: '/images/giant_sequoia_1786532533782.jpg', category: 'Растения', funFact: 'Самые массивные деревья на Земле.' },
   { id: 'bristlecone_pine', nameRu: 'Остистая сосна', nameEn: 'Bristlecone Pine', value: 5000, displayValue: '5000 лет', emoji: '🌲', imageUri: '', category: 'Растения', funFact: 'Дерево Мафусаил старше пирамид.' },
