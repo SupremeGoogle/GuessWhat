@@ -111,11 +111,11 @@ export const LEVEL6_DATA: GameItem[] = [
     category: 'Архитектура',
     funFact: 'Самая глубокая станция метро в мире (г. Киев).'
   },
-  { id: 'burj_khalifa_down', nameRu: 'Высота Бурдж-Халифы', nameEn: 'Burj Khalifa Height', value: 828, displayValue: '828 м', emoji: '🏢', imageUri: '/images/burj_khalifa_1786531685569.jpg', category: 'Сравнение', funFact: 'Для наглядности глубины.' },
-  { id: 'blue_whale_dive', nameRu: 'Погружение синего кита', nameEn: 'Blue Whale Dive', value: 500, displayValue: '500 м', emoji: '🐋', imageUri: '/images/blue_whale_size_1786531756325.jpg', category: 'Животные', funFact: 'Обычно не ныряют слишком глубоко.' },
+  { id: 'burj_khalifa_down', nameRu: 'Высота Бурдж-Халифы', nameEn: 'Burj Khalifa Height', value: 828, displayValue: '828 м', emoji: '🏢', imageUri: '/images/burj_khalifa_1786531685569.jpg', category: 'Сравнение', funFact: 'Самое высокое здание в мире: во время стройки бетон закачивали насосами на высоту более 600 метров — тоже мировой рекорд.' },
+  { id: 'blue_whale_dive', nameRu: 'Погружение синего кита', nameEn: 'Blue Whale Dive', value: 500, displayValue: '500 м', emoji: '🐋', imageUri: '/images/blue_whale_size_1786531756325.jpg', category: 'Животные', funFact: 'Синие киты обычно держатся ближе к поверхности и редко уходят глубже нескольких сотен метров — их тело создано для долгих, а не экстремально глубоких заплывов.' },
   { id: 'emperor_penguin', nameRu: 'Императорский пингвин', nameEn: 'Emperor Penguin', value: 535, displayValue: '535 м', emoji: '🐧', imageUri: '/images/emperor_penguin_1786532228734.jpg', category: 'Животные', funFact: 'Могут задерживать дыхание на 20 минут.' },
   { id: 'leatherback_turtle', nameRu: 'Кожистая черепаха', nameEn: 'Leatherback Turtle', value: 1280, displayValue: '1,280 м', emoji: '🐢', imageUri: '/images/leatherback_turtle_1786532232667.jpg', category: 'Животные', funFact: 'Самая глубоководная из рептилий.' },
-  { id: 'elephant_seal', nameRu: 'Морской слон', nameEn: 'Elephant Seal', value: 2388, displayValue: '2,388 м', emoji: '🦭', imageUri: '', category: 'Животные', funFact: 'Отличные ныряльщики.' },
+  { id: 'elephant_seal', nameRu: 'Морской слон', nameEn: 'Elephant Seal', value: 2388, displayValue: '2,388 м', emoji: '🦭', imageUri: '', category: 'Животные', funFact: 'Южные морские слоны ныряют глубже всех ластоногих — в поисках кальмаров и рыбы они могут провести под водой до двух часов.' },
   { id: 'cuvier_beaked_whale', nameRu: 'Клюворыл Кювье', nameEn: 'Cuvier Whale', value: 2992, displayValue: '2,992 м', emoji: '🐬', imageUri: '', category: 'Животные', funFact: 'Рекордсмен по глубоководным погружениям.' },
   { id: 'mined_gold', nameRu: 'Шахта Мпоненг', nameEn: 'Mponeng Gold Mine', value: 4000, displayValue: '4,000 м', emoji: '⛏️', imageUri: '/images/mined_gold_1786534024588.jpg', category: 'Шахты', funFact: 'Глубочайшая в мире золотая шахта.' }
 ];
