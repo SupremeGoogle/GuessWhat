@@ -10,7 +10,7 @@ export const LEVEL9_DATA: GameItem[] = [
     emoji: '🤫',
     imageUri: '',
     category: 'Люди',
-    funFact: 'Тихий звук, который мы используем для секретов.'
+    funFact: 'Шепот создаётся почти без участия голосовых связок — звук получается в основном за счёт турбулентности выдыхаемого воздуха.'
   },
   {
     id: 'fridge',
@@ -116,7 +116,7 @@ export const LEVEL9_DATA: GameItem[] = [
   { id: 'motorcycle', nameRu: 'Мотоцикл', nameEn: 'Motorcycle', value: 95, displayValue: '95 дБ', emoji: '🏍️', imageUri: '', category: 'Транспорт', funFact: 'Шлем защищает не только от ударов, но и от шума.' },
   { id: 'chainsaw', nameRu: 'Бензопила', nameEn: 'Chainsaw', value: 110, displayValue: '110 дБ', emoji: '🪚', imageUri: '', category: 'Инструменты', funFact: 'Требует использования защитных наушников.' },
   { id: 'thunderclap', nameRu: 'Раскат грома', nameEn: 'Thunder', value: 130, displayValue: '130 дБ', emoji: '⛈️', imageUri: '/images/lightning_1786533903072.jpg', category: 'Природа', funFact: 'Гром это звук от резко расширяющегося от жара молнии воздуха.' },
-  { id: 'pistol_shot', nameRu: 'Выстрел из пистолета', nameEn: 'Gunshot', value: 160, displayValue: '160 дБ', emoji: '🔫', imageUri: '', category: 'Оружие', funFact: 'Мгновенный звук, но очень разрушительный.' },
+  { id: 'pistol_shot', nameRu: 'Выстрел из пистолета', nameEn: 'Gunshot', value: 160, displayValue: '160 дБ', emoji: '🔫', imageUri: '', category: 'Оружие', funFact: 'Выстрел без защиты слуха способен навсегда повредить слух с одного раза — поэтому на стрельбище наушники обязательны.' },
   { id: 'stun_grenade', nameRu: 'Светошумовая граната', nameEn: 'Stun Grenade', value: 170, displayValue: '170 дБ', emoji: '💥', imageUri: '/images/stun_grenade_1786532774248.jpg', category: 'Оружие', funFact: 'Вызывает временную глухоту.' },
   { id: 'tunguska_event', nameRu: 'Тунгусский метеорит', nameEn: 'Tunguska Event', value: 300, displayValue: '300 дБ', emoji: '☄️', imageUri: '', category: 'События', funFact: 'Повалил 80 млн деревьев.' },
   { id: 'black_hole_collision', nameRu: 'Столкновение черных дыр', nameEn: 'Black Hole Collision', value: 500, displayValue: 'Неизмеримо', emoji: '🕳️', imageUri: '', category: 'Космос', funFact: 'Гравитационные волны вместо звука.' }
