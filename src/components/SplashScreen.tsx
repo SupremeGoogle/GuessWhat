@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Sparkles, Play } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { audio } from '../utils/audio';
 import { NeonButton } from './ui/NeonButton';
 
@@ -10,6 +10,7 @@ interface SplashScreenProps {
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,49 +32,57 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     onFinish();
   };
 
+  const rise = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, delay, ease: 'easeOut' as const },
+  });
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+      exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center h-full text-center gap-6 p-5 cursor-pointer"
+      className="flex flex-col items-center justify-center h-full text-center gap-7 px-6 py-10 cursor-pointer"
       onClick={handleTap}
     >
-      <motion.div 
-        animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="text-[80px] drop-shadow-[0_10px_20px_rgba(138,43,226,0.6)]"
+      <motion.div
+        initial={reduce ? false : { scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 160, damping: 14 }}
       >
-        🧠
+        <div className="splash-logo">
+          <motion.span
+            animate={reduce ? undefined : { scale: [1, 1.08, 1], rotate: [0, 4, -4, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="text-[72px] leading-none drop-shadow-[0_8px_18px_rgba(138,43,226,0.7)]"
+          >
+            🧠
+          </motion.span>
+        </div>
       </motion.div>
 
-      <div>
-        <h1 className="text-5xl font-black bg-clip-text text-transparent bg-gradient-to-br from-[#00f2fe] via-[#4facfe] to-[#00e676] drop-shadow-[0_0_20px_rgba(0,242,254,0.3)] mb-2">
-          GuessWhat
-        </h1>
-        <p className="text-white/60 text-lg">
-          Викторина сравнений & фактов
-        </p>
-      </div>
+      <motion.div {...rise(0.15)}>
+        <h1 className="splash-title text-5xl font-black tracking-tight mb-2">GuessWhat</h1>
+        <p className="text-white/75 text-lg">Викторина сравнений & фактов</p>
+      </motion.div>
 
-      <div className="w-[80%] h-2.5 bg-white/10 rounded-full overflow-hidden border border-white/20 mt-4 shadow-inner">
-        <motion.div 
-          className="h-full bg-gradient-to-r from-[#ff0844] via-[#ffb199] to-[#00f2fe] shadow-[0_0_12px_#00f2fe] rounded-full"
-          initial={{ width: "0%" }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.1, ease: "linear" }}
-        />
-      </div>
+      <motion.div {...rise(0.3)} className="w-[78%] flex flex-col gap-2" aria-hidden="true">
+        <div className="splash-track">
+          <div className="splash-fill" style={{ width: `${progress}%`, transition: 'width 0.1s linear' }} />
+        </div>
+        <span className="text-white/60 text-xs font-heading tabular-nums">{Math.min(progress, 100)}%</span>
+      </motion.div>
 
-      <div className="mt-4">
-        <NeonButton onClick={handleTap}>
+      <motion.div {...rise(0.45)}>
+        <NeonButton onClick={handleTap} className="min-h-[56px] px-10">
           <Play fill="currentColor" size={20} />
           Нажми для старта
         </NeonButton>
-      </div>
+      </motion.div>
 
-      <div className="flex items-center gap-1.5 text-white/50 text-sm mt-auto">
+      <div className="splash-chip mt-auto tap-hint">
         <Sparkles size={14} color="#00f2fe" />
         Уровень 1: Кто тяжелее?
       </div>

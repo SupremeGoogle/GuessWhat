@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
 
 @layer base {
   :root {
@@ -15,6 +14,14 @@
     --card-bg: rgba(255, 255, 255, 0.07);
     --card-border: rgba(255, 255, 255, 0.15);
     
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glow-cyan: 0 0 24px rgba(0, 242, 254, 0.55);
+    --glow-purple: 0 0 36px rgba(138, 43, 226, 0.6);
+    --gradient-title: linear-gradient(120deg, #00f2fe 0%, #4facfe 45%, #00e676 100%);
+    --gradient-progress: linear-gradient(90deg, #8a2be2, #00f2fe 60%, #00e676);
+    --radius-pill: 9999px;
+    --radius-xl: 28px;
     --text-main: #ffffff;
     --text-muted: #a0aec0;
     --font-heading: 'Rubik', sans-serif;
@@ -87,6 +94,69 @@
   }
 }
 
+@layer components {
+  /* Splash: logo medallion with neon gradient ring */
+  .splash-logo {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-xl);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glow-purple), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    animation: logoGlow 3s ease-in-out infinite;
+  }
+  .splash-logo::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: calc(var(--radius-xl) + 3px);
+    padding: 3px;
+    background: conic-gradient(from 0deg, var(--accent-purple), var(--accent-cyan), var(--accent-green), var(--accent-pink), var(--accent-purple));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.9;
+  }
+  .splash-title {
+    font-family: var(--font-heading);
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.35));
+  }
+  .splash-track {
+    height: 8px;
+    border-radius: var(--radius-pill);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+  }
+  .splash-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background: var(--gradient-progress);
+    box-shadow: var(--glow-cyan);
+  }
+  .splash-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    min-height: 40px;
+    border-radius: var(--radius-pill);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+  }
+}
+
 @layer utilities {
   .font-heading {
     font-family: var(--font-heading);
@@ -102,4 +172,20 @@
 @keyframes shimmer {
   0% { transform: translateX(-100%) skewX(-12deg); }
   100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes logoGlow {
+  0%, 100% { box-shadow: 0 0 22px rgba(138, 43, 226, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 46px rgba(0, 242, 254, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+}
+
+@keyframes tapPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.tap-hint { animation: tapPulse 2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow, .splash-logo, .tap-hint { animation: none !important; }
 }
