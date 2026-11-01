@@ -1,9 +1,8 @@
 import React from 'react';
 import { Play, Volume2, VolumeX, Trophy, Star, Grid } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { audio } from '../utils/audio';
 import { GameStats, LevelInfo } from '../types';
-import { NeonButton } from './ui/NeonButton';
 
 interface StartMenuProps {
   onStartGame: () => void;
@@ -47,73 +46,99 @@ export const StartMenu: React.FC<StartMenuProps> = ({
     onOpenLevelSelect();
   };
 
+  const reduce = useReducedMotion();
+  const total = levels.length || 1;
+  const rise = (i: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 18 },
+          animate: { opacity: 1, y: 0 },
+          transition: { delay: 0.08 * i, duration: 0.45, ease: 'easeOut' as const }
+        };
+
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 1.05 }}
-      transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
       className="flex flex-col justify-between h-full p-5 pb-8"
     >
       {/* Header bar */}
-      <div className="flex items-center justify-between p-3.5 px-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg mb-4">
-        <div className="flex items-center gap-1.5 bg-black/30 border border-white/15 px-3.5 py-1.5 rounded-full font-bold text-sm shadow-inner">
-          <Star size={16} fill="#ffd700" color="#ffd700" />
+      <motion.div {...rise(0)} className="menu-bar">
+        <div className="menu-stat" aria-label={`Звёзды: ${stats.starsEarned}`}>
+          <Star size={18} fill="var(--accent-gold)" color="var(--accent-gold)" />
           <span>{stats.starsEarned}</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-black/30 border border-white/15 px-3.5 py-1.5 rounded-full font-bold text-sm shadow-inner">
-          <Trophy size={16} color="#00f2fe" />
+        <div className="menu-stat" aria-label={`Очки: ${stats.totalScore}`}>
+          <Trophy size={18} color="var(--accent-cyan)" />
           <span>{stats.totalScore}</span>
         </div>
-        <motion.button 
-          whileHover={{ y: -2, backgroundColor: 'rgba(255,255,255,0.15)' }}
-          whileTap={{ scale: 0.9 }}
-          className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors"
+        <motion.button
+          whileTap={{ scale: 0.92 }}
+          className="menu-icon-btn"
           onClick={onToggleMute}
-          title="Звук"
           aria-label={isMuted ? 'Включить звук' : 'Выключить звук'}
           aria-pressed={isMuted}
         >
-          {isMuted ? <VolumeX size={18} color="#ff0844" /> : <Volume2 size={18} color="#00e676" />}
+          {isMuted ? <VolumeX size={20} color="#ff6b8a" /> : <Volume2 size={20} color="var(--accent-green)" />}
         </motion.button>
-      </div>
+      </motion.div>
 
-      {/* Main Center Content */}
-      <div className="flex flex-col items-center text-center gap-4 my-auto">
-        <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="text-7xl drop-shadow-[0_10px_20px_rgba(0,242,254,0.4)]"
-        >
-          🧠
+      {/* Hero */}
+      <div className="flex flex-col items-center text-center gap-3 my-auto">
+        <motion.div {...rise(1)} className="splash-logo menu-logo">
+          <motion.span
+            aria-hidden="true"
+            className="text-6xl"
+            animate={reduce ? undefined : { y: [0, -6, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            🧠
+          </motion.span>
         </motion.div>
 
-        <h1 className="text-5xl font-black leading-tight bg-clip-text text-transparent bg-gradient-to-br from-[#00f2fe] via-[#4facfe] to-[#00e676] drop-shadow-[0_0_20px_rgba(0,242,254,0.3)]">
+        <motion.h1 {...rise(2)} className="splash-title text-5xl font-black leading-tight mt-3">
           GuessWhat
-        </h1>
+        </motion.h1>
 
-        <p className="text-white/60 text-base max-w-[280px]">
+        <motion.p {...rise(3)} className="menu-tagline">
           Интеллектуальная игра соревнований и неожиданных фактов
-        </p>
+        </motion.p>
 
-        <div className="flex flex-col gap-3 w-full max-w-[280px] mt-4">
-          <NeonButton onClick={handleStart} className="w-full">
+        <motion.div {...rise(4)} className="flex flex-col gap-3 w-full max-w-[300px] mt-5">
+          <button onClick={handleStart} className="menu-cta">
             <Play fill="currentColor" size={22} />
-            {hasProgress ? `ПРОДОЛЖИТЬ Уровень ${continueLevelId}` : 'ИГРАТЬ'}
-          </NeonButton>
+            <span>{hasProgress ? `ПРОДОЛЖИТЬ · Уровень ${continueLevelId}` : 'ИГРАТЬ'}</span>
+          </button>
 
-          <NeonButton variant="secondary" onClick={handleLevels} className="w-full py-3.5 text-base font-bold">
-            <Grid size={18} color="#00f2fe" />
-            Выбор уровней (30)
-          </NeonButton>
+          <button onClick={handleLevels} className="menu-secondary">
+            <Grid size={18} color="var(--accent-cyan)" />
+            <span>Выбор уровней ({levels.length})</span>
+          </button>
+        </motion.div>
+      </div>
+
+      {/* Bottom progress card */}
+      <motion.div {...rise(5)} className="menu-progress">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-white/70">Открыто уровней</span>
+          <span className="font-extrabold text-[color:var(--accent-cyan)]">
+            {unlockedCount} / {levels.length}
+          </span>
         </div>
-      </div>
-
-      {/* Bottom Info Banner */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-3 px-4 flex items-center justify-between text-sm mt-4">
-        <span className="text-white/60">Доступно сейчас:</span>
-        <span className="font-extrabold text-[#00f2fe]">{unlockedCount} уровней</span>
-      </div>
+        <div
+          className="splash-track mt-2.5"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={levels.length}
+          aria-valuenow={unlockedCount}
+          aria-label="Открытые уровни"
+        >
+          <div className="splash-fill" style={{ width: `${Math.round((unlockedCount / total) * 100)}%` }} />
+        </div>
+      </motion.div>
     </motion.div>
   );
 };

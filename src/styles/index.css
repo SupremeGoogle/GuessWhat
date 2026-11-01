@@ -22,6 +22,12 @@
     --gradient-progress: linear-gradient(90deg, #8a2be2, #00f2fe 60%, #00e676);
     --radius-pill: 9999px;
     --radius-xl: 28px;
+    --radius-lg: 20px;
+    --gradient-cta: linear-gradient(135deg, #7f00ff 0%, #c200ff 55%, #ff2d95 100%);
+    --shadow-cta: 0 12px 28px rgba(194, 0, 255, 0.45), inset 0 2px 3px rgba(255, 255, 255, 0.35);
+    --shadow-glass: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    --text-soft: rgba(255, 255, 255, 0.78);
+    --touch-min: 48px;
     --text-main: #ffffff;
     --text-muted: #a0aec0;
     --font-heading: 'Rubik', sans-serif;
@@ -157,6 +163,61 @@
   }
 }
 
+
+@layer components {
+  /* StartMenu */
+  .menu-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 8px 12px; border-radius: var(--radius-lg);
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  }
+  .menu-stat {
+    display: inline-flex; align-items: center; gap: 8px; min-height: var(--touch-min);
+    padding: 0 16px; border-radius: var(--radius-pill);
+    background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border);
+    font-family: var(--font-heading); font-weight: 700; font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .menu-icon-btn {
+    width: var(--touch-min); height: var(--touch-min); display: grid; place-items: center;
+    border-radius: var(--radius-lg); background: var(--glass-bg); border: 1px solid var(--glass-border);
+    cursor: pointer;
+  }
+  .menu-logo { width: 124px; height: 124px; }
+  .menu-tagline { color: var(--text-soft); font-size: 1rem; line-height: 1.45; max-width: 290px; }
+  .menu-cta, .menu-secondary {
+    position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+    gap: 10px; width: 100%; color: #fff; cursor: pointer;
+    font-family: var(--font-heading); transition: transform 0.15s ease, filter 0.2s ease;
+  }
+  .menu-cta {
+    min-height: 64px; padding: 0 24px; border-radius: var(--radius-pill);
+    font-size: 1.125rem; font-weight: 800; letter-spacing: 0.02em;
+    background: var(--gradient-cta); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: var(--shadow-cta);
+  }
+  .menu-cta::after {
+    content: ""; position: absolute; inset: 0; width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: translateX(-120%) skewX(-12deg); animation: shimmer 3.6s ease-in-out 1s infinite;
+  }
+  .menu-secondary {
+    min-height: var(--touch-min); padding: 0 20px; border-radius: var(--radius-pill);
+    font-size: 1rem; font-weight: 700;
+    background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);
+  }
+  .menu-cta:active, .menu-secondary:active { transform: scale(0.96); }
+  .menu-cta:hover, .menu-secondary:hover { filter: brightness(1.12); }
+  .menu-cta:focus-visible, .menu-secondary:focus-visible, .menu-icon-btn:focus-visible {
+    outline: 3px solid var(--accent-cyan); outline-offset: 3px;
+  }
+  .menu-progress {
+    padding: 14px 16px; border-radius: var(--radius-lg); margin-top: 16px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);
+  }
+}
+
 @layer utilities {
   .font-heading {
     font-family: var(--font-heading);
@@ -187,5 +248,5 @@
 .tap-hint { animation: tapPulse 2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-glow, .splash-logo, .tap-hint { animation: none !important; }
+  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after { animation: none !important; }
 }
