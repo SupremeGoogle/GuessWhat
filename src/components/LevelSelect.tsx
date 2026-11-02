@@ -3,7 +3,6 @@ import { ArrowLeft, Lock, Star, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { LevelInfo } from '../types';
 import { audio } from '../utils/audio';
-import { GlassCard } from './ui/GlassCard';
 
 interface LevelSelectProps {
   levels: LevelInfo[];
@@ -42,93 +41,95 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
   // актуального списка `levels`, а не пишем текст заранее.
   const unlockedCount = levels.filter(lvl => lvl.isUnlocked).length;
 
+  const totalStars = levels.reduce((n, l) => n + (l.isUnlocked ? l.stars : 0), 0);
+  const maxStars = levels.length * 3;
+  const percent = levels.length ? Math.round((unlockedCount / levels.length) * 100) : 0;
+  // «Следующий» уровень — первый открытый без звёзд: подсвечиваем, куда играть дальше.
+  const nextId = levels.find(l => l.isUnlocked && l.stars === 0)?.id;
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="flex flex-col h-full p-5 overflow-y-auto"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between p-3.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl mb-4 shadow-lg shrink-0">
-        <motion.button 
-          whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
-          whileTap={{ scale: 0.9 }}
-          className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors"
-          onClick={onBack}
-          title="Назад"
-          aria-label="Назад в меню"
-        >
+      <div className="menu-bar mb-4 shrink-0">
+        <button className="menu-icon-btn" onClick={onBack} title="Назад" aria-label="Назад в меню">
           <ArrowLeft size={22} />
-        </motion.button>
-        <h2 className="text-xl font-extrabold text-white">Выбор уровня</h2>
-        <div className="w-11"></div>
+        </button>
+        <h2 className="text-xl font-extrabold font-heading">Выбор уровня</h2>
+        <div className="menu-stat" aria-label={`Звёзд собрано ${totalStars} из ${maxStars}`}>
+          <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
+          {totalStars}
+        </div>
       </div>
 
-      <div className="flex items-center gap-2 text-white/60 text-sm mb-4 shrink-0 px-2">
-        <Sparkles size={16} color="#ffd700" />
-        Всего {levels.length} уровней. Открыто: {unlockedCount}.
+      <div className="menu-progress shrink-0 mb-5" style={{ marginTop: 0 }}>
+        <div className="flex items-center justify-between text-sm mb-2" style={{ color: 'var(--text-soft)' }}>
+          <span className="flex items-center gap-2">
+            <Sparkles size={16} color="var(--accent-gold)" />
+            Открыто уровней
+          </span>
+          <span className="font-heading font-bold text-white">{unlockedCount} / {levels.length}</span>
+        </div>
+        <div className="splash-track">
+          <motion.div
+            className="splash-fill"
+            initial={{ width: 0 }}
+            animate={{ width: `${percent}%` }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          />
+        </div>
       </div>
 
-      {/* Grid */}
-      <motion.div 
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-3 gap-4 pb-6"
+        className="grid grid-cols-3 gap-3 pb-6"
       >
-        {levels.map((lvl) => (
-          <motion.div key={lvl.id} variants={item}>
-            <GlassCard
-              active={lvl.isUnlocked}
-              onClick={() => handleCardClick(lvl)}
-              onKeyDown={(e: React.KeyboardEvent) => {
-                if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-                  e.preventDefault();
-                  handleCardClick(lvl);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={lvl.isUnlocked ? `Уровень ${lvl.id}, ${lvl.title}, открыт` : `Уровень ${lvl.id}, ${lvl.title}, заблокирован`}
-              className={lvl.isUnlocked ? "cursor-pointer hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe]" : "opacity-60 grayscale cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe]"}
-            >
-              {lvl.isUnlocked && (
-                <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-[#00e676] to-[#00b359] text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-[0_4px_10px_rgba(0,230,118,0.4)] uppercase">
-                  Открыт
-                </span>
-              )}
-
-              {!lvl.isUnlocked ? (
-                <Lock size={24} className="text-white/40 mb-1" />
-              ) : (
-                <span className="text-3xl mb-1 drop-shadow-md">{lvl.icon}</span>
-              )}
-
-              <div className={`text-2xl font-black font-heading ${lvl.isUnlocked ? 'text-white' : 'text-white/40'}`}>
-                #{lvl.id}
-              </div>
-
-              <div className="text-[11px] text-center font-bold opacity-90 truncate w-full mt-1">
-                {lvl.title}
-              </div>
-
-              {lvl.isUnlocked && (
-                <div className="flex gap-0.5 mt-1">
+        {levels.map((lvl) => {
+          const isNext = lvl.id === nextId;
+          return (
+            <motion.div key={lvl.id} variants={item}>
+              <div
+                onClick={() => handleCardClick(lvl)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                    e.preventDefault();
+                    handleCardClick(lvl);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={lvl.isUnlocked ? `Уровень ${lvl.id}, ${lvl.title}, открыт, звёзд ${lvl.stars} из 3` : `Уровень ${lvl.id}, ${lvl.title}, заблокирован`}
+                className={`level-tile ${lvl.isUnlocked ? 'is-open' : 'is-locked'} ${isNext ? 'is-next' : ''}`}
+              >
+                <span className="level-num">{lvl.id}</span>
+                {isNext && <span className="level-flag">Играть</span>}
+                {lvl.isUnlocked ? (
+                  <span className="level-icon">{lvl.icon}</span>
+                ) : (
+                  <Lock size={26} className="level-lock" />
+                )}
+                <div className="level-title">{lvl.title}</div>
+                <div className="flex gap-0.5 mt-1.5" aria-hidden="true">
                   {[1, 2, 3].map(s => (
                     <Star
                       key={s}
-                      size={10}
-                      fill={s <= lvl.stars ? '#ffd700' : 'none'}
-                      color={s <= lvl.stars ? '#ffd700' : 'rgba(255,255,255,0.3)'}
+                      size={13}
+                      className={lvl.isUnlocked && s <= lvl.stars ? 'level-star-on' : ''}
+                      fill={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'none'}
+                      color={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'rgba(255,255,255,0.35)'}
                     />
                   ))}
                 </div>
-              )}
-            </GlassCard>
-          </motion.div>
-        ))}
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </motion.div>
   );
