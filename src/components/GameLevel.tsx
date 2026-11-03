@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2, Share2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { GameItem, PairComparison, LevelInfo } from '../types';
 import { audio } from '../utils/audio';
 import { GlassCard } from './ui/GlassCard';
@@ -69,6 +69,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   onToggleMute
 }) => {
   const TOTAL_ROUNDS = 10;
+  const reduceMotion = useReducedMotion();
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -351,10 +352,11 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           "top"
         )}
 
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="self-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-[#ff0844] to-[#ffb199] w-14 h-14 rounded-full flex items-center justify-center font-black font-heading text-xl shadow-[0_0_25px_rgba(255,8,68,0.7)] border-4 border-[#0b071e] z-10 text-white"
+        <motion.div
+          animate={reduceMotion ? undefined : { scale: [1, 1.1, 1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="game-vs"
+          aria-hidden="true"
         >
           VS
         </motion.div>
@@ -479,16 +481,18 @@ function renderItemCard(
   const isSelected = selectedId === item.id;
   const isCorrect = item.id === correctItemId;
 
-  let stateClasses = "border-white/15 hover:border-[#00f2fe]/60 bg-gradient-to-br from-white/10 to-white/5";
+  let stateClasses = "";
   let animationProps = {};
 
   if (isRevealed) {
-    if ((isSelected && isCorrect) || (!isSelected && isCorrect)) {
-      stateClasses = "border-[#00e676] bg-gradient-to-br from-[#00e676]/30 to-[#00e676]/10 shadow-[0_0_40px_rgba(0,230,118,0.6),inset_0_0_20px_rgba(0,230,118,0.2)]";
+    if (isCorrect) {
+      stateClasses = "is-correct";
       animationProps = { scale: [1, 1.04, 1], transition: { duration: 0.5 } };
-    } else if (isSelected && !isCorrect) {
-      stateClasses = "border-[#ff0844] bg-gradient-to-br from-[#ff0844]/30 to-[#ff0844]/10 shadow-[0_0_40px_rgba(255,8,68,0.6),inset_0_0_20px_rgba(255,8,68,0.2)]";
+    } else if (isSelected) {
+      stateClasses = "is-wrong";
       animationProps = { x: [0, -12, 12, -12, 12, 0], transition: { duration: 0.5 } };
+    } else {
+      stateClasses = "is-dim";
     }
   }
 
@@ -505,7 +509,7 @@ function renderItemCard(
       layoutId={item.id + position} // to smoothly animate out/in on new rounds if Framer Motion supports it across renders
       animate={animationProps}
       whileTap={!isRevealed ? { scale: 0.95 } : {}}
-      className={`flex-1 rounded-[28px] border-2 backdrop-blur-xl flex flex-col items-center justify-between p-3.5 relative overflow-hidden cursor-pointer transition-colors shadow-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f2fe] ${stateClasses}`}
+      className={`game-card ${stateClasses}`}
       onClick={() => onClick(item)}
       onKeyDown={handleKeyDown}
       role="button"
@@ -513,7 +517,7 @@ function renderItemCard(
       aria-label={`${item.nameRu}, нажми, если думаешь, что это верный ответ`}
       aria-disabled={isRevealed}
     >
-      <div className="w-full h-[140px] rounded-[20px] overflow-hidden relative bg-black/40 shadow-inner group">
+      <div className="game-card-media group">
         {item.imageUri && !hasImageError ? (
           <img
             src={resolveAssetUrl(item.imageUri)}
@@ -531,7 +535,7 @@ function renderItemCard(
         )}
       </div>
 
-      <div className="text-[22px] font-extrabold mt-2.5 text-center drop-shadow-md leading-tight text-white px-2">
+      <div className="game-card-name">
         {item.emoji} {item.nameRu}
       </div>
 
@@ -541,13 +545,13 @@ function renderItemCard(
             initial={{ scale: 0.3, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="text-lg font-black text-white bg-gradient-to-r from-[#00f2fe]/50 to-[#8a2be2]/50 px-5 py-1.5 rounded-full border border-white/40 shadow-[0_8px_20px_rgba(0,0,0,0.4),inset_0_2px_10px_rgba(255,255,255,0.2)] drop-shadow-md flex items-center gap-1.5"
+            className="game-value"
           >
             <span className="opacity-80">{levelInfo.icon}</span> {item.displayValue}
           </motion.div>
         ) : (
-          <div className="text-[12px] text-white/50 text-center font-medium px-4">
-            Нажми, если думаешь, что это верный ответ!
+          <div className="game-card-hint">
+            Нажми, чтобы выбрать
           </div>
         )}
       </div>
