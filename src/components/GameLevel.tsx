@@ -243,11 +243,10 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       className="flex flex-col justify-between h-full p-4 overflow-hidden"
     >
       {/* Top Navigation Bar */}
-      <div className="flex items-center justify-between p-3.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg mb-4 shrink-0">
-        <motion.button 
-          whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
+      <div className="game-bar mb-3 shrink-0">
+        <motion.button
           whileTap={{ scale: 0.9 }}
-          className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors shrink-0"
+          className="menu-icon-btn shrink-0"
           onClick={onBack}
           title="Выход"
           aria-label="Выйти в меню"
@@ -255,24 +254,23 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           <ArrowLeft size={22} />
         </motion.button>
 
-        <div className="text-center px-2 min-w-0">
-          <div className="text-[11px] text-white/50 uppercase tracking-wider font-bold truncate">
+        <div className="text-center px-1 min-w-0">
+          <div className="game-kicker truncate">
             Уровень {levelInfo.id} • Задание {round}/{TOTAL_ROUNDS}
           </div>
-          <div className="text-base sm:text-lg font-black text-[#00f2fe] truncate drop-shadow-md">
+          <div className="game-title truncate">
             {levelInfo.title} {levelInfo.icon}
           </div>
         </div>
 
-        <motion.button 
-          whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.15)" }}
+        <motion.button
           whileTap={{ scale: 0.9 }}
-          className="w-11 h-11 flex items-center justify-center bg-white/10 border border-white/15 rounded-xl transition-colors shrink-0"
+          className="menu-icon-btn shrink-0"
           onClick={onToggleMute}
           aria-label={isMuted ? 'Включить звук' : 'Выключить звук'}
           aria-pressed={isMuted}
         >
-          {isMuted ? <VolumeX size={18} color="#ff0844" /> : <Volume2 size={18} color="#00e676" />}
+          {isMuted ? <VolumeX size={20} color="#ff6b8b" /> : <Volume2 size={20} color="#00e676" />}
         </motion.button>
       </div>
 
@@ -282,30 +280,40 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       </div>
 
       {/* Score Stats Bar */}
-      <div className="flex items-center justify-around bg-black/30 py-2.5 px-4 rounded-2xl border border-white/10 shadow-inner shrink-0 mb-4">
-        <div className="flex items-center gap-1.5 font-extrabold text-base">
+      <div className="game-stats shrink-0 mb-3">
+        <div className="game-score">
           <Star size={18} fill="#ffd700" color="#ffd700" className="drop-shadow-md" />
-          <span>Очки: <strong className={score >= 0 ? 'text-[#00e676]' : 'text-[#ff0844]'}>{score}</strong></span>
+          <small>Очки</small>
+          <strong className={score >= 0 ? 'text-[#00e676]' : 'text-[#ff6b8b]'}>{score}</strong>
         </div>
 
         <AnimatePresence>
-          {streak > 1 && (
+          {streak > 0 && (
             <motion.div
-              initial={{ scale: 0, opacity: 0 }}
+              key="streak"
+              initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              className="flex items-center gap-1 text-[#ffb199] font-extrabold"
+              exit={{ scale: 0.6, opacity: 0 }}
+              className="game-streak"
+              aria-live="polite"
             >
-              <Flame size={18} fill="#ff0844" color="#ff0844" className="drop-shadow-[0_0_10px_rgba(255,8,68,0.8)]" />
-              <span>Серия x{streak}!</span>
-              {getStreakMultiplier(streak) > 1 && (
-                <span
-                  className="ml-1 text-[11px] font-black text-[#0b071e] bg-[#ffd700] px-1.5 py-0.5 rounded-full shadow-[0_0_10px_rgba(255,215,0,0.7)]"
-                  title="Бонус очков за серию верных ответов подряд"
-                >
-                  ×{getStreakMultiplier(streak)}
-                </span>
-              )}
+              <div className="game-streak-head">
+                <Flame size={18} fill="#ff0844" color="#ff0844" className="drop-shadow-[0_0_10px_rgba(255,8,68,0.8)]" />
+                <span>Серия {streak}</span>
+                {getStreakMultiplier(streak) > 1 && (
+                  <span className="game-streak-mult" title="Бонус очков за серию верных ответов подряд">
+                    ×{getStreakMultiplier(streak)}
+                  </span>
+                )}
+              </div>
+              <div className="game-pips" aria-hidden="true">
+                {Array.from({ length: STREAK_BONUS_STEP }, (_, i) => (
+                  <span key={i} className={`game-pip${i < streak % STREAK_BONUS_STEP ? ' is-on' : ''}`} />
+                ))}
+              </div>
+              <div className="game-streak-hint">
+                ещё {STREAK_BONUS_STEP - (streak % STREAK_BONUS_STEP)} до ×{getStreakMultiplier(streak) + 1}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
