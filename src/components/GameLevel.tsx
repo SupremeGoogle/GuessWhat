@@ -380,40 +380,52 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           <motion.div 
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
-            className="absolute inset-0 bg-[#0b071e]/85 z-50 flex items-center justify-center p-5"
+            className="win-overlay"
           >
-            <motion.div 
-              initial={{ scale: 0.8, y: 50 }}
+            <motion.div
+              initial={{ scale: 0.85, y: 40 }}
               animate={{ scale: 1, y: 0 }}
-              className="w-full bg-white/10 backdrop-blur-3xl border border-white/20 rounded-[32px] p-8 flex flex-col items-center text-center gap-6 shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_2px_20px_rgba(255,255,255,0.05)]"
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="win-card"
+              role="dialog"
+              aria-label="Итоги уровня"
             >
-              <div className="text-7xl drop-shadow-2xl">🏆</div>
-              <h2 className="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-br from-[#00f2fe] to-[#4facfe] drop-shadow-md">
-                Уровень Пройден!
-              </h2>
+              <h2 className="win-title">Уровень пройден!</h2>
+              <p className="win-sub">{levelInfo.title} {levelInfo.icon}</p>
 
-              <div className="flex gap-4 text-5xl">
-                <motion.div initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.1, type: "spring" }}>
-                  <Star size={48} fill="#ffd700" color="#ffd700" className="drop-shadow-[0_0_15px_#ffd700]" />
-                </motion.div>
-                <motion.div initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring" }}>
-                  <Star size={48} fill={score >= STAR_SCORE_THRESHOLDS.second ? '#ffd700' : 'none'} color={score >= STAR_SCORE_THRESHOLDS.second ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= STAR_SCORE_THRESHOLDS.second ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
-                </motion.div>
-                <motion.div initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.5, type: "spring" }}>
-                  <Star size={48} fill={score >= STAR_SCORE_THRESHOLDS.third ? '#ffd700' : 'none'} color={score >= STAR_SCORE_THRESHOLDS.third ? '#ffd700' : 'rgba(255,255,255,0.2)'} className={score >= STAR_SCORE_THRESHOLDS.third ? "drop-shadow-[0_0_15px_#ffd700]" : ""} />
-                </motion.div>
+              <div className="win-stars" aria-label={`Звёзд: ${getStarsForScore(score)} из 3`}>
+                {[1, 2, 3].map(n => {
+                  const lit = getStarsForScore(score) >= n;
+                  return (
+                    <motion.div
+                      key={n}
+                      initial={{ scale: 0, rotate: -40, opacity: 0 }}
+                      animate={{ scale: n === 2 ? 1.25 : 1, rotate: 0, opacity: 1 }}
+                      transition={{ delay: 0.15 + n * 0.25, type: "spring", stiffness: 300, damping: 14 }}
+                    >
+                      <Star
+                        size={56}
+                        fill={lit ? '#ffd700' : 'none'}
+                        color={lit ? '#ffd700' : 'rgba(255,255,255,0.3)'}
+                        className={lit ? 'drop-shadow-[0_0_16px_#ffd700]' : ''}
+                      />
+                    </motion.div>
+                  );
+                })}
               </div>
 
-              <div className="bg-black/30 py-4 px-6 rounded-2xl w-full text-lg border border-white/10 shadow-inner">
-                <div className="text-white/80">Финишный счет: <strong className="text-[#00e676] text-2xl drop-shadow-md ml-2">{score} {pluralizeRu(score, ['очко', 'очка', 'очков'])}</strong></div>
+              <div className="win-score">
+                <div className="game-kicker">Финишный счёт</div>
+                <strong style={score < 0 ? { color: 'var(--accent-pink-soft)' } : undefined}>{score}</strong>
+                <div className="win-sub">{pluralizeRu(score, ['очко', 'очка', 'очков'])}</div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 w-full mt-2">
-                <NeonButton className="flex-1 py-3.5 text-base" onClick={handleRestart}>
+              <div className="flex flex-col sm:flex-row gap-3 w-full">
+                <NeonButton className="flex-1 py-3.5 text-base min-h-[52px]" onClick={handleRestart}>
                   <RotateCcw size={18} />
                   Еще раз
                 </NeonButton>
-                <NeonButton variant="secondary" className="flex-1 py-3.5 text-base" onClick={onBack}>
+                <NeonButton variant="secondary" className="flex-1 py-3.5 text-base min-h-[52px]" onClick={onBack}>
                   <CheckCircle2 size={18} />
                   Меню
                 </NeonButton>
@@ -421,7 +433,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
 
               <NeonButton
                 variant="secondary"
-                className="w-full py-3 text-sm"
+                className="w-full py-3 text-sm min-h-[48px]"
                 onClick={handleShare}
                 aria-label="Поделиться результатом уровня"
               >
