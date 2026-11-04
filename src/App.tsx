@@ -172,6 +172,7 @@ export const App: React.FC = () => {
       <LevelLockedModal
         level={lockedModalLevel}
         continueLevel={levels.find(l => l.id === continueLevelId) || levels[0]}
+        requiredStars={UNLOCK_NEXT_LEVEL_STARS}
         onClose={() => setLockedModalLevel(null)}
         onPlayContinue={() => {
           setLockedModalLevel(null);
