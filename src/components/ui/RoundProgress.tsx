@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
 interface RoundProgressProps {
@@ -19,7 +18,7 @@ interface RoundProgressProps {
 export const RoundProgress = ({ current, total, className }: RoundProgressProps) => {
   return (
     <div
-      className={cn("flex items-center gap-1.5 w-full", className)}
+      className={cn("round-progress", className)}
       role="progressbar"
       aria-valuemin={1}
       aria-valuemax={total}
@@ -29,29 +28,14 @@ export const RoundProgress = ({ current, total, className }: RoundProgressProps)
       {Array.from({ length: total }, (_, index) => {
         const isCompleted = index < current - 1;
         const isActive = index === current - 1;
-        const isLit = isCompleted || isActive;
 
         return (
-          <motion.div
+          <div
             key={index}
-            className={cn(
-              "h-1.5 flex-1 rounded-full",
-              isLit
-                ? "bg-gradient-to-r from-[#00f2fe] to-[#8a2be2] shadow-[0_0_8px_rgba(0,242,254,0.8)]"
-                : "bg-white/10"
-            )}
-            initial={false}
-            animate={
-              isActive
-                ? { opacity: [0.75, 1, 0.75] }
-                : { opacity: 1 }
-            }
-            transition={
-              isActive
-                ? { duration: 1.3, repeat: Infinity, ease: "easeInOut" }
-                : { duration: 0.3 }
-            }
-          />
+            className={cn("round-seg", isCompleted && "is-done", isActive && "is-active")}
+          >
+            <div className="round-seg-fill" />
+          </div>
         );
       })}
     </div>
