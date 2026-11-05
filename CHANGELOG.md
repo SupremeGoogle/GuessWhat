@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-05
+
+- Дизайн: общие UI-компоненты (NeonButton, GlassCard, RoundProgress) переведены на токены и классы: блик и проблеск кнопки, состояния disabled/focus, пружинное заполнение сегментов прогресса, prefers-reduced-motion. Проверено в headless Chromium 390×844, ошибок консоли нет.
+
 
 ## 2026-11-04
 

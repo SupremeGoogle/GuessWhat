@@ -79,3 +79,18 @@
 **Токены/классы** (`src/styles/index.css`): переиспользованы `--glass-*`, `--accent-pink-soft`, `--accent-gold`, `--touch-min`, `--text-soft`; добавлены классы `.lock-*`, keyframes `lockBreath`.
 
 **Проверка**: lint и build зелёные; headless Chromium 390×844: меню → выбор уровней → клик по закрытому уровню → модалка → «Играть в уровень 1», ошибок консоли нет.
+
+## 2026-11-05 — Общие стили и токены (src/components/ui)
+
+**Что было слабо**
+- NeonButton/GlassCard/RoundProgress собраны из длинных инлайн-цепочек Tailwind с жёсткими hex-цветами, мимо токенов; кнопка без min-height 48px, без disabled и focus-состояний; блик только на hover и не срабатывал на тач-устройствах.
+- RoundProgress: сегменты включались скачком, активный просто мигал.
+
+**Что сделано**
+- `.neon-btn` (+ `--primary`/`--secondary`): верхний стеклянный блик, проблеск по hover/тапу, пружинный отклик (whileTap), состояния hover/active/disabled, focus-ring, min-height 48px, `touch-action: manipulation`.
+- `.glass-card` на токенах стекла; `.round-progress`/`.round-seg`: сегмент заполняется слева направо пружиной, активный пульсирует свечением.
+- Компоненты стали тонкими обёртками над классами; prefers-reduced-motion отключает пульс и переходы.
+
+**Токены**: `--gradient-bar`, `--shadow-cta-hover`, `--shadow-cta-press`, `--glow-bar`, `--focus-ring`, `--ease-spring`.
+
+**Проверка**: lint и build зелёные; headless Chromium 390×844: сплэш → меню → уровень → 3 раунда, ошибок консоли нет. Механика и данные не менялись.
