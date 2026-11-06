@@ -8,6 +8,15 @@ interface SplashScreenProps {
   onFinish: () => void;
 }
 
+const SPARKS = [
+  { t: '12%', l: '18%', d: 0 },
+  { t: '20%', l: '82%', d: 0.8 },
+  { t: '46%', l: '8%', d: 1.5 },
+  { t: '58%', l: '90%', d: 2.1 },
+  { t: '78%', l: '24%', d: 0.4 },
+  { t: '88%', l: '70%', d: 1.2 },
+];
+
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const reduce = useReducedMotion();
@@ -44,9 +53,16 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center h-full text-center gap-7 px-6 py-10 cursor-pointer"
+      className="splash-stage flex flex-col items-center justify-center h-full text-center gap-7 px-6 py-10 cursor-pointer"
       onClick={handleTap}
     >
+      <div className="splash-orb splash-orb--purple" aria-hidden="true" />
+      <div className="splash-orb splash-orb--cyan" aria-hidden="true" />
+      <div className="splash-orb splash-orb--pink" aria-hidden="true" />
+      {SPARKS.map((p, i) => (
+        <span key={i} className="splash-spark" aria-hidden="true" style={{ top: p.t, left: p.l, animationDelay: `${p.d}s` }} />
+      ))}
+
       <motion.div
         initial={reduce ? false : { scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -72,7 +88,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         <div className="splash-track">
           <div className="splash-fill" style={{ width: `${progress}%`, transition: 'width 0.1s linear' }} />
         </div>
-        <span className="text-white/60 text-xs font-heading tabular-nums">{Math.min(progress, 100)}%</span>
+        <div className="splash-status">
+          <span>{progress < 100 ? 'Загружаем вопросы…' : 'Готово!'}</span>
+          <span>{Math.min(progress, 100)}%</span>
+        </div>
       </motion.div>
 
       <motion.div {...rise(0.45)}>
