@@ -40,6 +40,10 @@
     --orb-pink: radial-gradient(circle at 50% 50%, rgba(255, 8, 68, 0.3), transparent 70%);
     --shadow-logo: 0 0 48px rgba(138, 43, 226, 0.55), 0 24px 40px rgba(0, 0, 0, 0.45);
     --gradient-shimmer: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+    --halo-menu: radial-gradient(circle, rgba(138, 43, 226, 0.5) 0%, rgba(0, 242, 254, 0.18) 45%, transparent 70%);
+    --gradient-chip-gold: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 177, 153, 0.1));
+    --gradient-chip-cyan: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(138, 43, 226, 0.12));
+    --shadow-chip-gold: 0 0 18px rgba(255, 215, 0, 0.25);
     --text-main: #ffffff;
     --text-muted: #a0aec0;
     --font-heading: 'Rubik', sans-serif;
@@ -286,6 +290,26 @@
   .menu-cta:hover, .menu-secondary:hover { filter: brightness(1.12); }
   .menu-cta:focus-visible, .menu-secondary:focus-visible, .menu-icon-btn:focus-visible {
     outline: 3px solid var(--accent-cyan); outline-offset: 3px;
+  }
+  .menu-stage { position: relative; isolation: isolate; overflow: hidden; }
+  .menu-halo {
+    position: absolute; width: 300px; height: 300px; left: 50%; top: 24%;
+    transform: translateX(-50%); background: var(--halo-menu); pointer-events: none; z-index: -1;
+    animation: menuHalo 5s ease-in-out infinite;
+  }
+  .menu-stat--gold { background: var(--gradient-chip-gold); box-shadow: var(--shadow-chip-gold); border-color: rgba(255, 215, 0, 0.4); }
+  .menu-stat--cyan { background: var(--gradient-chip-cyan); }
+  .menu-cta-sub { display: block; font-size: 0.75rem; font-weight: 600; opacity: 0.9; letter-spacing: 0.04em; }
+  .menu-cta-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+  .menu-dots { display: flex; gap: 6px; margin-top: 12px; }
+  .menu-dot {
+    flex: 1; height: 8px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.14);
+  }
+  .menu-dot.is-open { background: var(--gradient-bar); box-shadow: var(--glow-bar); }
+  .menu-dot.is-next { background: var(--gradient-cta); box-shadow: var(--shadow-chip-gold); animation: menuHalo 1.8s ease-in-out infinite; }
+  @keyframes menuHalo { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-halo, .menu-dot.is-next, .menu-cta::after { animation: none; }
   }
   .menu-progress {
     padding: 14px 16px; border-radius: var(--radius-lg); margin-top: 16px;
