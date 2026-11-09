@@ -63,15 +63,18 @@ export const StartMenu: React.FC<StartMenuProps> = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col justify-between h-full p-5 pb-8"
+      className="menu-stage flex flex-col justify-between h-full p-5 pb-8"
     >
+      <div className="splash-orb splash-orb--purple" aria-hidden="true" />
+      <div className="splash-orb splash-orb--cyan" aria-hidden="true" />
+      <div className="menu-halo" aria-hidden="true" />
       {/* Header bar */}
       <motion.div {...rise(0)} className="menu-bar">
-        <div className="menu-stat" aria-label={`Звёзды: ${stats.starsEarned}`}>
+        <div className="menu-stat menu-stat--gold" aria-label={`Звёзды: ${stats.starsEarned}`}>
           <Star size={18} fill="var(--accent-gold)" color="var(--accent-gold)" />
           <span>{stats.starsEarned}</span>
         </div>
-        <div className="menu-stat" aria-label={`Очки: ${stats.totalScore}`}>
+        <div className="menu-stat menu-stat--cyan" aria-label={`Очки: ${stats.totalScore}`}>
           <Trophy size={18} color="var(--accent-cyan)" />
           <span>{stats.totalScore}</span>
         </div>
@@ -110,7 +113,10 @@ export const StartMenu: React.FC<StartMenuProps> = ({
         <motion.div {...rise(4)} className="flex flex-col gap-3 w-full max-w-[300px] mt-5">
           <button onClick={handleStart} className="menu-cta">
             <Play fill="currentColor" size={22} />
-            <span>{hasProgress ? `ПРОДОЛЖИТЬ · Уровень ${continueLevelId}` : 'ИГРАТЬ'}</span>
+            <span className="menu-cta-label">
+              <span>{hasProgress ? 'ПРОДОЛЖИТЬ' : 'ИГРАТЬ'}</span>
+              <span className="menu-cta-sub">Уровень {continueLevelId}</span>
+            </span>
           </button>
 
           <button onClick={handleLevels} className="menu-secondary">
@@ -137,6 +143,14 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           aria-label="Открытые уровни"
         >
           <div className="splash-fill" style={{ width: `${Math.round((unlockedCount / total) * 100)}%` }} />
+        </div>
+        <div className="menu-dots" aria-hidden="true">
+          {levels.map((lvl, i) => (
+            <span
+              key={lvl.id ?? i}
+              className={`menu-dot${lvl.isUnlocked ? ' is-open' : ''}${lvl.id === continueLevelId ? ' is-next' : ''}`}
+            />
+          ))}
         </div>
       </motion.div>
     </motion.div>
