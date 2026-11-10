@@ -53,13 +53,17 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex flex-col h-full p-5 overflow-y-auto"
+      className="relative h-full overflow-hidden"
     >
+      <div className="splash-orb splash-orb--purple" aria-hidden="true" />
+      <div className="splash-orb splash-orb--cyan" aria-hidden="true" />
+      <div className="splash-orb splash-orb--pink" aria-hidden="true" />
+      <div className="flex flex-col h-full p-5 overflow-y-auto">
       <div className="menu-bar mb-4 shrink-0">
         <button className="menu-icon-btn" onClick={onBack} title="Назад" aria-label="Назад в меню">
           <ArrowLeft size={22} />
         </button>
-        <h2 className="text-xl font-extrabold font-heading">Выбор уровня</h2>
+        <h2 className="level-heading">Выбор уровня</h2>
         <div className="menu-stat" aria-label={`Звёзд собрано ${totalStars} из ${maxStars}`}>
           <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
           {totalStars}
@@ -105,14 +109,14 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
                 role="button"
                 tabIndex={0}
                 aria-label={lvl.isUnlocked ? `Уровень ${lvl.id}, ${lvl.title}, открыт, звёзд ${lvl.stars} из 3` : `Уровень ${lvl.id}, ${lvl.title}, заблокирован`}
-                className={`level-tile ${lvl.isUnlocked ? 'is-open' : 'is-locked'} ${isNext ? 'is-next' : ''}`}
+                className={`level-tile ${lvl.isUnlocked ? 'is-open' : 'is-locked'} ${isNext ? 'is-next' : ''} ${lvl.isUnlocked && lvl.stars >= 3 ? 'is-perfect' : ''}`}
               >
                 <span className="level-num">{lvl.id}</span>
                 {isNext && <span className="level-flag">Играть</span>}
                 {lvl.isUnlocked ? (
-                  <span className="level-icon">{lvl.icon}</span>
+                  <span className="level-medal"><span className="level-icon">{lvl.icon}</span></span>
                 ) : (
-                  <Lock size={26} className="level-lock" />
+                  <span className="level-medal level-medal--locked"><Lock size={24} className="level-lock" /></span>
                 )}
                 <div className="level-title">{lvl.title}</div>
                 <div className="flex gap-0.5 mt-1.5" aria-hidden="true">
@@ -131,6 +135,7 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
           );
         })}
       </motion.div>
+      </div>
     </motion.div>
   );
 };
