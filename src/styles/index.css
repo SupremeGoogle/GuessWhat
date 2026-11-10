@@ -44,7 +44,10 @@
     --gradient-chip-gold: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 177, 153, 0.1));
     --gradient-chip-cyan: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(138, 43, 226, 0.12));
     --shadow-chip-gold: 0 0 18px rgba(255, 215, 0, 0.25);
-    --text-main: #ffffff;
+    --gradient-medal: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.28), rgba(138,43,226,0.35) 60%, rgba(0,242,254,0.15));
+    --shadow-medal: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
+    --gradient-tile-perfect: linear-gradient(160deg, rgba(255,215,0,0.2), rgba(255,255,255,0.04));
+  --text-main: #ffffff;
     --text-muted: #a0aec0;
     --font-heading: 'Rubik', sans-serif;
     --font-body: 'Outfit', sans-serif;
@@ -352,6 +355,28 @@
     color: var(--text-soft); line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2;
     -webkit-box-orient: vertical; overflow: hidden;
   }
+  .level-heading {
+    font-family: var(--font-heading); font-weight: 800; font-size: 1.25rem;
+    background: var(--gradient-title); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .level-medal {
+    display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+    background: var(--gradient-medal); border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-medal);
+  }
+  .level-medal--locked { background: rgba(255,255,255,0.06); box-shadow: none; }
+  .level-tile.is-open:hover .level-medal, .level-tile.is-next .level-medal { transform: scale(1.08); }
+  .level-medal { transition: transform 0.25s var(--ease-spring); }
+  .level-tile.is-perfect {
+    border-color: rgba(255, 215, 0, 0.6);
+    background: var(--gradient-tile-perfect);
+    box-shadow: var(--shadow-glass), var(--shadow-chip-gold);
+  }
+  .level-tile::before {
+    content: ""; position: absolute; inset: 0 0 55% 0; border-radius: var(--radius-lg) var(--radius-lg) 40% 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent); pointer-events: none;
+  }
+  .level-tile.is-locked::before { display: none; }
   .level-star-on { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8)); }
 }
 
@@ -566,6 +591,6 @@
 .tap-hint { animation: tapPulse 2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .game-vs-pulse, .lock-medal, .round-seg.is-active .round-seg-fill { animation: none !important; }
+  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-medal, .game-vs-pulse, .lock-medal, .round-seg.is-active .round-seg-fill { animation: none !important; }
   .round-seg-fill, .neon-btn::after { transition: none !important; }
 }
