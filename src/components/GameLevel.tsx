@@ -271,7 +271,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
           aria-label={isMuted ? 'Включить звук' : 'Выключить звук'}
           aria-pressed={isMuted}
         >
-          {isMuted ? <VolumeX size={20} color="#ff6b8b" /> : <Volume2 size={20} color="#00e676" />}
+          {isMuted ? <VolumeX size={20} className="icon-off" /> : <Volume2 size={20} className="icon-on" />}
         </motion.button>
       </div>
 
@@ -283,9 +283,17 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       {/* Score Stats Bar */}
       <div className="game-stats shrink-0 mb-3">
         <div className="game-score">
-          <Star size={18} fill="#ffd700" color="#ffd700" className="drop-shadow-md" />
+          <Star size={18} className="game-score-star" aria-hidden="true" />
           <small>Очки</small>
-          <strong className={score >= 0 ? 'text-[#00e676]' : 'text-[#ff6b8b]'}>{score}</strong>
+          <motion.strong
+            key={score}
+            className={`game-score-value${score < 0 ? ' is-neg' : ''}`}
+            initial={reduceMotion ? false : { scale: 1.5 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+          >
+            {score}
+          </motion.strong>
         </div>
 
         <AnimatePresence>
@@ -299,7 +307,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
               aria-live="polite"
             >
               <div className="game-streak-head">
-                <Flame size={18} fill="#ff0844" color="#ff0844" className="drop-shadow-[0_0_10px_rgba(255,8,68,0.8)]" />
+                <Flame size={18} className="game-flame" aria-hidden="true" />
                 <span>Серия {streak}</span>
                 {getStreakMultiplier(streak) > 1 && (
                   <span className="game-streak-mult" title="Бонус очков за серию верных ответов подряд">
@@ -329,9 +337,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
             animate={{ opacity: [0, 1, 1, 0], y: -100, scale: [0.5, 1.4, 1.2, 1] }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-5xl font-black pointer-events-none z-50 ${
-              floatingScore.type === 'plus' ? 'text-[#00e676] drop-shadow-[0_0_20px_#00e676]' : 'text-[#ff0844] drop-shadow-[0_0_20px_#ff0844]'
-            }`}
+            className={`float-score ${floatingScore.type === 'plus' ? 'is-plus' : 'is-minus'}`}
           >
             {floatingScore.text}
           </motion.div>
@@ -403,12 +409,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                       animate={{ scale: n === 2 ? 1.25 : 1, rotate: 0, opacity: 1 }}
                       transition={{ delay: 0.15 + n * 0.25, type: "spring", stiffness: 300, damping: 14 }}
                     >
-                      <Star
-                        size={56}
-                        fill={lit ? '#ffd700' : 'none'}
-                        color={lit ? '#ffd700' : 'rgba(255,255,255,0.3)'}
-                        className={lit ? 'drop-shadow-[0_0_16px_#ffd700]' : ''}
-                      />
+                      <Star size={56} className={`win-star${lit ? ' is-lit' : ''}`} style={{ animationDelay: `${0.5 + n * 0.25}s` }} />
                     </motion.div>
                   );
                 })}
@@ -418,6 +419,11 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                 <div className="game-kicker">Финишный счёт</div>
                 <strong style={score < 0 ? { color: 'var(--accent-pink-soft)' } : undefined}>{score}</strong>
                 <div className="win-sub">{pluralizeRu(score, ['очко', 'очка', 'очков'])}</div>
+                <div className="win-next">
+                  {getStarsForScore(score) >= 3
+                    ? '⭐ Максимум — безупречно!'
+                    : `Ещё ${(getStarsForScore(score) === 1 ? STAR_SCORE_THRESHOLDS.second : STAR_SCORE_THRESHOLDS.third) - score} до следующей ⭐`}
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 w-full">
