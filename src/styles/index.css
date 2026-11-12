@@ -53,7 +53,11 @@
     --glow-score-pos: 0 0 20px rgba(0, 230, 118, 0.9);
     --glow-score-neg: 0 0 20px rgba(255, 8, 68, 0.9);
     --gradient-win-card: linear-gradient(160deg, rgba(255, 215, 0, 0.14), rgba(138, 43, 226, 0.12) 45%, rgba(255, 255, 255, 0.05));
-  --text-main: #ffffff;
+    --gradient-lock-card: linear-gradient(165deg, rgba(255, 8, 68, 0.16), rgba(138, 43, 226, 0.14) 50%, rgba(255, 255, 255, 0.05));
+    --glow-lock: 0 0 34px rgba(255, 8, 68, 0.35);
+    --gradient-lock-medal: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(255, 8, 68, 0.14) 70%);
+    --orb-lock: radial-gradient(circle, rgba(255, 8, 68, 0.35), transparent 70%);
+    --text-main: #ffffff;
     --text-muted: #a0aec0;
     --font-heading: 'Rubik', sans-serif;
     --font-body: 'Outfit', sans-serif;
@@ -478,7 +482,7 @@
   .win-overlay { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(11, 7, 30, 0.85); }
   .win-card {
     width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; padding: 28px 20px;
-    border-radius: 32px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 32px; background: var(--gradient-lock-card), var(--glass-bg); border: 1px solid var(--glass-border);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glow-purple), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   }
@@ -508,7 +512,7 @@
   .lock-overlay { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(11, 7, 30, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
   .lock-card {
     position: relative; width: 100%; max-width: 360px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; padding: 32px 22px 22px;
-    border-radius: 32px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 32px; background: var(--gradient-lock-card), var(--glass-bg); border: 1px solid var(--glass-border);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 8, 68, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); overflow: hidden;
   }
@@ -517,7 +521,7 @@
   .lock-close:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
   .lock-close:active { transform: scale(0.92); }
   .lock-close:focus-visible, .lock-cta:focus-visible { outline: 3px solid var(--accent-cyan); outline-offset: 2px; }
-  .lock-medal { position: relative; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.22), rgba(255, 8, 68, 0.12) 70%); border: 1px solid rgba(255, 107, 139, 0.55); box-shadow: 0 0 34px rgba(255, 8, 68, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3); animation: lockBreath 3s ease-in-out infinite; }
+  .lock-medal { position: relative; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: var(--gradient-lock-medal); border: 1px solid rgba(255, 107, 139, 0.55); box-shadow: var(--glow-lock), inset 0 1px 0 rgba(255, 255, 255, 0.3); animation: lockBreath 3s ease-in-out infinite; }
   .lock-medal svg { color: var(--accent-pink-soft); filter: drop-shadow(0 0 12px rgba(255, 8, 68, 0.6)); }
   .lock-kicker { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-pink-soft); }
   .lock-title { font-family: var(--font-heading); font-weight: 900; font-size: 1.625rem; line-height: 1.15; color: #fff; }
@@ -530,6 +534,14 @@
   .lock-stars { display: flex; gap: 6px; margin-top: 10px; }
   .lock-star { color: rgba(255, 255, 255, 0.28); }
   .lock-star.is-needed { color: var(--accent-gold); fill: var(--accent-gold); filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6)); }
+  .lock-orb { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: var(--orb-lock); pointer-events: none; animation: floatOrb 12s ease-in-out infinite alternate; }
+  .lock-orb--a { top: 8%; left: -60px; }
+  .lock-orb--b { bottom: 6%; right: -70px; background: var(--orb-purple); animation-delay: -5s; }
+  .lock-medal svg { transform-origin: 50% 80%; animation: lockWiggle 0.7s 0.35s ease-in-out 1; }
+  .lock-stars { align-items: center; }
+  .lock-star-slot { position: relative; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px dashed rgba(255, 255, 255, 0.22); }
+  .lock-star-slot.is-needed { border-style: solid; border-color: rgba(255, 215, 0, 0.55); background: var(--gradient-chip-gold); box-shadow: var(--shadow-chip-gold); animation: lockSlotIn 0.45s var(--ease-spring) backwards; animation-delay: calc(0.3s + var(--i) * 0.15s); }
+  .lock-stars-note { margin-left: 6px; font-size: 0.8125rem; font-weight: 700; color: var(--accent-gold); }
   .lock-cta { width: 100%; min-height: 56px; margin-top: 4px; }
 }
 
@@ -576,6 +588,9 @@
   50% { box-shadow: 0 0 44px rgba(255, 8, 68, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
 }
 
+@keyframes lockWiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 55% { transform: rotate(11deg); } 80% { transform: rotate(-5deg); } }
+@keyframes lockSlotIn { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+
 @keyframes nextPulse {
   0%, 100% { box-shadow: var(--shadow-glass), 0 0 10px rgba(0, 242, 254, 0.35); }
   50% { box-shadow: var(--shadow-glass), 0 0 26px rgba(0, 242, 254, 0.75); }
@@ -611,6 +626,6 @@
 .tap-hint { animation: tapPulse 2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-medal, .game-vs-pulse, .lock-medal, .round-seg.is-active .round-seg-fill, .win-star.is-lit { animation: none !important; }
+  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-medal, .game-vs-pulse, .lock-medal, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .win-star.is-lit { animation: none !important; }
   .round-seg-fill, .neon-btn::after { transition: none !important; }
 }
