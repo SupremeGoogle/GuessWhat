@@ -46,6 +46,8 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
             className="lock-card"
             onClick={e => e.stopPropagation()}
           >
+            <div className="lock-orb lock-orb--a" aria-hidden="true" />
+            <div className="lock-orb lock-orb--b" aria-hidden="true" />
             <button onClick={onClose} className="lock-close" aria-label="Закрыть">
               <X size={22} />
             </button>
@@ -70,8 +72,15 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
               </div>
               <div className="lock-stars" aria-hidden="true">
                 {[0, 1, 2].map(i => (
-                  <Star key={i} size={24} className={i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
+                  <span
+                    key={i}
+                    className={i < requiredStars ? 'lock-star-slot is-needed' : 'lock-star-slot'}
+                    style={{ '--i': i } as React.CSSProperties}
+                  >
+                    <Star size={22} className={i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
+                  </span>
                 ))}
+                <span className="lock-stars-note">нужно {requiredStars} из 3</span>
               </div>
             </div>
 
