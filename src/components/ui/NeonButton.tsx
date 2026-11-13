@@ -4,7 +4,7 @@ import { cn } from "../../lib/utils";
 interface NeonButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode;
   className?: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "ghost";
 }
 
 export const NeonButton = ({ children, className, variant = "primary", disabled, ...props }: NeonButtonProps) => {
@@ -14,7 +14,7 @@ export const NeonButton = ({ children, className, variant = "primary", disabled,
       whileTap={disabled ? undefined : { scale: 0.96 }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
       disabled={disabled}
-      className={cn("neon-btn", variant === "primary" ? "neon-btn--primary" : "neon-btn--secondary", className)}
+      className={cn("neon-btn", `neon-btn--${variant}`, className)}
       {...props}
     >
       {children}
