@@ -8,8 +8,14 @@ interface SplashScreenProps {
   onFinish: () => void;
 }
 
-const RING_R = 47;
-const RING_C = 2 * Math.PI * RING_R;
+const TITLE = 'GuessWhat'.split('');
+
+function phaseLabel(p: number): string {
+  if (p >= 100) return 'Готово!';
+  if (p >= 66) return 'Мешаем карточки…';
+  if (p >= 33) return 'Считаем звёзды…';
+  return 'Загружаем вопросы…';
+}
 
 const SPARKS = [
   { t: '12%', l: '18%', d: 0 },
@@ -72,15 +78,18 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         transition={{ type: 'spring', stiffness: 160, damping: 14 }}
       >
         <div className="splash-logo">
-          <svg className="splash-ring" viewBox="0 0 100 100" aria-hidden="true">
-            <circle className="splash-ring-track" cx="50" cy="50" r={RING_R} />
-            <circle
+          <svg className="splash-ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <rect className="splash-ring-track" x="1.5" y="1.5" width="97" height="97" rx="22" pathLength={100} />
+            <rect
               className={`splash-ring-fill${progress >= 100 ? ' is-done' : ''}`}
-              cx="50"
-              cy="50"
-              r={RING_R}
-              strokeDasharray={RING_C}
-              strokeDashoffset={RING_C * (1 - Math.min(progress, 100) / 100)}
+              x="1.5"
+              y="1.5"
+              width="97"
+              height="97"
+              rx="22"
+              pathLength={100}
+              strokeDasharray={100}
+              strokeDashoffset={100 - Math.min(progress, 100)}
             />
           </svg>
           <motion.span
@@ -94,7 +103,21 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       </motion.div>
 
       <motion.div {...rise(0.15)}>
-        <h1 className="splash-title text-5xl font-black tracking-tight mb-2">GuessWhat</h1>
+        <h1 className="splash-title text-5xl font-black tracking-tight mb-2" aria-label="GuessWhat">
+          {TITLE.map((ch, i) => (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              className="splash-letter"
+              style={{ backgroundPosition: `${(i / (TITLE.length - 1)) * 100}% 0` }}
+              initial={reduce ? false : { opacity: 0, y: 18, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 16, delay: 0.2 + i * 0.045 }}
+            >
+              {ch}
+            </motion.span>
+          ))}
+        </h1>
         <p className="text-white/75 text-lg">Викторина сравнений & фактов</p>
       </motion.div>
 
@@ -103,7 +126,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
           <div className="splash-fill" style={{ width: `${progress}%`, transition: 'width 0.1s linear' }} />
         </div>
         <div className="splash-status">
-          <span>{progress < 100 ? 'Загружаем вопросы…' : 'Готово!'}</span>
+          <span>{phaseLabel(progress)}</span>
           <span>{Math.min(progress, 100)}%</span>
         </div>
       </motion.div>

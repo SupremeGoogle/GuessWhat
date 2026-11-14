@@ -181,10 +181,11 @@
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.28) 0%, transparent 42%);
     pointer-events: none;
   }
-  .splash-ring { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); transform: rotate(-90deg); pointer-events: none; overflow: visible; }
+  .splash-ring { position: absolute; left: -12px; top: -12px; width: calc(100% + 24px); height: calc(100% + 24px); pointer-events: none; overflow: visible; }
   .splash-ring-track { fill: none; stroke: var(--ring-track); stroke-width: 2.5; }
   .splash-ring-fill { fill: none; stroke: var(--accent-cyan); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px var(--accent-cyan)); transition: stroke-dashoffset 0.1s linear, stroke var(--dur-slow) ease, filter var(--dur-slow) ease; }
   .splash-ring-fill.is-done { stroke: var(--accent-green); filter: drop-shadow(0 0 9px var(--accent-green)); }
+  .splash-letter { display: inline-block; background: var(--gradient-title); background-size: 900% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
   .splash-stage {
     position: relative;
     isolation: isolate;
@@ -235,10 +236,6 @@
   }
   .splash-title {
     font-family: var(--font-heading);
-    background: var(--gradient-title);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
     filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.35));
   }
   .splash-track {
