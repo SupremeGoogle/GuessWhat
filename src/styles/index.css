@@ -59,6 +59,7 @@
     --orb-lock: radial-gradient(circle, rgba(255, 8, 68, 0.35), transparent 70%);
     --text-main: #ffffff;
     --text-muted: #a0aec0;
+    --ring-track: rgba(255, 255, 255, 0.14);
     --dur-fast: 0.16s;
     --dur-base: 0.24s;
     --dur-slow: 0.45s;
@@ -180,6 +181,10 @@
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.28) 0%, transparent 42%);
     pointer-events: none;
   }
+  .splash-ring { position: absolute; inset: -14px; width: calc(100% + 28px); height: calc(100% + 28px); transform: rotate(-90deg); pointer-events: none; overflow: visible; }
+  .splash-ring-track { fill: none; stroke: var(--ring-track); stroke-width: 2.5; }
+  .splash-ring-fill { fill: none; stroke: var(--accent-cyan); stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px var(--accent-cyan)); transition: stroke-dashoffset 0.1s linear, stroke var(--dur-slow) ease, filter var(--dur-slow) ease; }
+  .splash-ring-fill.is-done { stroke: var(--accent-green); filter: drop-shadow(0 0 9px var(--accent-green)); }
   .splash-stage {
     position: relative;
     isolation: isolate;
@@ -226,6 +231,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .splash-logo, .splash-logo::before, .splash-orb, .splash-spark, .splash-fill::after { animation: none; }
+    .splash-ring-fill { transition: none; }
   }
   .splash-title {
     font-family: var(--font-heading);

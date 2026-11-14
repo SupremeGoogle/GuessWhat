@@ -8,6 +8,9 @@ interface SplashScreenProps {
   onFinish: () => void;
 }
 
+const RING_R = 47;
+const RING_C = 2 * Math.PI * RING_R;
+
 const SPARKS = [
   { t: '12%', l: '18%', d: 0 },
   { t: '20%', l: '82%', d: 0.8 },
@@ -69,6 +72,17 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         transition={{ type: 'spring', stiffness: 160, damping: 14 }}
       >
         <div className="splash-logo">
+          <svg className="splash-ring" viewBox="0 0 100 100" aria-hidden="true">
+            <circle className="splash-ring-track" cx="50" cy="50" r={RING_R} />
+            <circle
+              className={`splash-ring-fill${progress >= 100 ? ' is-done' : ''}`}
+              cx="50"
+              cy="50"
+              r={RING_R}
+              strokeDasharray={RING_C}
+              strokeDashoffset={RING_C * (1 - Math.min(progress, 100) / 100)}
+            />
+          </svg>
           <motion.span
             animate={reduce ? undefined : { scale: [1, 1.08, 1], rotate: [0, 4, -4, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
