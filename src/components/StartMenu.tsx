@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Play, Volume2, VolumeX, Trophy, Star, Grid } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { audio } from '../utils/audio';
 import { GameStats, LevelInfo } from '../types';
+
+/** Плавный счётчик: от прежнего значения к новому за ~700 мс (без анимации при reduced-motion). */
+const useCountUp = (target: number, disabled: boolean) => {
+  const [value, setValue] = useState(disabled ? target : 0);
+  useEffect(() => {
+    if (disabled) {
+      setValue(target);
+      return;
+    }
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / 700);
+      setValue(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, disabled]);
+  return value;
+};
 
 interface StartMenuProps {
   onStartGame: () => void;
@@ -48,6 +69,11 @@ export const StartMenu: React.FC<StartMenuProps> = ({
 
   const reduce = useReducedMotion();
   const total = levels.length || 1;
+  const starsShown = useCountUp(stats.starsEarned, !!reduce);
+  const scoreShown = useCountUp(stats.totalScore, !!reduce);
+  const maxStars = levels.length * 3;
+  const starsLeft = Math.max(0, maxStars - stats.starsEarned);
+  const starPct = maxStars ? Math.round((stats.starsEarned / maxStars) * 100) : 0;
   const rise = (i: number) =>
     reduce
       ? {}
@@ -72,11 +98,11 @@ export const StartMenu: React.FC<StartMenuProps> = ({
       <motion.div {...rise(0)} className="menu-bar">
         <div className="menu-stat menu-stat--gold" aria-label={`Звёзды: ${stats.starsEarned}`}>
           <Star size={18} fill="var(--accent-gold)" color="var(--accent-gold)" />
-          <span>{stats.starsEarned}</span>
+          <span>{starsShown}</span>
         </div>
         <div className="menu-stat menu-stat--cyan" aria-label={`Очки: ${stats.totalScore}`}>
           <Trophy size={18} color="var(--accent-cyan)" />
-          <span>{stats.totalScore}</span>
+          <span>{scoreShown}</span>
         </div>
         <motion.button
           whileTap={{ scale: 0.92 }}
@@ -143,6 +169,22 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           aria-label="Открытые уровни"
         >
           <div className="splash-fill" style={{ width: `${Math.round((unlockedCount / total) * 100)}%` }} />
+        </div>
+        <div className="menu-stars-row">
+          <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" aria-hidden="true" />
+          <div
+            className="menu-stars-track"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={maxStars}
+            aria-valuenow={stats.starsEarned}
+            aria-label="Собрано звёзд"
+          >
+            <div className="menu-stars-fill" style={{ width: `${starPct}%` }} />
+          </div>
+          <span className="menu-stars-note">
+            {starsLeft === 0 ? 'Все ⭐!' : `ещё ${starsLeft} ⭐`}
+          </span>
         </div>
         <div className="menu-dots" aria-hidden="true">
           {levels.map((lvl, i) => (
