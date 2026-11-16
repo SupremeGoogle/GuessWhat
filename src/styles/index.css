@@ -60,6 +60,10 @@
     --gradient-lock-medal: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(255, 8, 68, 0.14) 70%);
     --orb-lock: radial-gradient(circle, rgba(255, 8, 68, 0.35), transparent 70%);
     --text-main: #ffffff;
+    --gradient-continue: linear-gradient(120deg, rgba(0, 242, 254, 0.22), rgba(138, 43, 226, 0.28));
+    --glow-continue: 0 0 22px rgba(0, 242, 254, 0.4);
+    --glow-star-on: drop-shadow(0 0 5px rgba(255, 215, 0, 0.9));
+    --shadow-tile-lift: 0 14px 28px rgba(0, 0, 0, 0.45), var(--glow-cyan);
     --text-muted: #a0aec0;
     --ring-track: rgba(255, 255, 255, 0.14);
     --dur-fast: 0.16s;
@@ -108,6 +112,8 @@
     position: relative;
   }
 }
+
+@keyframes starPop { 0% { transform: scale(0.2) rotate(-40deg); opacity: 0; } 70% { transform: scale(1.3) rotate(8deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 
 @layer components {
   /* Dynamic Ambient Glow Orbs in Background */
@@ -410,7 +416,27 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent); pointer-events: none;
   }
   .level-tile.is-locked::before { display: none; }
-  .level-star-on { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8)); }
+  .level-star-on { filter: var(--glow-star-on); animation: starPop 0.5s var(--ease-spring) both; animation-delay: calc(0.35s + var(--i, 0) * 0.12s); }
+  .level-stars { display: flex; gap: 2px; margin-top: 6px; }
+  .level-tile.is-open:hover { box-shadow: var(--shadow-tile-lift); }
+  .level-tile.is-locked .level-title { color: var(--text-muted); }
+  .level-tile::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: var(--glass-specular); opacity: 0.35; mix-blend-mode: soft-light;
+  }
+  .level-continue {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: var(--touch-min);
+    margin-top: 12px; padding: 10px 14px; border-radius: var(--radius-lg); cursor: pointer; text-align: left;
+    background: var(--gradient-continue); border: 1px solid rgba(0, 242, 254, 0.5);
+    box-shadow: var(--glow-continue), var(--glass-rim); color: var(--text-main);
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  }
+  .level-continue:hover { box-shadow: var(--glow-cyan), var(--glass-rim); }
+  .level-continue:active { transform: scale(0.97); box-shadow: var(--shadow-glass-press); }
+  .level-continue:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  .level-continue-icon { font-size: 1.75rem; line-height: 1; }
+  .level-continue-label { font-size: 0.75rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+  .level-continue-name { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; }
 }
 
 @layer components {
@@ -660,6 +686,6 @@
 .tap-hint { animation: tapPulse 2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-medal, .game-vs-pulse, .lock-medal, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .glass-card.is-active, .win-star.is-lit { animation: none !important; }
+  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-star-on, .level-continue, .level-medal, .game-vs-pulse, .lock-medal, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .glass-card.is-active, .win-star.is-lit { animation: none !important; }
   .round-seg-fill, .neon-btn::after { transition: none !important; }
 }
