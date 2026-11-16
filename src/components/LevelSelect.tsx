@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Lock, Star, Sparkles } from 'lucide-react';
+import { ArrowLeft, Lock, Star, Sparkles, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { LevelInfo } from '../types';
 import { audio } from '../utils/audio';
@@ -45,7 +45,8 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
   const maxStars = levels.length * 3;
   const percent = levels.length ? Math.round((unlockedCount / levels.length) * 100) : 0;
   // «Следующий» уровень — первый открытый без звёзд: подсвечиваем, куда играть дальше.
-  const nextId = levels.find(l => l.isUnlocked && l.stars === 0)?.id;
+  const nextLevel = levels.find(l => l.isUnlocked && l.stars === 0);
+  const nextId = nextLevel?.id;
 
   return (
     <motion.div
@@ -86,6 +87,17 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
         </div>
+        {nextLevel && (
+          <button type="button" className="level-continue" onClick={() => handleCardClick(nextLevel)}
+            aria-label={`Продолжить: уровень ${nextLevel.id}, ${nextLevel.title}`}>
+            <span className="level-continue-icon" aria-hidden="true">{nextLevel.icon}</span>
+            <span className="flex-1 min-w-0">
+              <span className="level-continue-label block">Дальше · уровень {nextLevel.id}</span>
+              <span className="level-continue-name block truncate">{nextLevel.title}</span>
+            </span>
+            <Play size={20} fill="currentColor" aria-hidden="true" />
+          </button>
+        )}
       </div>
 
       <motion.div
@@ -119,14 +131,15 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
                   <span className="level-medal level-medal--locked"><Lock size={24} className="level-lock" /></span>
                 )}
                 <div className="level-title">{lvl.title}</div>
-                <div className="flex gap-0.5 mt-1.5" aria-hidden="true">
+                <div className="level-stars" aria-hidden="true">
                   {[1, 2, 3].map(s => (
                     <Star
                       key={s}
-                      size={13}
+                      size={15}
                       className={lvl.isUnlocked && s <= lvl.stars ? 'level-star-on' : ''}
+                      style={{ '--i': s } as React.CSSProperties}
                       fill={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'none'}
-                      color={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'rgba(255,255,255,0.35)'}
+                      color={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'rgba(255,255,255,0.4)'}
                     />
                   ))}
                 </div>
