@@ -328,6 +328,23 @@ export const GameLevel: React.FC<GameLevelProps> = ({
         </AnimatePresence>
       </div>
 
+      {/* Цель по звёздам */}
+      {(() => {
+        const curStars = getStarsForScore(score);
+        const target = curStars === 1 ? STAR_SCORE_THRESHOLDS.second : STAR_SCORE_THRESHOLDS.third;
+        const pct = curStars >= 3 ? 100 : Math.max(0, Math.min(100, (score / target) * 100));
+        return (
+          <div className="game-goal shrink-0 mb-3">
+            <div className="game-goal-track" aria-hidden="true">
+              <div className="game-goal-fill" style={{ width: `${pct}%` }} />
+            </div>
+            <div className="game-goal-label">
+              {curStars >= 3 ? '⭐⭐⭐ максимум' : `ещё ${Math.max(0, target - score)} до ${curStars + 1} ⭐`}
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Floating Score Popups */}
       <AnimatePresence>
         {floatingScore && (

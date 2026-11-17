@@ -80,6 +80,15 @@
     --gradient-seg-done: linear-gradient(90deg, #8a2be2, #4facfe);
     --gradient-seg-active: linear-gradient(90deg, #4facfe, #00f2fe, #00e676);
     --vignette-app: radial-gradient(120% 70% at 50% 0%, rgba(138, 43, 226, 0.18), transparent 60%), radial-gradient(100% 60% at 50% 100%, rgba(0, 242, 254, 0.1), transparent 65%);
+    --accent-side-a: rgba(0, 242, 254, 0.55);
+    --accent-side-b: rgba(194, 0, 255, 0.55);
+    --gradient-side-a: linear-gradient(180deg, #00f2fe, #4facfe);
+    --gradient-side-b: linear-gradient(180deg, #c200ff, #ff2d95);
+    --gradient-goal: linear-gradient(90deg, #ffb347, #ffd700);
+    --glow-correct: 0 0 36px rgba(0, 230, 118, 0.55);
+    --glow-wrong: 0 0 36px rgba(255, 8, 68, 0.55);
+    --shadow-card-lift: 0 16px 34px rgba(0, 0, 0, 0.45), var(--glass-rim);
+    --gradient-vs-ring: conic-gradient(from 0deg, #00f2fe, #c200ff, #ff2d95, #00f2fe);
     --font-heading: 'Rubik', sans-serif;
     --font-body: 'Outfit', sans-serif;
   }
@@ -688,4 +697,12 @@
 @media (prefers-reduced-motion: reduce) {
   .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-star-on, .level-continue, .level-medal, .game-vs-pulse, .lock-medal, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .glass-card.is-active, .win-star.is-lit { animation: none !important; }
   .round-seg-fill, .neon-btn::after { transition: none !important; }
+}
+
+@layer components {
+  /* GameLevel: цель по звёздам */
+  .game-goal { display: flex; align-items: center; gap: 10px; padding: 0 4px; }
+  .game-goal-label { font-size: 0.75rem; font-weight: 700; color: var(--accent-gold); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .game-goal-track { flex: 1; height: 8px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.14); overflow: hidden; }
+  .game-goal-fill { height: 100%; border-radius: inherit; background: var(--gradient-goal); box-shadow: var(--glow-stars); transition: width 0.5s var(--ease-out); }
 }
