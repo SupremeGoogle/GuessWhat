@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2, Share2 } from 'lucide-react';
+import { Check, X, ArrowLeft, Volume2, VolumeX, Flame, Star, RotateCcw, CheckCircle2, Share2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { GameItem, PairComparison, LevelInfo } from '../types';
@@ -544,7 +544,7 @@ function renderItemCard(
       layoutId={item.id + position} // to smoothly animate out/in on new rounds if Framer Motion supports it across renders
       animate={animationProps}
       whileTap={!isRevealed ? { scale: 0.95 } : {}}
-      className={`game-card ${stateClasses}`}
+      className={`game-card game-card--${position} ${stateClasses}`}
       onClick={() => onClick(item)}
       onKeyDown={handleKeyDown}
       role="button"
@@ -552,6 +552,17 @@ function renderItemCard(
       aria-label={`${item.nameRu}, нажми, если думаешь, что это верный ответ`}
       aria-disabled={isRevealed}
     >
+      {isRevealed && (isCorrect || isSelected) && (
+        <motion.div
+          initial={{ scale: 0, rotate: -30 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 420, damping: 16 }}
+          className={`game-badge ${isCorrect ? 'is-correct' : 'is-wrong'}`}
+          aria-hidden="true"
+        >
+          {isCorrect ? <Check size={20} strokeWidth={3.5} /> : <X size={20} strokeWidth={3.5} />}
+        </motion.div>
+      )}
       <div className="game-card-media group">
         {item.imageUri && !hasImageError ? (
           <img

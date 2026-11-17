@@ -706,3 +706,30 @@
   .game-goal-track { flex: 1; height: 8px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.14); overflow: hidden; }
   .game-goal-fill { height: 100%; border-radius: inherit; background: var(--gradient-goal); box-shadow: var(--glow-stars); transition: width 0.5s var(--ease-out); }
 }
+
+@layer components {
+  /* GameLevel: карточки — цветная кромка сторон, бейдж результата, объём */
+  .game-card { box-shadow: var(--shadow-card-lift); }
+  .game-card::after {
+    content: ""; position: absolute; left: 0; top: 18%; bottom: 18%; width: 4px; border-radius: 0 4px 4px 0; pointer-events: none;
+  }
+  .game-card--top::after { background: var(--gradient-side-a); box-shadow: 0 0 12px var(--accent-side-a); }
+  .game-card--bottom::after { background: var(--gradient-side-b); box-shadow: 0 0 12px var(--accent-side-b); }
+  .game-card:not(.is-correct):not(.is-wrong):not(.is-dim):hover { box-shadow: var(--shadow-card-lift), var(--glow-active-soft); }
+  .game-card.is-correct { box-shadow: var(--shadow-glass), var(--glow-correct); }
+  .game-card.is-wrong { box-shadow: var(--shadow-glass), var(--glow-wrong); }
+  .game-badge {
+    position: absolute; top: 10px; right: 10px; z-index: 5; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; color: #0b071e; border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+  .game-badge.is-correct { background: var(--accent-green); box-shadow: var(--glow-correct); }
+  .game-badge.is-wrong { background: var(--accent-pink-soft); box-shadow: var(--glow-wrong); }
+  .game-card-hint { padding: 6px 14px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.08); }
+  .game-vs::before {
+    content: ""; position: absolute; inset: -6px; border-radius: 50%; z-index: -1;
+    background: var(--gradient-vs-ring); opacity: 0.75; filter: blur(6px);
+    animation: vsSpin 6s linear infinite;
+  }
+  @keyframes vsSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .game-vs::before { animation: none; } }
+}
