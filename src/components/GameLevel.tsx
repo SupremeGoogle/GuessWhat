@@ -416,6 +416,9 @@ export const GameLevel: React.FC<GameLevelProps> = ({
               <h2 className="win-title">Уровень пройден!</h2>
               <p className="win-sub">{levelInfo.title} {levelInfo.icon}</p>
 
+              <div className="win-stage">
+              <div className="win-halo" aria-hidden="true" />
+              <div className="win-rays" aria-hidden="true" />
               <div className="win-stars" aria-label={`Звёзд: ${getStarsForScore(score)} из 3`}>
                 {[1, 2, 3].map(n => {
                   const lit = getStarsForScore(score) >= n;
@@ -431,10 +434,13 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                   );
                 })}
               </div>
+              </div>
+
+              <div className="win-rank">{['Попробуй ещё', 'Неплохо', 'Отлично', 'Безупречно'][getStarsForScore(score)] ?? 'Отлично'}</div>
 
               <div className="win-score">
                 <div className="game-kicker">Финишный счёт</div>
-                <strong style={score < 0 ? { color: 'var(--accent-pink-soft)' } : undefined}>{score}</strong>
+                <strong style={score < 0 ? { color: 'var(--accent-pink-soft)' } : undefined}><CountUp value={score} /></strong>
                 <div className="win-sub">{pluralizeRu(score, ['очко', 'очка', 'очков'])}</div>
                 <div className="win-next">
                   {getStarsForScore(score) >= 3
@@ -469,6 +475,26 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       </AnimatePresence>
     </motion.div>
   );
+};
+
+/** Плавный счётчик 0 → value (без анимации при prefers-reduced-motion). */
+const CountUp: React.FC<{ value: number }> = ({ value }) => {
+  const reduce = useReducedMotion();
+  const [shown, setShown] = useState(reduce ? value : 0);
+  useEffect(() => {
+    if (reduce) { setShown(value); return; }
+    const start = performance.now();
+    const dur = 900;
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      setShown(Math.round(value * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [value, reduce]);
+  return <>{shown}</>;
 };
 
 /**
