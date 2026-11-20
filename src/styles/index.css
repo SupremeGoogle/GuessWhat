@@ -3,6 +3,9 @@
 
 @layer base {
   :root {
+    --gradient-lock-ring: conic-gradient(from 0deg, rgba(255, 8, 68, 0.9), transparent 35%, rgba(255, 215, 0, 0.7) 60%, transparent 85%, rgba(255, 8, 68, 0.9));
+    --gradient-lock-link: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink-soft));
+    --shadow-lock-node: 0 0 14px rgba(0, 242, 254, 0.45);
     --bg-gradient: linear-gradient(135deg, #0b071e 0%, #170d38 50%, #0d1b3e 100%);
     --accent-purple: #8a2be2;
     --accent-cyan: #00f2fe;
@@ -610,6 +613,13 @@
   .lock-star-slot { position: relative; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px dashed rgba(255, 255, 255, 0.22); }
   .lock-star-slot.is-needed { border-style: solid; border-color: rgba(255, 215, 0, 0.55); background: var(--gradient-chip-gold); box-shadow: var(--shadow-chip-gold); animation: lockSlotIn 0.45s var(--ease-spring) backwards; animation-delay: calc(0.3s + var(--i) * 0.15s); }
   .lock-stars-note { margin-left: 6px; font-size: 0.8125rem; font-weight: 700; color: var(--accent-gold); }
+  .lock-medal-wrap { position: relative; width: 112px; height: 112px; display: grid; place-items: center; }
+  .lock-ring { position: absolute; inset: 0; border-radius: 50%; background: var(--gradient-lock-ring); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px)); mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px)); animation: raysSpin 8s linear infinite; opacity: 0.85; }
+  .lock-path { display: flex; align-items: center; gap: 10px; }
+  .lock-node { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-heading); font-weight: 800; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+  .lock-node--open { color: #0b071e; background: var(--accent-cyan); box-shadow: var(--shadow-lock-node); }
+  .lock-node--locked { color: var(--accent-pink-soft); background: rgba(255, 255, 255, 0.06); border: 1px dashed rgba(255, 107, 139, 0.6); }
+  .lock-link { display: grid; place-items: center; color: var(--accent-cyan); }
   .lock-cta { width: 100%; min-height: 56px; margin-top: 4px; }
 }
 
@@ -706,7 +716,7 @@
 .tap-hint { animation: tapPulse 2s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-star-on, .level-continue, .level-medal, .game-vs-pulse, .lock-medal, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .glass-card.is-active, .win-star.is-lit, .win-rays { animation: none !important; }
+  .ambient-glow, .splash-logo, .tap-hint, .menu-cta::after, .level-tile.is-next, .level-star-on, .level-continue, .level-medal, .game-vs-pulse, .lock-medal, .lock-ring, .lock-medal svg, .lock-orb, .lock-star-slot, .round-seg.is-active .round-seg-fill, .glass-card.is-active, .win-star.is-lit, .win-rays { animation: none !important; }
   .round-seg-fill, .neon-btn::after { transition: none !important; }
 }
 

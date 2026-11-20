@@ -1,5 +1,5 @@
-import React from 'react';
-import { Lock, Sparkles, Star, X } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { ArrowRight, Lock, Sparkles, Star, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LevelInfo } from '../types';
 import { NeonButton } from './ui/NeonButton';
@@ -25,6 +25,15 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
   onClose,
   onPlayContinue
 }) => {
+  useEffect(() => {
+    if (!level) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [level, onClose]);
+
   return (
     <AnimatePresence>
       {level && (
@@ -52,8 +61,11 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
               <X size={22} />
             </button>
 
-            <div className="lock-medal">
-              <Lock size={44} />
+            <div className="lock-medal-wrap">
+              <div className="lock-ring" aria-hidden="true" />
+              <div className="lock-medal">
+                <Lock size={44} />
+              </div>
             </div>
 
             <div className="lock-kicker">Уровень #{level.id}</div>
@@ -62,6 +74,12 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
             <p className="lock-topic">
               Тема: <strong>{level.title}</strong>
             </p>
+
+            <div className="lock-path" aria-hidden="true">
+              <span className="lock-node lock-node--open">{continueLevel.id}</span>
+              <span className="lock-link"><ArrowRight size={16} /></span>
+              <span className="lock-node lock-node--locked"><Lock size={14} /></span>
+            </div>
 
             <div className="lock-req">
               <div className="lock-req-head">
