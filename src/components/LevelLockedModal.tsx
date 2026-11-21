@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Lock, Sparkles, Star, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LevelInfo } from '../types';
@@ -25,6 +25,24 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
   onClose,
   onPlayContinue
 }) => {
+  const ctaWrapRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  // Esc закрывает модалку; фокус уходит на главную кнопку (клавиатура/скринридер).
+  useEffect(() => {
+    if (!level) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCloseRef.current();
+    };
+    window.addEventListener('keydown', onKey);
+    ctaWrapRef.current?.querySelector('button')?.focus();
+    return () => window.removeEventListener('keydown', onKey);
+  }, [level]);
+
+  const earned = Math.min(continueLevel.stars ?? 0, 3);
+  const left = Math.max(requiredStars - earned, 0);
+
   return (
     <AnimatePresence>
       {level && (
@@ -74,19 +92,25 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
                 {[0, 1, 2].map(i => (
                   <span
                     key={i}
-                    className={i < requiredStars ? 'lock-star-slot is-needed' : 'lock-star-slot'}
+                    className={
+                      i < earned ? 'lock-star-slot is-earned' : i < requiredStars ? 'lock-star-slot is-needed' : 'lock-star-slot'
+                    }
                     style={{ '--i': i } as React.CSSProperties}
                   >
-                    <Star size={22} className={i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
+                    <Star size={22} className={i < earned ? 'lock-star is-earned' : i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
                   </span>
                 ))}
-                <span className="lock-stars-note">нужно {requiredStars} из 3</span>
+                <span className={earned > 0 ? 'lock-stars-note is-progress' : 'lock-stars-note'}>
+                  {earned > 0 ? `есть ${earned}, ещё ${left}` : `нужно ${requiredStars} из 3`}
+                </span>
               </div>
             </div>
 
-            <NeonButton className="lock-cta" onClick={onPlayContinue}>
-              Играть в уровень {continueLevel.id} 🚀
-            </NeonButton>
+            <div ref={ctaWrapRef} className="lock-cta-wrap">
+              <NeonButton className="lock-cta" onClick={onPlayContinue}>
+                Играть в уровень {continueLevel.id} 🚀
+              </NeonButton>
+            </div>
           </motion.div>
         </motion.div>
       )}

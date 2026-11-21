@@ -616,6 +616,7 @@
   .lock-star-slot.is-earned { border-style: solid; border-color: var(--border-lock-earned); background: var(--gradient-lock-earned); box-shadow: var(--glow-lock-earned); }
   .lock-star.is-earned { color: var(--accent-green); fill: var(--accent-green); filter: drop-shadow(0 0 6px rgba(0, 230, 118, 0.7)); }
   .lock-stars-note.is-progress { color: var(--accent-green); }
+  .lock-cta-wrap { width: 100%; }
   .lock-cta { width: 100%; min-height: 56px; margin-top: 4px; }
 }
 
