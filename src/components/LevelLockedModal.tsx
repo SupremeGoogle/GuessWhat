@@ -25,6 +25,9 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
   onClose,
   onPlayContinue
 }) => {
+  const have = Math.min(continueLevel.stars ?? 0, 3);
+  const left = Math.max(requiredStars - have, 0);
+  const pct = Math.min(have / requiredStars, 1) * 100;
   return (
     <AnimatePresence>
       {level && (
@@ -74,13 +77,21 @@ export const LevelLockedModal: React.FC<LevelLockedModalProps> = ({
                 {[0, 1, 2].map(i => (
                   <span
                     key={i}
-                    className={i < requiredStars ? 'lock-star-slot is-needed' : 'lock-star-slot'}
+                    className={`lock-star-slot${i < requiredStars ? ' is-needed' : ''}${i < have ? ' is-earned' : ''}`}
                     style={{ '--i': i } as React.CSSProperties}
                   >
-                    <Star size={22} className={i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
+                    <Star size={22} className={i < have ? 'lock-star is-earned' : i < requiredStars ? 'lock-star is-needed' : 'lock-star'} />
                   </span>
                 ))}
                 <span className="lock-stars-note">нужно {requiredStars} из 3</span>
+              </div>
+              <div className="lock-progress" role="progressbar" aria-valuemin={0} aria-valuemax={requiredStars} aria-valuenow={Math.min(have, requiredStars)}>
+                <div className="lock-progress-track">
+                  <div className="lock-progress-fill" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="lock-progress-label">
+                  {left > 0 ? `У тебя ${have} ⭐ · ещё ${left}` : 'Условие выполнено ✓'}
+                </span>
               </div>
             </div>
 
