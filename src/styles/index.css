@@ -64,6 +64,9 @@
     --gradient-lock-medal: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(255, 8, 68, 0.14) 70%);
     --orb-lock: radial-gradient(circle, rgba(255, 8, 68, 0.35), transparent 70%);
     --text-main: #ffffff;
+    --gradient-lock-progress: linear-gradient(90deg, #ff6b8b, #ffd700);
+    --glow-lock-progress: 0 0 10px rgba(255, 215, 0, 0.55);
+    --shadow-slot-earned: 0 0 16px rgba(255, 215, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
     --gradient-continue: linear-gradient(120deg, rgba(0, 242, 254, 0.22), rgba(138, 43, 226, 0.28));
     --glow-continue: 0 0 22px rgba(0, 242, 254, 0.4);
     --glow-star-on: drop-shadow(0 0 5px rgba(255, 215, 0, 0.9));
@@ -610,6 +613,12 @@
   .lock-star-slot { position: relative; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.06); border: 1px dashed rgba(255, 255, 255, 0.22); }
   .lock-star-slot.is-needed { border-style: solid; border-color: rgba(255, 215, 0, 0.55); background: var(--gradient-chip-gold); box-shadow: var(--shadow-chip-gold); animation: lockSlotIn 0.45s var(--ease-spring) backwards; animation-delay: calc(0.3s + var(--i) * 0.15s); }
   .lock-stars-note { margin-left: 6px; font-size: 0.8125rem; font-weight: 700; color: var(--accent-gold); }
+  .lock-star-slot.is-earned { background: var(--gradient-stars); border-color: rgba(255, 255, 255, 0.6); box-shadow: var(--shadow-slot-earned); }
+  .lock-star.is-earned { color: #5a3a00; fill: #5a3a00; filter: none; }
+  .lock-progress { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .lock-progress-track { flex: 1; height: 8px; border-radius: var(--radius-pill); background: var(--ring-track); overflow: hidden; }
+  .lock-progress-fill { height: 100%; border-radius: inherit; background: var(--gradient-lock-progress); box-shadow: var(--glow-lock-progress); transition: width var(--dur-slow) var(--ease-out); }
+  .lock-progress-label { font-size: 0.75rem; font-weight: 700; color: var(--accent-gold); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .lock-cta { width: 100%; min-height: 56px; margin-top: 4px; }
 }
 
