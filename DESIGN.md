@@ -298,3 +298,20 @@
 **Токены**: `--gradient-lock-progress`, `--glow-lock-progress`, `--shadow-slot-earned`.
 
 **Проверка**: lint и build зелёные; headless Chromium 390×844 — приложение загружается, ошибок консоли нет. Саму модалку вручную не открывал, скриншоты до/после не снимались.
+
+
+## 2026-11-23 — общие стили и ui
+
+**Что было слабо**
+- Кнопки плоские: нажатие — только масштаб, нет ощущения физической клавиши.
+- Ghost/secondary почти не реагировали на hover и нажатие.
+- Hover-подъём у NeonButton/GlassCard не учитывал prefers-reduced-motion.
+
+**Что сделано**
+- Primary/secondary получили нижний «кант» (толщина клавиши), при нажатии кнопка опускается на его высоту (framer-motion `y`).
+- Глянец и фон secondary вынесены в токены; ghost получил hover и контур при нажатии.
+- Hover-лифт отключается при reduced-motion.
+
+**Токены**: `--edge-cta`, `--edge-cta-press`, `--gradient-btn-gloss`, `--gradient-secondary`, `--edge-secondary`, `--shadow-ghost-press`.
+
+**Проверка**: lint и build зелёные; headless Chromium 390×844 — загрузка, клик по кнопке сплэша, ошибок консоли нет. Скриншоты до/после не снимались. Механика и данные не менялись.
