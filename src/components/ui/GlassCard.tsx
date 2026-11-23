@@ -1,4 +1,4 @@
-import { HTMLMotionProps, motion } from "framer-motion";
+import { HTMLMotionProps, motion, useReducedMotion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
 interface GlassCardProps extends HTMLMotionProps<"div"> {
@@ -8,9 +8,10 @@ interface GlassCardProps extends HTMLMotionProps<"div"> {
 }
 
 export const GlassCard = ({ children, className, active, ...props }: GlassCardProps) => {
+  const reduce = useReducedMotion();
   return (
     <motion.div
-      whileHover={{ y: -4 }}
+      whileHover={reduce ? undefined : { y: -4 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 500, damping: 32 }}
       className={cn("glass-card", active && "is-active", className)}

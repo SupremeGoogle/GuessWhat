@@ -96,6 +96,12 @@
     --glow-wrong: 0 0 36px rgba(255, 8, 68, 0.55);
     --shadow-card-lift: 0 16px 34px rgba(0, 0, 0, 0.45), var(--glass-rim);
     --gradient-vs-ring: conic-gradient(from 0deg, #00f2fe, #c200ff, #ff2d95, #00f2fe);
+    --edge-cta: 0 4px 0 rgba(88, 0, 150, 0.85);
+    --edge-cta-press: 0 1px 0 rgba(88, 0, 150, 0.85);
+    --gradient-btn-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 55%);
+    --gradient-secondary: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+    --edge-secondary: 0 3px 0 rgba(0, 0, 0, 0.35);
+    --shadow-ghost-press: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
     --font-heading: 'Rubik', sans-serif;
     --font-body: 'Outfit', sans-serif;
   }
@@ -633,19 +639,21 @@
     cursor: pointer; touch-action: manipulation;
     transition: box-shadow var(--dur-base) var(--ease-out), background-color var(--dur-base) ease, filter var(--dur-base) ease, opacity var(--dur-base) ease;
   }
-  .neon-btn::before { content: ""; position: absolute; inset: 0 0 50% 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0)); border-radius: inherit; }
+  .neon-btn::before { content: ""; position: absolute; inset: 0 0 50% 0; z-index: -1; pointer-events: none; background: var(--gradient-btn-gloss); border-radius: inherit; }
   .neon-btn::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%); transform: translateX(-120%); }
   .neon-btn:active::after { transform: translateX(120%); transition: transform 0.7s ease; }
-  .neon-btn--primary { background: var(--gradient-cta); box-shadow: var(--shadow-cta); }
-  @media (hover: hover) { .neon-btn--primary:hover { box-shadow: var(--shadow-cta-hover); } }
-  .neon-btn--primary:active { box-shadow: var(--shadow-cta-press); }
-  .neon-btn--secondary { background: var(--glass-bg); border-color: var(--glass-border); box-shadow: var(--shadow-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .neon-btn--primary { background: var(--gradient-cta); box-shadow: var(--edge-cta), var(--shadow-cta); }
+  @media (hover: hover) { .neon-btn--primary:hover { box-shadow: var(--edge-cta), var(--shadow-cta-hover); } }
+  .neon-btn--primary:active { box-shadow: var(--edge-cta-press), var(--shadow-cta-press); }
+  .neon-btn--secondary { background: var(--gradient-secondary); border-color: var(--glass-border); box-shadow: var(--edge-secondary), var(--shadow-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
   @media (hover: hover) { .neon-btn--secondary:hover { background: rgba(255, 255, 255, 0.16); } }
   .neon-btn--secondary:active { background: rgba(255, 255, 255, 0.2); box-shadow: var(--shadow-glass-press); }
   .neon-btn--ghost { background: transparent; border-color: transparent; box-shadow: none; color: var(--text-soft); }
-  .neon-btn--ghost:active { background: rgba(255, 255, 255, 0.1); }
-  .neon-btn:focus-visible { outline: none; box-shadow: var(--focus-ring), var(--shadow-cta); }
-  .neon-btn:disabled { opacity: 0.45; filter: saturate(0.5); cursor: not-allowed; box-shadow: none; }
+  .neon-btn--ghost::before { display: none; }
+  .neon-btn--ghost:active { background: rgba(255, 255, 255, 0.1); box-shadow: var(--shadow-ghost-press); }
+  @media (hover: hover) { .neon-btn--ghost:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.07); } }
+  .neon-btn:focus-visible { outline: none; box-shadow: var(--focus-ring), var(--edge-cta), var(--shadow-cta); }
+  .neon-btn:disabled { opacity: 0.45; filter: saturate(0.5); cursor: not-allowed; box-shadow: none; transform: none; }
   .neon-btn:disabled::after { display: none; }
   @media (hover: hover) { .neon-btn:not(:disabled):hover::after { transform: translateX(120%); transition: transform 0.7s ease; } }
 
