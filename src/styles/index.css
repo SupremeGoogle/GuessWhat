@@ -311,7 +311,7 @@
     position: absolute;
     inset: 0;
     background: var(--gradient-title-sweep);
-    mix-blend-mode: overlay;
+    opacity: 0.55;
     transform: translateX(-120%);
     animation: titleSweep 4.5s ease-in-out 1.2s infinite;
     pointer-events: none;

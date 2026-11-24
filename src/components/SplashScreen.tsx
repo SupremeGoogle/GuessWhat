@@ -73,6 +73,25 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       ))}
 
       <motion.div
+        aria-hidden="true"
+        className="splash-float splash-float--l"
+        initial={reduce ? false : { opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+      >
+        🐘
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="splash-float splash-float--r"
+        initial={reduce ? false : { opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+      >
+        🐜
+      </motion.div>
+
+      <motion.div
         initial={reduce ? false : { scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 160, damping: 14 }}
@@ -103,7 +122,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       </motion.div>
 
       <motion.div {...rise(0.15)}>
-        <h1 className="splash-title text-5xl font-black tracking-tight mb-2" aria-label="GuessWhat">
+        <div className="splash-title-wrap mb-2">
+        <h1 className="splash-title text-5xl font-black tracking-tight" aria-label="GuessWhat">
           {TITLE.map((ch, i) => (
             <motion.span
               key={i}
@@ -118,7 +138,13 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             </motion.span>
           ))}
         </h1>
-        <p className="text-white/75 text-lg">Викторина сравнений & фактов</p>
+        </div>
+        <p className="text-white/75 text-lg mb-3">Викторина сравнений & фактов</p>
+        <div className="splash-tags">
+          <span className="splash-tag">⚖️ Сравни</span>
+          <span className="splash-tag">🔥 Серии</span>
+          <span className="splash-tag">⭐ Звёзды</span>
+        </div>
       </motion.div>
 
       <motion.div {...rise(0.3)} className="w-[78%] flex flex-col gap-2" aria-hidden="true">
