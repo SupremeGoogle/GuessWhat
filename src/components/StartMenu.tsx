@@ -68,7 +68,6 @@ export const StartMenu: React.FC<StartMenuProps> = ({
   };
 
   const reduce = useReducedMotion();
-  const total = levels.length || 1;
   const starsShown = useCountUp(stats.starsEarned, !!reduce);
   const scoreShown = useCountUp(stats.totalScore, !!reduce);
   const maxStars = levels.length * 3;
@@ -117,7 +116,12 @@ export const StartMenu: React.FC<StartMenuProps> = ({
 
       {/* Hero */}
       <div className="flex flex-col items-center text-center gap-3 my-auto">
-        <motion.div {...rise(1)} className="splash-logo menu-logo">
+        <motion.div {...rise(1)} className="menu-logo-wrap">
+          <span className="menu-orbit" aria-hidden="true" />
+          <span className="menu-orbit menu-orbit--inner" aria-hidden="true" />
+          <span className="menu-spark menu-spark--a" aria-hidden="true" />
+          <span className="menu-spark menu-spark--b" aria-hidden="true" />
+          <div className="splash-logo menu-logo">
           <motion.span
             aria-hidden="true"
             className="text-6xl"
@@ -126,6 +130,7 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           >
             🧠
           </motion.span>
+          </div>
         </motion.div>
 
         <motion.h1 {...rise(2)} className="splash-title text-5xl font-black leading-tight mt-3">
@@ -154,21 +159,26 @@ export const StartMenu: React.FC<StartMenuProps> = ({
 
       {/* Bottom progress card */}
       <motion.div {...rise(5)} className="menu-progress">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-white/70">Открыто уровней</span>
-          <span className="font-extrabold text-[color:var(--accent-cyan)]">
-            {unlockedCount} / {levels.length}
+        <div className="menu-prog-head">
+          <span className="menu-prog-title">Твой путь</span>
+          <span className="menu-prog-count">
+            {unlockedCount}<span className="menu-prog-of"> / {levels.length}</span>
           </span>
         </div>
         <div
-          className="splash-track mt-2.5"
+          className="menu-dots"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={levels.length}
           aria-valuenow={unlockedCount}
           aria-label="Открытые уровни"
         >
-          <div className="splash-fill" style={{ width: `${Math.round((unlockedCount / total) * 100)}%` }} />
+          {levels.map((lvl, i) => (
+            <span
+              key={lvl.id ?? i}
+              className={`menu-dot${lvl.isUnlocked ? ' is-open' : ''}${lvl.id === continueLevelId ? ' is-next' : ''}`}
+            />
+          ))}
         </div>
         <div className="menu-stars-row">
           <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" aria-hidden="true" />
@@ -185,14 +195,6 @@ export const StartMenu: React.FC<StartMenuProps> = ({
           <span className="menu-stars-note">
             {starsLeft === 0 ? 'Все ⭐!' : `ещё ${starsLeft} ⭐`}
           </span>
-        </div>
-        <div className="menu-dots" aria-hidden="true">
-          {levels.map((lvl, i) => (
-            <span
-              key={lvl.id ?? i}
-              className={`menu-dot${lvl.isUnlocked ? ' is-open' : ''}${lvl.id === continueLevelId ? ' is-next' : ''}`}
-            />
-          ))}
         </div>
       </motion.div>
     </motion.div>
