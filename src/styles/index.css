@@ -44,6 +44,10 @@
     --orb-pink: radial-gradient(circle at 50% 50%, rgba(255, 8, 68, 0.3), transparent 70%);
     --shadow-logo: 0 0 48px rgba(138, 43, 226, 0.55), 0 24px 40px rgba(0, 0, 0, 0.45);
     --gradient-shimmer: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+    --orbit-line: rgba(0, 242, 254, 0.35);
+    --orbit-line-soft: rgba(138, 43, 226, 0.4);
+    --glow-menu-count: 0 0 14px rgba(0, 242, 254, 0.55);
+    --glow-menu-spark: 0 0 10px currentColor, 0 0 14px rgba(0, 242, 254, 0.8);
     --halo-menu: radial-gradient(circle, rgba(138, 43, 226, 0.5) 0%, rgba(0, 242, 254, 0.18) 45%, transparent 70%);
     --gradient-chip-gold: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(255, 177, 153, 0.1));
     --gradient-chip-cyan: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(138, 43, 226, 0.12));
@@ -353,10 +357,7 @@
   /* StartMenu */
   .menu-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    padding: 8px 12px; border-radius: var(--radius-lg);
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    padding: 0;
   }
   .menu-stat {
     display: inline-flex; align-items: center; gap: 8px; min-height: var(--touch-min);
@@ -411,7 +412,19 @@
   .menu-stars-track { flex: 1; height: 8px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.14); overflow: hidden; }
   .menu-stars-fill { height: 100%; border-radius: inherit; background: var(--gradient-stars); box-shadow: var(--glow-stars); transition: width 0.8s var(--ease-out); }
   .menu-stars-note { font-family: var(--font-heading); font-weight: 700; font-size: 0.8125rem; color: var(--accent-gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .menu-dots { display: flex; gap: 6px; margin-top: 12px; }
+  .menu-dots { display: flex; gap: 5px; margin-top: 10px; }
+  .menu-prog-head { display: flex; align-items: baseline; justify-content: space-between; }
+  .menu-prog-title { font-family: var(--font-heading); font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+  .menu-prog-count { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; line-height: 1; color: var(--accent-cyan); text-shadow: var(--glow-menu-count); font-variant-numeric: tabular-nums; }
+  .menu-prog-of { font-size: 0.9375rem; font-weight: 600; color: var(--text-soft); text-shadow: none; }
+  .menu-logo-wrap { position: relative; display: grid; place-items: center; width: 180px; height: 180px; }
+  .menu-logo-wrap .menu-logo { position: relative; z-index: 1; }
+  .menu-orbit { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed var(--orbit-line); animation: orbitSpin 26s linear infinite; }
+  .menu-orbit--inner { inset: 18px; border-style: solid; border-color: var(--orbit-line-soft); animation-duration: 40s; animation-direction: reverse; }
+  .menu-spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-cyan); box-shadow: var(--glow-menu-spark); animation: sparkTwinkle 2.6s ease-in-out infinite; }
+  .menu-spark--a { top: 12px; right: 22px; }
+  .menu-spark--b { bottom: 20px; left: 14px; background: var(--accent-gold); animation-delay: 1.2s; }
+  @keyframes orbitSpin { to { transform: rotate(360deg); } }
   .menu-dot {
     flex: 1; height: 8px; border-radius: var(--radius-pill); background: rgba(255, 255, 255, 0.14);
   }
@@ -419,7 +432,7 @@
   .menu-dot.is-next { background: var(--gradient-cta); box-shadow: var(--shadow-chip-gold); animation: menuHalo 1.8s ease-in-out infinite; }
   @keyframes menuHalo { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {
-    .menu-halo, .menu-dot.is-next, .menu-cta::after { animation: none; }
+    .menu-halo, .menu-dot.is-next, .menu-cta::after, .menu-orbit, .menu-spark { animation: none; }
   }
   .menu-progress {
     padding: 14px 16px; border-radius: var(--radius-lg); margin-top: 16px;
