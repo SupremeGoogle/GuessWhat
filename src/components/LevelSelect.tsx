@@ -10,6 +10,8 @@ interface LevelSelectProps {
   onBack: () => void;
 }
 
+const GROUP_SIZE = 9;
+
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -66,10 +68,7 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
           <ArrowLeft size={22} />
         </button>
         <h2 className="level-heading">Выбор уровня</h2>
-        <div className="menu-stat" aria-label={`Звёзд собрано ${totalStars} из ${maxStars}`}>
-          <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
-          {totalStars}
-        </div>
+        <span className="menu-icon-btn" style={{ visibility: 'hidden' }} aria-hidden="true" />
       </div>
 
       <div className="menu-progress shrink-0 mb-5" style={{ marginTop: 0 }}>
@@ -114,10 +113,21 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
         animate="show"
         className="grid grid-cols-3 gap-3 pb-6"
       >
-        {levels.map((lvl) => {
+        {levels.map((lvl, idx) => {
           const isNext = lvl.id === nextId;
+          const isGroupStart = idx % GROUP_SIZE === 0;
+          const group = levels.slice(idx, idx + GROUP_SIZE);
+          const groupStars = group.reduce((n, l) => n + (l.isUnlocked ? l.stars : 0), 0);
           return (
-            <motion.div key={lvl.id} variants={item}>
+            <React.Fragment key={lvl.id}>
+            {isGroupStart && (
+              <motion.div variants={item} className="level-group col-span-3" role="presentation">
+                <span className="level-group-name">Уровни {group[0].id}–{group[group.length - 1].id}</span>
+                <span className="level-group-line" aria-hidden="true" />
+                <span className="level-group-stars"><Star size={12} fill="var(--accent-gold)" color="var(--accent-gold)" aria-hidden="true" />{groupStars}/{group.length * 3}</span>
+              </motion.div>
+            )}
+            <motion.div variants={item}>
               <div
                 onClick={() => handleCardClick(lvl)}
                 onKeyDown={(e: React.KeyboardEvent) => {
@@ -146,13 +156,14 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
                       size={15}
                       className={lvl.isUnlocked && s <= lvl.stars ? 'level-star-on' : ''}
                       style={{ '--i': s } as React.CSSProperties}
-                      fill={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'none'}
-                      color={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'rgba(255,255,255,0.4)'}
+                      fill={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'var(--star-empty-fill)'}
+                      color={lvl.isUnlocked && s <= lvl.stars ? 'var(--accent-gold)' : 'var(--star-empty)'}
                     />
                   ))}
                 </div>
               </div>
             </motion.div>
+            </React.Fragment>
           );
         })}
       </motion.div>

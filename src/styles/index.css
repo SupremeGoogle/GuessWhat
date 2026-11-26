@@ -76,6 +76,8 @@
     --gradient-continue: linear-gradient(120deg, rgba(0, 242, 254, 0.22), rgba(138, 43, 226, 0.28));
     --glow-continue: 0 0 22px rgba(0, 242, 254, 0.4);
     --glow-star-on: drop-shadow(0 0 5px rgba(255, 215, 0, 0.9));
+    --star-empty: rgba(255, 255, 255, 0.35);
+    --star-empty-fill: rgba(255, 255, 255, 0.1);
     --glow-hero-num: 0 0 18px rgba(255, 215, 0, 0.45);
     --shadow-tile-lift: 0 14px 28px rgba(0, 0, 0, 0.45), var(--glow-cyan);
     --text-muted: #a0aec0;
@@ -506,6 +508,11 @@
     content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
     background: var(--glass-specular); opacity: 0.35; mix-blend-mode: soft-light;
   }
+  .level-group { display: flex; align-items: center; gap: 10px; margin: 6px 2px 0; }
+  .level-group:first-child { margin-top: 0; }
+  .level-group-name { font-family: var(--font-heading); font-weight: 800; font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-soft); }
+  .level-group-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--glass-border), transparent); }
+  .level-group-stars { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 700; color: var(--text-soft); font-variant-numeric: tabular-nums; }
   .level-hero { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
   .level-hero-score { display: flex; align-items: baseline; gap: 6px; }
   .level-hero-star { align-self: center; filter: var(--glow-star-on); }
