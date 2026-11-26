@@ -43,7 +43,8 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
 
   const totalStars = levels.reduce((n, l) => n + (l.isUnlocked ? l.stars : 0), 0);
   const maxStars = levels.length * 3;
-  const percent = levels.length ? Math.round((unlockedCount / levels.length) * 100) : 0;
+  const starPercent = maxStars ? Math.round((totalStars / maxStars) * 100) : 0;
+  const starsLeft = maxStars - totalStars;
   // «Следующий» уровень — первый открытый без звёзд: подсвечиваем, куда играть дальше.
   const nextLevel = levels.find(l => l.isUnlocked && l.stars === 0);
   const nextId = nextLevel?.id;
@@ -72,18 +73,25 @@ export const LevelSelect: React.FC<LevelSelectProps> = ({
       </div>
 
       <div className="menu-progress shrink-0 mb-5" style={{ marginTop: 0 }}>
-        <div className="flex items-center justify-between text-sm mb-2" style={{ color: 'var(--text-soft)' }}>
-          <span className="flex items-center gap-2">
-            <Sparkles size={16} color="var(--accent-gold)" />
-            Открыто уровней
-          </span>
-          <span className="font-heading font-bold text-white">{unlockedCount} / {levels.length}</span>
+        <div className="level-hero">
+          <div className="level-hero-score" aria-label={`Звёзд собрано ${totalStars} из ${maxStars}`}>
+            <Star size={26} fill="var(--accent-gold)" color="var(--accent-gold)" className="level-hero-star" />
+            <span className="level-hero-num">{totalStars}</span>
+            <span className="level-hero-max">/ {maxStars}</span>
+          </div>
+          <div className="level-hero-meta">
+            <span className="flex items-center gap-1.5">
+              <Sparkles size={14} color="var(--accent-gold)" aria-hidden="true" />
+              Открыто {unlockedCount} из {levels.length}
+            </span>
+            <span>{starsLeft > 0 ? `Ещё ${starsLeft} ⭐ до идеала` : 'Все звёзды собраны!'}</span>
+          </div>
         </div>
-        <div className="splash-track">
+        <div className="splash-track" role="progressbar" aria-valuemin={0} aria-valuemax={maxStars} aria-valuenow={totalStars} aria-label="Собрано звёзд">
           <motion.div
             className="splash-fill"
             initial={{ width: 0 }}
-            animate={{ width: `${percent}%` }}
+            animate={{ width: `${starPercent}%` }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           />
         </div>

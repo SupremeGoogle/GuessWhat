@@ -76,6 +76,7 @@
     --gradient-continue: linear-gradient(120deg, rgba(0, 242, 254, 0.22), rgba(138, 43, 226, 0.28));
     --glow-continue: 0 0 22px rgba(0, 242, 254, 0.4);
     --glow-star-on: drop-shadow(0 0 5px rgba(255, 215, 0, 0.9));
+    --glow-hero-num: 0 0 18px rgba(255, 215, 0, 0.45);
     --shadow-tile-lift: 0 14px 28px rgba(0, 0, 0, 0.45), var(--glow-cyan);
     --text-muted: #a0aec0;
     --ring-track: rgba(255, 255, 255, 0.14);
@@ -505,6 +506,12 @@
     content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
     background: var(--glass-specular); opacity: 0.35; mix-blend-mode: soft-light;
   }
+  .level-hero { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .level-hero-score { display: flex; align-items: baseline; gap: 6px; }
+  .level-hero-star { align-self: center; filter: var(--glow-star-on); }
+  .level-hero-num { font-family: var(--font-heading); font-weight: 800; font-size: 2.25rem; line-height: 1; color: var(--text-main); text-shadow: var(--glow-hero-num); font-variant-numeric: tabular-nums; }
+  .level-hero-max { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-soft); }
+  .level-hero-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: 0.8125rem; color: var(--text-soft); text-align: right; }
   .level-continue {
     display: flex; align-items: center; gap: 12px; width: 100%; min-height: var(--touch-min);
     margin-top: 12px; padding: 10px 14px; border-radius: var(--radius-lg); cursor: pointer; text-align: left;
