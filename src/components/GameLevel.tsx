@@ -603,7 +603,7 @@ function renderItemCard(
             initial={{ scale: 0.3, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="game-value"
+            className={`game-value ${isCorrect ? 'is-correct' : 'is-wrong'}`}
           >
             <span className="opacity-80">{levelInfo.icon}</span> {item.displayValue}
           </motion.div>

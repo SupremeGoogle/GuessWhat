@@ -643,7 +643,7 @@
   .game-flame { fill: var(--accent-pink); color: var(--accent-pink); filter: drop-shadow(0 0 10px rgba(255, 8, 68, 0.8)); }
   .icon-on { color: var(--accent-green); }
   .icon-off { color: var(--accent-pink-soft); }
-  .float-score { position: absolute; top: 50%; left: 50%; translate: -50% -50%; z-index: 50; pointer-events: none; font-family: var(--font-heading); font-size: 3rem; font-weight: 900; }
+  .float-score { position: absolute; top: 215px; left: 50%; translate: -50% -50%; z-index: 50; pointer-events: none; font-family: var(--font-heading); font-size: 3rem; font-weight: 900; }
   .float-score.is-plus { color: var(--color-score-pos); text-shadow: var(--glow-score-pos); }
   .float-score.is-minus { color: var(--accent-pink); text-shadow: var(--glow-score-neg); }
   .win-card { background: var(--gradient-win-card), var(--glass-bg); }
@@ -877,4 +877,11 @@
   .game-hud-streak.is-on .game-flame { fill: var(--accent-pink); color: var(--accent-pink); filter: drop-shadow(0 0 8px rgba(255, 8, 68, 0.8)); }
   .game-hud-streak .game-streak-mult { font-size: 0.75rem; padding: 1px 6px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+@layer components {
+  .game-value { font-size: 1.25rem; padding: 8px 20px; }
+  .game-value.is-correct { background: var(--gradient-value-ok); border-color: var(--accent-green); box-shadow: var(--shadow-glass), var(--glow-correct); }
+  .game-value.is-wrong { background: var(--gradient-value-bad); border-color: var(--accent-pink-soft); }
+  .float-score { font-size: 2.5rem; }
 }
