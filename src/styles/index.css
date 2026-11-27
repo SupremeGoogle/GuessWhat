@@ -111,6 +111,12 @@
     --gradient-secondary: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
     --edge-secondary: 0 3px 0 rgba(0, 0, 0, 0.35);
     --shadow-ghost-press: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    --gradient-hud: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+    --glow-streak: 0 0 16px rgba(255, 8, 68, 0.45);
+    --gradient-streak: linear-gradient(135deg, rgba(255, 8, 68, 0.28), rgba(255, 177, 153, 0.14));
+    --star-marker-off: rgba(255, 255, 255, 0.55);
+    --gradient-value-ok: linear-gradient(135deg, rgba(0, 230, 118, 0.3), rgba(11, 7, 30, 0.7));
+    --gradient-value-bad: linear-gradient(135deg, rgba(255, 8, 68, 0.3), rgba(11, 7, 30, 0.7));
     --font-heading: 'Rubik', sans-serif;
     --font-body: 'Outfit', sans-serif;
   }
@@ -833,4 +839,42 @@
   }
   @keyframes vsSpin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .game-vs::before { animation: none; } }
+}
+
+@layer components {
+  /* GameLevel: единая HUD-панель (очки · путь к звёздам · серия) */
+  .game-hud {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px; min-height: var(--touch-min);
+    border-radius: var(--radius-lg); background: var(--gradient-hud);
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow-glass);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  }
+  .game-hud-score { display: flex; flex-direction: column; align-items: center; min-width: 48px; line-height: 1; }
+  .game-hud-score small { font-size: 0.6875rem; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .game-hud-score .game-score-value { font-family: var(--font-heading); font-weight: 900; font-size: 1.75rem; font-variant-numeric: tabular-nums; text-shadow: var(--glow-score-pos); }
+  .game-hud-score .game-score-value.is-neg { text-shadow: var(--glow-score-neg); }
+  .game-hud-goal { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 0 8px; }
+  .game-hud-goal .game-goal-track { flex: none; position: relative; margin: 0 8px; overflow: visible; height: 10px; background: var(--ring-track); }
+  .game-hud-goal .game-goal-fill { position: absolute; inset: 0 auto 0 0; }
+  .game-goal-star {
+    position: absolute; top: 50%; translate: -50% -50%; display: grid; place-items: center;
+    width: 22px; height: 22px; border-radius: 50%; background: #170d38; border: 1px solid var(--glass-border);
+    color: var(--star-marker-off); transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base);
+  }
+  .game-goal-star:first-of-type { translate: -20% -50%; }
+  .game-goal-star:last-of-type { translate: -80% -50%; }
+  .game-goal-star.is-lit { color: var(--accent-gold); border-color: var(--accent-gold); box-shadow: var(--glow-stars); }
+  .game-goal-star.is-lit svg { fill: var(--accent-gold); }
+  .game-hud-goal .game-goal-label { text-align: center; font-size: 0.75rem; }
+  .game-hud-streak {
+    display: inline-flex; align-items: center; gap: 4px; min-width: var(--touch-min); min-height: 40px; padding: 0 10px;
+    border-radius: var(--radius-pill); background: var(--glass-bg); border: 1px solid var(--glass-border);
+    font-family: var(--font-heading); font-weight: 900; font-size: 1.125rem; color: var(--text-muted); justify-content: center;
+    transition: background var(--dur-base), box-shadow var(--dur-base), color var(--dur-base);
+  }
+  .game-hud-streak .game-flame { fill: transparent; color: var(--text-muted); filter: none; transition: all var(--dur-base); }
+  .game-hud-streak.is-on { color: var(--accent-amber); background: var(--gradient-streak); box-shadow: var(--glow-streak); border-color: rgba(255, 107, 139, 0.5); }
+  .game-hud-streak.is-on .game-flame { fill: var(--accent-pink); color: var(--accent-pink); filter: drop-shadow(0 0 8px rgba(255, 8, 68, 0.8)); }
+  .game-hud-streak .game-streak-mult { font-size: 0.75rem; padding: 1px 6px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }

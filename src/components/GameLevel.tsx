@@ -280,66 +280,52 @@ export const GameLevel: React.FC<GameLevelProps> = ({
         <RoundProgress current={round} total={TOTAL_ROUNDS} />
       </div>
 
-      {/* Score Stats Bar */}
-      <div className="game-stats shrink-0 mb-3">
-        <div className="game-score">
-          <Star size={18} className="game-score-star" aria-hidden="true" />
-          <small>Очки</small>
-          <motion.strong
-            key={score}
-            className={`game-score-value${score < 0 ? ' is-neg' : ''}`}
-            initial={reduceMotion ? false : { scale: 1.5 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 18 }}
-          >
-            {score}
-          </motion.strong>
-        </div>
-
-        <AnimatePresence>
-          {streak > 0 && (
-            <motion.div
-              key="streak"
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.6, opacity: 0 }}
-              className="game-streak"
-              aria-live="polite"
-            >
-              <div className="game-streak-head">
-                <Flame size={18} className="game-flame" aria-hidden="true" />
-                <span>Серия {streak}</span>
-                {getStreakMultiplier(streak) > 1 && (
-                  <span className="game-streak-mult" title="Бонус очков за серию верных ответов подряд">
-                    ×{getStreakMultiplier(streak)}
-                  </span>
-                )}
-              </div>
-              <div className="game-pips" aria-hidden="true">
-                {Array.from({ length: STREAK_BONUS_STEP }, (_, i) => (
-                  <span key={i} className={`game-pip${i < streak % STREAK_BONUS_STEP ? ' is-on' : ''}`} />
-                ))}
-              </div>
-              <div className="game-streak-hint">
-                ещё {STREAK_BONUS_STEP - (streak % STREAK_BONUS_STEP)} до ×{getStreakMultiplier(streak) + 1}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Цель по звёздам */}
+      {/* HUD: очки, путь к звёздам и серия в одной стеклянной панели */}
       {(() => {
         const curStars = getStarsForScore(score);
-        const target = curStars === 1 ? STAR_SCORE_THRESHOLDS.second : STAR_SCORE_THRESHOLDS.third;
-        const pct = curStars >= 3 ? 100 : Math.max(0, Math.min(100, (score / target) * 100));
+        const { second, third } = STAR_SCORE_THRESHOLDS;
+        const target = curStars === 1 ? second : third;
+        const pct = Math.max(0, Math.min(100, (score / third) * 100));
+        const mult = getStreakMultiplier(streak);
         return (
-          <div className="game-goal shrink-0 mb-3">
-            <div className="game-goal-track" aria-hidden="true">
-              <div className="game-goal-fill" style={{ width: `${pct}%` }} />
+          <div className="game-hud shrink-0 mb-3">
+            <div className="game-hud-score">
+              <small>Очки</small>
+              <motion.strong
+                key={score}
+                className={`game-score-value${score < 0 ? ' is-neg' : ''}`}
+                initial={reduceMotion ? false : { scale: 1.5 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+              >
+                {score}
+              </motion.strong>
             </div>
-            <div className="game-goal-label">
-              {curStars >= 3 ? '⭐⭐⭐ максимум' : `ещё ${Math.max(0, target - score)} до ${curStars + 1} ⭐`}
+
+            <div className="game-hud-goal">
+              <div
+                className="game-goal-track"
+                role="progressbar"
+                aria-label="Путь к звёздам"
+                aria-valuemin={0}
+                aria-valuemax={third}
+                aria-valuenow={Math.max(0, Math.min(third, score))}
+              >
+                <div className="game-goal-fill" style={{ width: `${pct}%` }} />
+                <span className={`game-goal-star is-lit`} style={{ left: '0%' }} aria-hidden="true"><Star size={14} /></span>
+                <span className={`game-goal-star${curStars >= 2 ? ' is-lit' : ''}`} style={{ left: `${(second / third) * 100}%` }} aria-hidden="true"><Star size={14} /></span>
+                <span className={`game-goal-star${curStars >= 3 ? ' is-lit' : ''}`} style={{ left: '100%' }} aria-hidden="true"><Star size={14} /></span>
+              </div>
+              <div className="game-goal-label">
+                {curStars >= 3 ? '⭐⭐⭐ максимум' : `ещё ${Math.max(0, target - score)} до ${curStars + 1} ⭐`}
+              </div>
+            </div>
+
+            <div className={`game-hud-streak${streak > 0 ? ' is-on' : ''}`} aria-live="polite">
+              <Flame size={20} className="game-flame" aria-hidden="true" />
+              <strong>{streak}</strong>
+              {mult > 1 && <span className="game-streak-mult" title="Бонус очков за серию верных ответов подряд">×{mult}</span>}
+              <span className="sr-only">Серия верных ответов: {streak}</span>
             </div>
           </div>
         );
