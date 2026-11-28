@@ -70,6 +70,10 @@
     --gradient-lock-medal: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(255, 8, 68, 0.14) 70%);
     --orb-lock: radial-gradient(circle, rgba(255, 8, 68, 0.35), transparent 70%);
     --text-main: #ffffff;
+    --gradient-win-progress: linear-gradient(90deg, #ffb347, #ffd700);
+    --glow-win-progress: 0 0 10px rgba(255, 215, 0, 0.6);
+    --gradient-win-stat: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    --shadow-win-score: inset 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 230, 118, 0.12);
     --gradient-lock-progress: linear-gradient(90deg, #ff6b8b, #ffd700);
     --glow-lock-progress: 0 0 10px rgba(255, 215, 0, 0.55);
     --shadow-slot-earned: 0 0 16px rgba(255, 215, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
@@ -660,6 +664,14 @@
   .win-rays { position: absolute; left: 50%; top: 50%; width: 320px; height: 320px; translate: -50% -50%; border-radius: 50%; background: var(--gradient-win-rays); -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 68%); mask-image: radial-gradient(circle, #000 0%, transparent 68%); pointer-events: none; animation: raysSpin 24s linear infinite; }
   .win-stage .win-stars { position: relative; }
   .win-rank { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 14px; border-radius: var(--radius-pill); background: var(--gradient-rank); border: 1px solid rgba(255, 215, 0, 0.45); box-shadow: var(--shadow-rank); color: var(--accent-gold); font-weight: 800; font-size: 0.875rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .win-progress { height: 8px; margin: 10px auto 0; max-width: 220px; border-radius: var(--radius-pill); background: var(--ring-track); overflow: hidden; }
+  .win-progress-fill { height: 100%; border-radius: var(--radius-pill); background: var(--gradient-win-progress); box-shadow: var(--glow-win-progress); }
+  .win-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+  .win-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: var(--touch-min); padding: 10px 8px; border-radius: var(--radius-lg); background: var(--gradient-win-stat); border: 1px solid var(--glass-border); box-shadow: var(--glass-rim); }
+  .win-stat strong { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 900; line-height: 1.1; color: var(--text-main); font-variant-numeric: tabular-nums; }
+  .win-stat span { font-size: 0.75rem; font-weight: 600; color: var(--text-soft); }
+  .win-share { background: transparent; box-shadow: none; border-color: var(--glass-border); }
+  .win-score { box-shadow: var(--shadow-win-score); }
   .win-score strong { display: block; font-family: var(--font-heading); font-size: 2.25rem; font-weight: 900; line-height: 1.1; color: var(--accent-green); font-variant-numeric: tabular-nums; }
 }
 
