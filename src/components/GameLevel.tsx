@@ -73,6 +73,9 @@ export const GameLevel: React.FC<GameLevelProps> = ({
   const [round, setRound] = useState(1);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  // Статистика только для экрана итогов — на очки и механику не влияет.
+  const [correctCount, setCorrectCount] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
   const [currentPair, setCurrentPair] = useState<PairComparison | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
@@ -152,6 +155,8 @@ export const GameLevel: React.FC<GameLevelProps> = ({
       audio.playCorrect();
       setScore(prev => prev + scoreDelta);
       setStreak(prev => prev + 1);
+      setCorrectCount(prev => prev + 1);
+      setBestStreak(prev => Math.max(prev, streak + 1));
       setFloatingScore({ text: `+${scoreDelta}`, type: 'plus', id: Date.now() });
     } else {
       audio.playWrong();
@@ -184,6 +189,8 @@ export const GameLevel: React.FC<GameLevelProps> = ({
     setRound(1);
     setScore(0);
     setStreak(0);
+    setCorrectCount(0);
+    setBestStreak(0);
     setIsFinished(false);
     pairQueueRef.current = []; // новая сессия — новая перетасованная очередь пар
     generateNewPair();
@@ -399,7 +406,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
               role="dialog"
               aria-label="Итоги уровня"
             >
-              <h2 className="win-title">Уровень пройден!</h2>
+              <h2 className="win-title">{['', 'Уровень пройден', 'Отличная игра!', 'Безупречно!'][getStarsForScore(score)]}</h2>
               <p className="win-sub">{levelInfo.title} {levelInfo.icon}</p>
 
               <div className="win-stage">
@@ -428,6 +435,16 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                 <div className="game-kicker">Финишный счёт</div>
                 <strong style={score < 0 ? { color: 'var(--accent-pink-soft)' } : undefined}><CountUp value={score} /></strong>
                 <div className="win-sub">{pluralizeRu(score, ['очко', 'очка', 'очков'])}</div>
+                {getStarsForScore(score) < 3 && (
+                  <div className="win-progress" aria-hidden="true">
+                    <motion.div
+                      className="win-progress-fill"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.max(0, Math.min(100, ((score - (getStarsForScore(score) === 1 ? 0 : STAR_SCORE_THRESHOLDS.second)) / ((getStarsForScore(score) === 1 ? STAR_SCORE_THRESHOLDS.second : STAR_SCORE_THRESHOLDS.third - STAR_SCORE_THRESHOLDS.second))) * 100))}%` }}
+                      transition={{ delay: 0.9, duration: reduceMotion ? 0 : 0.7, ease: 'easeOut' }}
+                    />
+                  </div>
+                )}
                 <div className="win-next">
                   {getStarsForScore(score) >= 3
                     ? '⭐ Максимум — безупречно!'
@@ -435,12 +452,25 @@ export const GameLevel: React.FC<GameLevelProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 w-full">
-                <NeonButton className="flex-1 py-3.5 text-base min-h-[52px]" onClick={handleRestart}>
+              <div className="win-stats">
+                <div className="win-stat">
+                  <Check size={16} className="icon-on" aria-hidden="true" />
+                  <strong>{correctCount}/{TOTAL_ROUNDS}</strong>
+                  <span>верных</span>
+                </div>
+                <div className="win-stat">
+                  <Flame size={16} className="game-flame" aria-hidden="true" />
+                  <strong>{bestStreak}</strong>
+                  <span>лучшая серия</span>
+                </div>
+              </div>
+
+              <div className="flex flex-row gap-3 w-full">
+                <NeonButton className="flex-1 whitespace-nowrap px-3 py-3.5 text-base min-h-[52px]" onClick={handleRestart}>
                   <RotateCcw size={18} />
                   Еще раз
                 </NeonButton>
-                <NeonButton variant="secondary" className="flex-1 py-3.5 text-base min-h-[52px]" onClick={onBack}>
+                <NeonButton variant="secondary" className="flex-1 whitespace-nowrap px-3 py-3.5 text-base min-h-[52px]" onClick={onBack}>
                   <CheckCircle2 size={18} />
                   Меню
                 </NeonButton>
@@ -448,7 +478,7 @@ export const GameLevel: React.FC<GameLevelProps> = ({
 
               <NeonButton
                 variant="secondary"
-                className="w-full py-3 text-sm min-h-[48px]"
+                className="win-share w-full py-3 text-sm min-h-[48px]"
                 onClick={handleShare}
                 aria-label="Поделиться результатом уровня"
               >
